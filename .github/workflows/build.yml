@@ -71,10 +71,7 @@ jobs:
       - name: Publish
         run: dotnet publish -c Release -o publish -p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemVer }} -p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} -p:InformationalVersion=${{ steps.gitversion.outputs.informationalVersion }}
 
-      - name: Make an archive
-        run: Compress-Archive -Path ./publish -DestinationPath Cringules.NGram.App.${{ steps.gitversion.outputs.fullSemVer }}.zip
-
       - uses: actions/upload-artifact@v3
         with:
           name: Cringules.NGram.App.${{ steps.gitversion.outputs.fullSemVer }}
-          path: Cringules.NGram.App.${{ steps.gitversion.outputs.fullSemVer }}.zip
+          path: ./publish/
