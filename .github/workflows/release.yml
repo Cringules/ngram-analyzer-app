@@ -2,7 +2,8 @@
 
 on:
   push:
-    tag
+    tags:
+      - 'v*'
 
 jobs:
   build:
