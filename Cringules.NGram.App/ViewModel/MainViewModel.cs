@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Cringules.NGram.Api;
@@ -15,10 +17,29 @@ public partial class MainViewModel : ObservableObject
 
     public IEnumerable<PlotPoint>? Points => _data?.Points;
 
+    private readonly IDialogService _dialogService = new DialogService();
+    private IFileDataSource _fileDataSource = new TextFileDataSource();
+
     public MainViewModel()
     {
         var points = new List<PlotPoint> { new(1, 1), new(2, 5), new(3, 4), new(4, 6) };
         _data = new PlotData(points);
+    }
+
+    [RelayCommand]
+    private void OpenPlot()
+    {
+        if (_dialogService.ShowOpenFileDialog())
+        {
+            try
+            {
+                Data = _fileDataSource.GetPlotData(_dialogService.OpenFilePath);
+            }
+            catch (FileFormatException e)
+            {
+                _dialogService.ShowErrorMessage(e.Message);
+            }
+        }
     }
 
     [RelayCommand]

@@ -12,8 +12,11 @@
     </Window.DataContext>
     <Grid>
         <StackPanel>
-            <ListBox ItemsSource="{Binding Points}"></ListBox>
+            <ScrollViewer Height="100">
+                <ListBox ItemsSource="{Binding Points}"></ListBox>
+            </ScrollViewer>
             <Button Command="{Binding UpdatePointsCommand}">Poof</Button>
+            <Button Command="{Binding OpenPlotCommand}">Open</Button>
         </StackPanel>
     </Grid>
 </Window>
