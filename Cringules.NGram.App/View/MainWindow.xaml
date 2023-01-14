@@ -5,16 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cringules.NGram.App.View"
         xmlns:vm="clr-namespace:Cringules.NGram.App.ViewModel"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="800" Width="1200">
     <Window.DataContext>
         <vm:MainViewModel />
     </Window.DataContext>
     <Grid>
         <StackPanel>
-            <ScrollViewer Height="100">
-                <ListBox ItemsSource="{Binding Points}"></ListBox>
-            </ScrollViewer>
+            <oxy:PlotView Model="{Binding Model}" Height="500" />
             <Button Command="{Binding UpdatePointsCommand}">Poof</Button>
             <Button Command="{Binding OpenPlotCommand}">Open</Button>
         </StackPanel>
