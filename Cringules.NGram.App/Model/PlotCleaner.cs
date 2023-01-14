@@ -3,8 +3,16 @@ using Cringules.NGram.Api;
 
 namespace Cringules.NGram.App.Model;
 
+/// <summary>
+/// Includes plot cleaning methods.
+/// </summary>
 public static class PlotCleaner
 {
+    /// <summary>
+    /// Cleans the plot data.
+    /// </summary>
+    /// <param name="data">Raw plot data.</param>
+    /// <returns>Cleaned plot data.</returns>
     public static PlotData GetCleanedPlot(PlotData data)
     {
         if (data.Points.Count < 2)
