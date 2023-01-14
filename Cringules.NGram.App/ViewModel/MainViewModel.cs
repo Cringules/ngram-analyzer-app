@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Cringules.NGram.Api;
@@ -9,6 +11,8 @@ namespace Cringules.NGram.App.ViewModel;
 public partial class MainViewModel : ObservableObject
 {
     [ObservableProperty] private PlotData? _data;
+
+    [ObservableProperty] private List<Peak> _peaks = new();
 
     public DiffractogramPlotModel Model { get; }
 
@@ -48,5 +52,6 @@ public partial class MainViewModel : ObservableObject
     partial void OnDataChanged(PlotData? value)
     {
         Model.Update(value?.Points);
+        Peaks = PeakFinder.FindPeaks(value);
     }
 }

@@ -16,6 +16,7 @@
             <oxy:PlotView Model="{Binding Model}" Height="500" />
             <Button Command="{Binding UpdatePointsCommand}">Poof</Button>
             <Button Command="{Binding OpenPlotCommand}">Open</Button>
+            <DataGrid ItemsSource="{Binding Peaks}" VerticalAlignment="Stretch"></DataGrid>
         </StackPanel>
     </Grid>
 </Window>
