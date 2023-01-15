@@ -12,11 +12,21 @@
         <vm:MainViewModel />
     </Window.DataContext>
     <Grid>
-        <StackPanel>
-            <oxy:PlotView Model="{Binding Model}" Height="500" />
-            <Button Command="{Binding UpdatePointsCommand}">Poof</Button>
-            <Button Command="{Binding OpenPlotCommand}">Open</Button>
-            <DataGrid ItemsSource="{Binding Peaks}" VerticalAlignment="Stretch"></DataGrid>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Command="{Binding OpenPlotCommand}">Open</Button>
+        <Grid Grid.Row="1" DataContext="{Binding Session}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <oxy:PlotView Model="{Binding Model}" Height="500" />
+                <Button Command="{Binding UpdatePointsCommand}">Poof</Button>
+            </StackPanel>
+            <DataGrid Grid.Row="1" ItemsSource="{Binding Peaks}"></DataGrid>
+        </Grid>
     </Grid>
 </Window>
