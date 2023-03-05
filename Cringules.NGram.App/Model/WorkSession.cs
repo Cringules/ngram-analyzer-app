@@ -21,9 +21,15 @@ public partial class WorkSession : ObservableObject
     }
 
     [RelayCommand]
-    private void UpdatePoints()
+    private void CleanUpData()
     {
         Data = PlotCleaner.GetCleanedPlot(Data);
+    }
+
+    [RelayCommand]
+    private void CalculateDataPeaks()
+    {
+        
     }
 
     partial void OnDataChanged(PlotData? value)
