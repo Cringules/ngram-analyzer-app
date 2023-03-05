@@ -2,7 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Cringules.NGram.Api;
-using Cringules.NGram.App.Model;
+using Cringules.NGram.Lib;
 
 namespace Cringules.NGram.App.ViewModel;
 
@@ -18,13 +18,13 @@ public partial class WorkSession : ObservableObject
     {
         Data = data;
     }
-    
+
     [RelayCommand]
     private void UpdatePoints()
     {
         Data = PlotCleaner.GetCleanedPlot(Data);
     }
-    
+
     partial void OnDataChanged(PlotData? value)
     {
         Model.Update(value?.Points);
