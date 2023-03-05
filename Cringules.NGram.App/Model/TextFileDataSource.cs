@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Cringules.NGram.Api;
 
-namespace Cringules.NGram.App.ViewModel;
+namespace Cringules.NGram.App.Model;
 
 /// <summary>
 /// Represents a text file data source of diffractogram plot data.
