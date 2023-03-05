@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Cringules.NGram.Api;
+using Cringules.NGram.App.Model;
 
 namespace Cringules.NGram.App.ViewModel;
 

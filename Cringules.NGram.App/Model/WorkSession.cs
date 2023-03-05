@@ -2,9 +2,10 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Cringules.NGram.Api;
+using Cringules.NGram.App.ViewModel;
 using Cringules.NGram.Lib;
 
-namespace Cringules.NGram.App.ViewModel;
+namespace Cringules.NGram.App.Model;
 
 public partial class WorkSession : ObservableObject
 {
@@ -20,9 +21,15 @@ public partial class WorkSession : ObservableObject
     }
 
     [RelayCommand]
-    private void UpdatePoints()
+    private void CleanUpData()
     {
         Data = PlotCleaner.GetCleanedPlot(Data);
+    }
+
+    [RelayCommand]
+    private void CalculateDataPeaks()
+    {
+        
     }
 
     partial void OnDataChanged(PlotData? value)
