@@ -5,28 +5,77 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cringules.NGram.App.View"
         xmlns:vm="clr-namespace:Cringules.NGram.App.ViewModel"
+        xmlns:res="clr-namespace:Cringules.NGram.App.Resources"
         xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1200">
     <Window.DataContext>
         <vm:MainViewModel />
     </Window.DataContext>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <Button Command="{Binding OpenPlotCommand}">Open</Button>
-        <Grid Grid.Row="1" DataContext="{Binding Session}">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="{x:Static res:Strings.File}">
+                <MenuItem Header="{x:Static res:Strings.ImportFile}" Command="{Binding OpenPlotCommand}"></MenuItem>
+                <MenuItem Header="{x:Static res:Strings.Open}"></MenuItem>
+                <MenuItem Header="{x:Static res:Strings.Close}"></MenuItem>
+                <MenuItem Header="{x:Static res:Strings.Save}"></MenuItem>
+                <MenuItem Header="{x:Static res:Strings.SaveAs}"></MenuItem>
+                <MenuItem Header="{x:Static res:Strings.ExportAs}">
+                    <MenuItem Header="E_xcel"></MenuItem>
+                    <MenuItem Header="_PDF"></MenuItem>
+                    <MenuItem Header="E_MF"></MenuItem>
+                    <MenuItem Header="E_PS"></MenuItem>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="{x:Static res:Strings.Analysis}">
+                <MenuItem Header="{x:Static res:Strings.StartAnalysis}"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <Grid DataContext="{Binding Session}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel>
-                <oxy:PlotView Model="{Binding Model}" Height="500" />
-                <Button Command="{Binding UpdatePointsCommand}">Poof</Button>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <oxy:PlotView Grid.Row="0" Grid.Column="0" Model="{Binding Model}" />
+            <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Peaks}"></DataGrid>
+            <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                <Expander Header="{x:Static res:Strings.WaveLength}">
+                    <StackPanel>
+                        <TextBlock Text="Selected wave length is uwu"></TextBlock>
+                        <Button Content="{x:Static res:Strings.Select}"></Button>
+                    </StackPanel>
+                </Expander>
+                <Button Content="{x:Static res:Strings.StartAnalysis}"></Button>
+                <Expander Header="{x:Static res:Strings.Cleanup}">
+                    <StackPanel>
+                        <CheckBox Content="{x:Static res:Strings.DetermineNoiseLevel}"></CheckBox>
+                        <Label Content="{x:Static res:Strings.NoiseLevel}"></Label>
+                        <TextBox></TextBox>
+                    </StackPanel>
+                </Expander>
+                <Expander Header="{x:Static res:Strings.Peaks}">
+                    <StackPanel>
+                        <Button Content="{x:Static res:Strings.AddPeak}"></Button>
+                    </StackPanel>
+                </Expander>
+                <Expander Header="{x:Static res:Strings.PeakApproximation}">
+                    <StackPanel>
+                        <CheckBox Content="{x:Static res:Strings.DetermineApproximationFunction}"></CheckBox>
+                        <Label Content="{x:Static res:Strings.ApproximationFunction}"></Label>
+                        <ComboBox>
+                            <ComboBoxItem Content="{x:Static res:Strings.Gaussian}"></ComboBoxItem>
+                            <ComboBoxItem Content="{x:Static res:Strings.Lorentzian}"></ComboBoxItem>
+                            <ComboBoxItem Content="{x:Static res:Strings.Cauchy}"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Content="{x:Static res:Strings.Coefficients}"></Label>
+                        <TextBox></TextBox>
+                    </StackPanel>
+                </Expander>
             </StackPanel>
-            <DataGrid Grid.Row="1" ItemsSource="{Binding Peaks}"></DataGrid>
         </Grid>
-    </Grid>
+    </DockPanel>
 </Window>
