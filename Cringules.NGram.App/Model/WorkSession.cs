@@ -13,6 +13,12 @@ public partial class WorkSession : ObservableObject
 
     [ObservableProperty] private List<Peak> _peaks = new();
 
+    [ObservableProperty] private double _waveLength;
+
+    [ObservableProperty] private bool _determineNoiseLevel;
+
+    [ObservableProperty] private int _noiseLevel;
+
     public DiffractogramPlotModel Model { get; } = new();
 
     public WorkSession(PlotData data)
@@ -28,6 +34,12 @@ public partial class WorkSession : ObservableObject
 
     [RelayCommand]
     private void CalculateDataPeaks()
+    {
+        
+    }
+    
+    [RelayCommand]
+    private void StartAnalysis()
     {
         
     }

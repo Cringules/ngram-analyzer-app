@@ -5,28 +5,105 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cringules.NGram.App.View"
         xmlns:vm="clr-namespace:Cringules.NGram.App.ViewModel"
+        xmlns:res="clr-namespace:Cringules.NGram.App.Resources"
         xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:conv="clr-namespace:NKristek.Wpf.Converters;assembly=NKristek.Wpf.Converters"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1200">
     <Window.DataContext>
         <vm:MainViewModel />
     </Window.DataContext>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <Button Command="{Binding OpenPlotCommand}">Open</Button>
-        <Grid Grid.Row="1" DataContext="{Binding Session}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <StackPanel>
-                <oxy:PlotView Model="{Binding Model}" Height="500" />
-                <Button Command="{Binding UpdatePointsCommand}">Poof</Button>
-            </StackPanel>
-            <DataGrid Grid.Row="1" ItemsSource="{Binding Peaks}"></DataGrid>
+    <Window.Resources>
+        <conv:BoolToInverseBoolConverter x:Key="InverseBoolConverter" />
+        <conv:ValueNullToVisibilityConverter x:Key="NullVisibilityConverter" />
+        <conv:ValueNullToInverseVisibilityConverter x:Key="InverseNullVisibilityConverter" />
+    </Window.Resources>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="{x:Static res:Strings.File}">
+                <MenuItem Header="{x:Static res:Strings.ImportData}"
+                          Command="{Binding ImportDataCommand}" />
+                <MenuItem Header="{x:Static res:Strings.Open}"
+                          Command="{Binding OpenSessionCommand}" />
+                <MenuItem Header="{x:Static res:Strings.Close}"
+                          Command="{Binding CloseSessionCommand}" />
+                <MenuItem Header="{x:Static res:Strings.Save}"
+                          Command="{Binding SaveSessionCommand}" />
+                <MenuItem Header="{x:Static res:Strings.SaveAs}"
+                          Command="{Binding SaveSessionAsCommand}" />
+                <MenuItem Header="{x:Static res:Strings.ExportAs}">
+                    <MenuItem Header="E_xcel" />
+                    <MenuItem Header="_PDF" />
+                    <MenuItem Header="E_MF" />
+                    <MenuItem Header="E_PS" />
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="{x:Static res:Strings.Analysis}"
+                      DataContext="{Binding Session}">
+                <MenuItem Header="{x:Static res:Strings.StartAnalysis}"
+                          Command="{Binding StartAnalysisCommand}" />
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <Grid Visibility="{Binding Session, Converter={StaticResource NullVisibilityConverter}}">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="{x:Static res:Strings.Welcome}" />
+                    <Button Content="{x:Static res:Strings.ImportData}"
+                            Command="{Binding ImportDataCommand}" />
+                    <Button Content="{x:Static res:Strings.Open}"
+                            Command="{Binding OpenSessionCommand}" />
+                </StackPanel>
+            </Grid>
+            <Grid DataContext="{Binding Session}" Visibility="{Binding ., Converter={StaticResource InverseNullVisibilityConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <oxy:PlotView Grid.Row="0" Grid.Column="0" Model="{Binding Model}" />
+                <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Peaks}" />
+                <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                    <Expander Header="{x:Static res:Strings.WaveLength}">
+                        <StackPanel>
+                            <TextBlock
+                                Text="{Binding WaveLength, StringFormat={x:Static res:Strings.SelectedWaveLength}}" />
+                            <Button Content="{x:Static res:Strings.Select}" />
+                        </StackPanel>
+                    </Expander>
+                    <Button Content="{x:Static res:Strings.StartAnalysis}"
+                            Command="{Binding StartAnalysisCommand}" />
+                    <Expander Header="{x:Static res:Strings.Cleanup}">
+                        <StackPanel>
+                            <CheckBox Content="{x:Static res:Strings.DetermineNoiseLevel}"
+                                      IsChecked="{Binding DetermineNoiseLevel, Mode=TwoWay}" />
+                            <Label Content="{x:Static res:Strings.NoiseLevel}" />
+                            <TextBox Text="{Binding NoiseLevel, Mode=TwoWay}"
+                                     IsEnabled="{Binding DetermineNoiseLevel, Converter={StaticResource InverseBoolConverter}}" />
+                        </StackPanel>
+                    </Expander>
+                    <Expander Header="{x:Static res:Strings.Peaks}">
+                        <StackPanel>
+                            <Button Content="{x:Static res:Strings.AddPeak}" />
+                        </StackPanel>
+                    </Expander>
+                    <Expander Header="{x:Static res:Strings.PeakApproximation}">
+                        <StackPanel>
+                            <CheckBox Content="{x:Static res:Strings.DetermineApproximationFunction}" />
+                            <Label Content="{x:Static res:Strings.ApproximationFunction}" />
+                            <ComboBox>
+                                <ComboBoxItem Content="{x:Static res:Strings.Gaussian}" />
+                                <ComboBoxItem Content="{x:Static res:Strings.Lorentzian}" />
+                                <ComboBoxItem Content="{x:Static res:Strings.Cauchy}" />
+                            </ComboBox>
+                            <Label Content="{x:Static res:Strings.Coefficients}" />
+                            <TextBox />
+                        </StackPanel>
+                    </Expander>
+                </StackPanel>
+            </Grid>
         </Grid>
-    </Grid>
+    </DockPanel>
 </Window>

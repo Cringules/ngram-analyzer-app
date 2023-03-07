@@ -1,0 +1,89 @@
+﻿<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="ImportData" xml:space="preserve">
+        <value>_Импортировать данные...</value>
+    </data>
+    <data name="Open" xml:space="preserve">
+        <value>_Открыть...</value>
+    </data>
+    <data name="Close" xml:space="preserve">
+        <value>_Закрыть</value>
+    </data>
+    <data name="Save" xml:space="preserve">
+        <value>_Сохранить</value>
+    </data>
+    <data name="SaveAs" xml:space="preserve">
+        <value>Сохранить _как...</value>
+    </data>
+    <data name="ExportAs" xml:space="preserve">
+        <value>_Экспортировать как...</value>
+    </data>
+    <data name="Analysis" xml:space="preserve">
+        <value>_Анализ</value>
+    </data>
+    <data name="StartAnalysis" xml:space="preserve">
+        <value>_Запустить анализ</value>
+    </data>
+    <data name="WaveLength" xml:space="preserve">
+        <value>_Излучение</value>
+    </data>
+    <data name="Select" xml:space="preserve">
+        <value>Выбрать...</value>
+    </data>
+    <data name="Cleanup" xml:space="preserve">
+        <value>Очистка</value>
+    </data>
+    <data name="DetermineNoiseLevel" xml:space="preserve">
+        <value>Автоматически определить уровень шума</value>
+    </data>
+    <data name="NoiseLevel" xml:space="preserve">
+        <value>Уровень шума</value>
+    </data>
+    <data name="Peaks" xml:space="preserve">
+        <value>Пики</value>
+    </data>
+    <data name="AddPeak" xml:space="preserve">
+        <value>Добавить пик</value>
+    </data>
+    <data name="PeakApproximation" xml:space="preserve">
+        <value>Аппроксимация пика</value>
+    </data>
+    <data name="DetermineApproximationFunction" xml:space="preserve">
+        <value>Автоматически выбрать функцию аппроксимации</value>
+    </data>
+    <data name="ApproximationFunction" xml:space="preserve">
+        <value>Функция аппроксимации</value>
+    </data>
+    <data name="Gaussian" xml:space="preserve">
+        <value>Гаусса</value>
+    </data>
+    <data name="Lorentzian" xml:space="preserve">
+        <value>Лоренца</value>
+    </data>
+    <data name="Cauchy" xml:space="preserve">
+        <value>Коши</value>
+    </data>
+    <data name="Coefficients" xml:space="preserve">
+        <value>Коэффициенты</value>
+    </data>
+    <data name="File" xml:space="preserve">
+        <value>_Файл</value>
+    </data>
+    <data name="SelectedWaveLength" xml:space="preserve">
+        <value>Выбранное излучение: {0:F5}</value>
+    </data>
+    <data name="Welcome" xml:space="preserve">
+        <value>Добро пожаловать в NGram Analyzer! Используйте кнопки снизу, чтобы начать работу!</value>
+    </data>
+</root>
