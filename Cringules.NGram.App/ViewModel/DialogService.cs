@@ -29,7 +29,7 @@ public class DialogService : IDialogService
         bool result = dialog.ShowDialog() ?? false;
         if (result)
         {
-            OpenFilePath = dialog.FileName;
+            SaveFilePath = dialog.FileName;
         }
 
         return result;

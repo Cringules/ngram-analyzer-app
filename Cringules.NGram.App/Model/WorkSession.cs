@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Cringules.NGram.Api;
@@ -19,7 +20,7 @@ public partial class WorkSession : ObservableObject
 
     [ObservableProperty] private int _noiseLevel;
 
-    public DiffractogramPlotModel Model { get; } = new();
+    [JsonIgnore] public DiffractogramPlotModel Model { get; } = new();
 
     public WorkSession(PlotData data)
     {
@@ -35,13 +36,11 @@ public partial class WorkSession : ObservableObject
     [RelayCommand]
     private void CalculateDataPeaks()
     {
-        
     }
-    
+
     [RelayCommand]
     private void StartAnalysis()
     {
-        
     }
 
     partial void OnDataChanged(PlotData? value)
