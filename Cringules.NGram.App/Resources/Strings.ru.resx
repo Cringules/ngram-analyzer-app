@@ -11,8 +11,8 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="ImportFile" xml:space="preserve">
-        <value>_Импортировать файл...</value>
+    <data name="ImportData" xml:space="preserve">
+        <value>_Импортировать данные...</value>
     </data>
     <data name="Open" xml:space="preserve">
         <value>_Открыть...</value>
@@ -79,5 +79,11 @@
     </data>
     <data name="File" xml:space="preserve">
         <value>_Файл</value>
+    </data>
+    <data name="SelectedWaveLength" xml:space="preserve">
+        <value>Выбранное излучение: {0:F5}</value>
+    </data>
+    <data name="Welcome" xml:space="preserve">
+        <value>Добро пожаловать в NGram Analyzer! Используйте кнопки снизу, чтобы начать работу!</value>
     </data>
 </root>

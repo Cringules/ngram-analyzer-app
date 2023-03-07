@@ -168,11 +168,11 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Import File....
+        ///   Looks up a localized string similar to _Import Data....
         /// </summary>
-        public static string ImportFile {
+        public static string ImportData {
             get {
-                return ResourceManager.GetString("ImportFile", resourceCulture);
+                return ResourceManager.GetString("ImportData", resourceCulture);
             }
         }
         
@@ -249,6 +249,15 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selected wave length: {0:F5}.
+        /// </summary>
+        public static string SelectedWaveLength {
+            get {
+                return ResourceManager.GetString("SelectedWaveLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Start Analysis.
         /// </summary>
         public static string StartAnalysis {
@@ -263,6 +272,15 @@ namespace Cringules.NGram.App.Resources {
         public static string WaveLength {
             get {
                 return ResourceManager.GetString("WaveLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to NGram Analyzer! Use buttons below to start working!.
+        /// </summary>
+        public static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
             }
         }
     }
