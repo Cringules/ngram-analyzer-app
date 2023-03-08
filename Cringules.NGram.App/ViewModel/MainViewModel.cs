@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -9,7 +10,15 @@ namespace Cringules.NGram.App.ViewModel;
 
 public partial class MainViewModel : ObservableObject
 {
-    [ObservableProperty] private WorkSession? _session;
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(CloseSessionCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SaveSessionCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SaveSessionAsCommand))]
+    [NotifyCanExecuteChangedFor(nameof(ExportAsCommand))]
+    private WorkSession? _session;
+
+    [ObservableProperty] private bool _sessionSaved;
+    [ObservableProperty] private string? _sessionFilename;
 
     private readonly IDialogService _dialogService = new DialogService();
     private readonly IFileDataSource _fileDataSource = new TextFileDataSource();
@@ -23,6 +32,8 @@ public partial class MainViewModel : ObservableObject
             {
                 PlotData data = _fileDataSource.GetPlotData(_dialogService.OpenFilePath);
                 Session = new WorkSession(data);
+                SessionSaved = false;
+                SessionFilename = null;
             }
             catch (FileFormatException e)
             {
@@ -37,44 +48,82 @@ public partial class MainViewModel : ObservableObject
         if (_dialogService.ShowOpenFileDialog())
         {
             Session = SessionOpener.OpenSession(_dialogService.OpenFilePath);
+            SessionSaved = true;
+            SessionFilename = _dialogService.OpenFilePath;
         }
     }
 
-    [RelayCommand]
+    private bool IsSessionOpened()
+    {
+        return Session != null;
+    }
+
+    [RelayCommand(CanExecute = nameof(IsSessionOpened))]
     private void CloseSession()
     {
         Session = null;
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(IsSessionOpened))]
     private void SaveSession()
     {
-        if (Session == null)
-        {
-            throw new NullReferenceException();
-        }
-        if (_dialogService.ShowSaveFileDialog())
-        {
-            SessionSaver.SaveSession(Session, _dialogService.SaveFilePath);
-        }
+        SaveSessionCommon();
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(IsSessionOpened))]
     private void SaveSessionAs()
     {
+        SaveSessionCommon(true);
+    }
+
+    private void SaveSessionCommon(bool forceSaveAs = false)
+    {
         if (Session == null)
         {
             throw new NullReferenceException();
         }
-        if (_dialogService.ShowSaveFileDialog())
+
+        string? filename = SessionFilename;
+        if (forceSaveAs || filename == null)
         {
-            SessionSaver.SaveSession(Session, _dialogService.SaveFilePath);
+            _dialogService.SaveFilePath = filename ?? string.Empty;
+
+            if (!_dialogService.ShowSaveFileDialog())
+            {
+                return;
+            }
+
+            filename = _dialogService.SaveFilePath;
+        }
+
+        SessionSaver.SaveSession(Session, filename);
+        SessionSaved = true;
+        SessionFilename = filename;
+    }
+
+    [RelayCommand(CanExecute = nameof(IsSessionOpened))]
+    private void ExportAs()
+    {
+    }
+
+    partial void OnSessionChanged(WorkSession? value)
+    {
+        if (value != null)
+        {
+            value.PropertyChanged += OnSessionPropertyChanged;
         }
     }
 
-    [RelayCommand]
-    private void ExportAs()
+    partial void OnSessionChanging(WorkSession? value)
     {
-        
+        if (Session != null)
+        {
+            Session.PropertyChanged -= OnSessionPropertyChanged;
+        }
+    }
+
+    private void OnSessionPropertyChanged(object? sender, PropertyChangedEventArgs propertyChangedEventArgs)
+    {
+        SessionSaved = false;
     }
 }
