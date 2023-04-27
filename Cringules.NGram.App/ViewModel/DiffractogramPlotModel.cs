@@ -22,7 +22,7 @@ public class DiffractogramPlotModel : PlotModel
     /// </summary>
     public DiffractogramPlotModel()
     {
-        Title = "test";
+        Title = "Diffractogram data";
         Axes.Add(new LinearAxis
         {
             Title = "Angle", Unit = "deg", Position = AxisPosition.Bottom, IsPanEnabled = false, IsZoomEnabled = false

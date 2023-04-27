@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using Microsoft.Win32;
 
 namespace Cringules.NGram.App.ViewModel;
@@ -29,7 +28,7 @@ public class DialogService : IDialogService
         bool result = dialog.ShowDialog() ?? false;
         if (result)
         {
-            OpenFilePath = dialog.FileName;
+            SaveFilePath = dialog.FileName;
         }
 
         return result;

@@ -1,4 +1,7 @@
-﻿namespace Cringules.NGram.App.Model;
+﻿using System.IO;
+using System.Text.Json;
+
+namespace Cringules.NGram.App.Model;
 
 /// <summary>
 /// Represents a session saver.
@@ -7,6 +10,7 @@ public static class SessionSaver
 {
     public static void SaveSession(WorkSession session, string filename)
     {
-        // TODO: Serialization or smth
+        using FileStream stream = File.Create(filename);
+        JsonSerializer.Serialize(stream, session);
     }
 }
