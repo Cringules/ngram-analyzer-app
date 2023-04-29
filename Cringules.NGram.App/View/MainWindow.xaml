@@ -54,7 +54,8 @@
                             Command="{Binding OpenSessionCommand}" />
                 </StackPanel>
             </Grid>
-            <Grid DataContext="{Binding Session}" Visibility="{Binding ., Converter={StaticResource InverseNullVisibilityConverter}}">
+            <Grid DataContext="{Binding Session}"
+                  Visibility="{Binding ., Converter={StaticResource InverseNullVisibilityConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*" />
                     <RowDefinition Height="2*" />
@@ -63,7 +64,8 @@
                     <ColumnDefinition Width="3*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <oxy:PlotView Grid.Row="0" Grid.Column="0" Model="{Binding Model}" />
+                <oxy:PlotView Grid.Row="0" Grid.Column="0" Model="{Binding Model}"
+                              Controller="{Binding PlotController}" />
                 <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Peaks}" />
                 <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
                     <Expander Header="{x:Static res:Strings.WaveLength}">

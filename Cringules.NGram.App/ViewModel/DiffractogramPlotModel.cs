@@ -15,7 +15,7 @@ public class DiffractogramPlotModel : PlotModel
     /// <summary>
     /// The main series of the plot.
     /// </summary>
-    private readonly LineSeries _mainSeries;
+    public LineSeries MainSeries { get; }
 
     /// <summary>
     /// Constructs a diffractogram plot model.
@@ -32,8 +32,8 @@ public class DiffractogramPlotModel : PlotModel
             Title = "Intensity", Unit = "a.u.", Position = AxisPosition.Left, IsPanEnabled = false,
             IsZoomEnabled = false
         });
-        _mainSeries = new LineSeries();
-        Series.Add(_mainSeries);
+        MainSeries = new LineSeries();
+        Series.Add(MainSeries);
     }
 
     /// <summary>
@@ -42,7 +42,7 @@ public class DiffractogramPlotModel : PlotModel
     /// <param name="points">An enumerable of the data points.</param>
     public void Update(IEnumerable<PlotPoint>? points)
     {
-        _mainSeries.ItemsSource = points?.Select(point => new DataPoint(point.Angle, point.Intensity));
+        MainSeries.ItemsSource = points?.Select(point => new DataPoint(point.Angle, point.Intensity));
         InvalidatePlot(true);
     }
 }

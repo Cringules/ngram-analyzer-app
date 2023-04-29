@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using Cringules.NGram.Api;
 using Cringules.NGram.App.ViewModel;
 using Cringules.NGram.Lib;
+using OxyPlot;
 
 namespace Cringules.NGram.App.Model;
 
@@ -21,10 +22,14 @@ public partial class WorkSession : ObservableObject
     [ObservableProperty] private int _noiseLevel;
 
     [JsonIgnore] public DiffractogramPlotModel Model { get; } = new();
+    [JsonIgnore] public PlotController PlotController { get; } = new();
 
     public WorkSession(PlotData data)
     {
         Data = data;
+        PlotController.BindMouseDown(OxyMouseButton.Left,
+            new DelegatePlotCommand<OxyMouseDownEventArgs>((view, controller, args) =>
+                controller.AddMouseManipulator(view, new PlotSelectionManipulator(view, Model), args)));
     }
 
     [RelayCommand]
