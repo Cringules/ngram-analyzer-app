@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Cringules.NGram.Api;
+using Cringules.NGram.App.View;
 using Cringules.NGram.App.ViewModel;
 using Cringules.NGram.Lib;
 using OxyPlot;
@@ -30,6 +31,17 @@ public partial class WorkSession : ObservableObject
         PlotController.BindMouseDown(OxyMouseButton.Left,
             new DelegatePlotCommand<OxyMouseDownEventArgs>((view, controller, args) =>
                 controller.AddMouseManipulator(view, new PlotSelectionManipulator(view, Model), args)));
+    }
+
+    [RelayCommand]
+    private void GetWaveLength()
+    {
+        var viewModel = new WaveLengthViewModel() {SelectedValue = WaveLength};
+        var window = new WaveLengthWindow() {DataContext = viewModel};
+        if ((window.ShowDialog() ?? false) && viewModel.SelectedValue.HasValue)
+        {
+            WaveLength = viewModel.SelectedValue.Value;
+        }
     }
 
     [RelayCommand]

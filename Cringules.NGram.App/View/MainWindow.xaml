@@ -72,7 +72,8 @@
                         <StackPanel>
                             <TextBlock
                                 Text="{Binding WaveLength, StringFormat={x:Static res:Strings.SelectedWaveLength}}" />
-                            <Button Content="{x:Static res:Strings.Select}" />
+                            <Button Content="{x:Static res:Strings.Select}"
+                                    Command="{Binding GetWaveLengthCommand}"/>
                         </StackPanel>
                     </Expander>
                     <Button Content="{x:Static res:Strings.StartAnalysis}"
