@@ -12,7 +12,9 @@
       <PackageReference Include="Cringules.NGram.Api" Version="0.1.6" />
       <PackageReference Include="Cringules.NGram.Lib" Version="0.1.2-tags-v0-1-2-alpha.1" />
       <PackageReference Include="NKristek.Wpf.Converters" Version="2.0.2" />
+      <PackageReference Include="OxyPlot.SkiaSharp" Version="2.1.2" />
       <PackageReference Include="OxyPlot.Wpf" Version="2.1.2" />
+      <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
     </ItemGroup>
 
     <ItemGroup>

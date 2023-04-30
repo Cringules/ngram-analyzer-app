@@ -4,6 +4,7 @@ using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Cringules.NGram.Api;
+using Cringules.NGram.App.Export;
 using Cringules.NGram.App.Model;
 
 namespace Cringules.NGram.App.ViewModel;
@@ -102,8 +103,13 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand(CanExecute = nameof(IsSessionOpened))]
-    private void ExportAs()
+    private void ExportAs(IResultExporter resultExporter)
     {
+        if (Session == null)
+        {
+            return;
+        }
+        resultExporter.Export(Session, "uwu.pdf");
     }
 
     partial void OnSessionChanged(WorkSession? value)
