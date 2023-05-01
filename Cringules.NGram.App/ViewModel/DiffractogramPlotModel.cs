@@ -40,7 +40,7 @@ public class DiffractogramPlotModel : PlotModel
     /// Updates the plot data.
     /// </summary>
     /// <param name="points">An enumerable of the data points.</param>
-    public void Update(IEnumerable<PlotPoint>? points)
+    public void UpdatePlotPoints(IEnumerable<PlotPoint>? points)
     {
         _mainSeries.ItemsSource = points?.Select(point => new DataPoint(point.Angle, point.Intensity));
         InvalidatePlot(true);
