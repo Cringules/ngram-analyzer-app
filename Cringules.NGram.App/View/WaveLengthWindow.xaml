@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:Cringules.NGram.App.ViewModel"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="WaveLengthWindow" Height="450" Width="800">
+        Title="WaveLengthWindow" Height="400" Width="350" ResizeMode="NoResize">
     <Window.DataContext>
         <vm:WaveLengthViewModel />
     </Window.DataContext>
@@ -17,15 +17,15 @@
     <DockPanel>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="OK" Command="{Binding CloseOkCommand}"
-                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" />
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                    Width="60" Margin="5" />
             <Button Content="Cancel" Command="{Binding CloseCancelCommand}"
-                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" />
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                    Width="60" Margin="5" />
         </StackPanel>
         <StackPanel>
-            <TextBlock Text="{Binding SelectedValue}"></TextBlock>
-            <TextBox Text="{Binding SelectedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <DataGrid ItemsSource="{Binding WaveElements}" AutoGenerateColumns="False" SelectionMode="Single"
-                      SelectionUnit="Cell" CanUserAddRows="False">
+                      SelectionUnit="Cell" CanUserAddRows="False" Margin="5">
                 <i:Interaction.Behaviors>
                     <local:DataGridSelectedCellBehavior
                         SelectedCell="{Binding SelectedGridValue, Mode=OneWayToSource, Converter={StaticResource DataGridCellConverter}, UpdateSourceTrigger=PropertyChanged}" />
@@ -38,35 +38,35 @@
                     </DataTemplate>
                 </DataGrid.RowHeaderTemplate>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Alpha}">
+                    <DataGridTextColumn Binding="{Binding Alpha}" Width="*">
                         <DataGridTextColumn.Header>
                             <TextBlock>
                                 Kα
                             </TextBlock>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Alpha1}">
+                    <DataGridTextColumn Binding="{Binding Alpha1}" Width="*">
                         <DataGridTextColumn.Header>
                             <TextBlock>
                                 Kα<Run Typography.Variants="Subscript">1</Run>
                             </TextBlock>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Alpha2}">
+                    <DataGridTextColumn Binding="{Binding Alpha2}" Width="*">
                         <DataGridTextColumn.Header>
                             <TextBlock>
                                 Kα<Run Typography.Variants="Subscript">2</Run>
                             </TextBlock>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Beta1}">
+                    <DataGridTextColumn Binding="{Binding Beta1}" Width="*">
                         <DataGridTextColumn.Header>
                             <TextBlock>
                                 Kβ<Run Typography.Variants="Subscript">1</Run>
                             </TextBlock>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Beta2}">
+                    <DataGridTextColumn Binding="{Binding Beta2}" Width="*">
                         <DataGridTextColumn.Header>
                             <TextBlock>
                                 Kβ<Run Typography.Variants="Subscript">2</Run>
@@ -75,6 +75,10 @@
                     </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
+            <TextBlock Text="Selected value" Margin="5"></TextBlock>
+            <TextBox
+                Text="{Binding SelectedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Margin="5" />
         </StackPanel>
     </DockPanel>
 </Window>
