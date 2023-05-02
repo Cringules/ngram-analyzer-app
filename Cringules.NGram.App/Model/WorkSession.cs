@@ -45,7 +45,7 @@ public partial class WorkSession : ObservableObject
 
     partial void OnDataChanged(PlotData? value)
     {
-        Model.Update(value?.Points);
+        Model.UpdatePlotPoints(value?.Points);
         Peaks = PeakFinder.FindPeaks(value);
     }
 }

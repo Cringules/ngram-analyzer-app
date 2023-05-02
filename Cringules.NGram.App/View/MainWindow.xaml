@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Cringules.NGram.App.View"
         xmlns:vm="clr-namespace:Cringules.NGram.App.ViewModel"
         xmlns:res="clr-namespace:Cringules.NGram.App.Resources"
+        xmlns:export="clr-namespace:Cringules.NGram.App.Export"
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:conv="clr-namespace:NKristek.Wpf.Converters;assembly=NKristek.Wpf.Converters"
         mc:Ignorable="d"
@@ -17,6 +18,8 @@
         <conv:BoolToInverseBoolConverter x:Key="InverseBoolConverter" />
         <conv:ValueNullToVisibilityConverter x:Key="NullVisibilityConverter" />
         <conv:ValueNullToInverseVisibilityConverter x:Key="InverseNullVisibilityConverter" />
+        <export:PdfResultExporter x:Key="PdfResultExporter" />
+        <export:EmfResultExporter x:Key="EmfResultExporter" />
     </Window.Resources>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -33,8 +36,10 @@
                           Command="{Binding SaveSessionAsCommand}" />
                 <MenuItem Header="{x:Static res:Strings.ExportAs}">
                     <MenuItem Header="E_xcel" />
-                    <MenuItem Header="_PDF" />
-                    <MenuItem Header="E_MF" />
+                    <MenuItem Header="_PDF" Command="{Binding ExportAsCommand}"
+                              CommandParameter="{StaticResource PdfResultExporter}" />
+                    <MenuItem Header="E_MF" Command="{Binding ExportAsCommand}"
+                              CommandParameter="{StaticResource EmfResultExporter}" />
                     <MenuItem Header="E_PS" />
                 </MenuItem>
             </MenuItem>
@@ -54,7 +59,8 @@
                             Command="{Binding OpenSessionCommand}" />
                 </StackPanel>
             </Grid>
-            <Grid DataContext="{Binding Session}" Visibility="{Binding ., Converter={StaticResource InverseNullVisibilityConverter}}">
+            <Grid DataContext="{Binding Session}"
+                  Visibility="{Binding ., Converter={StaticResource InverseNullVisibilityConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*" />
                     <RowDefinition Height="2*" />
