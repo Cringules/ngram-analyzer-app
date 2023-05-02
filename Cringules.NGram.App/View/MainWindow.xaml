@@ -19,6 +19,7 @@
         <conv:ValueNullToVisibilityConverter x:Key="NullVisibilityConverter" />
         <conv:ValueNullToInverseVisibilityConverter x:Key="InverseNullVisibilityConverter" />
         <export:PdfResultExporter x:Key="PdfResultExporter" />
+        <export:EmfResultExporter x:Key="EmfResultExporter" />
     </Window.Resources>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -37,7 +38,8 @@
                     <MenuItem Header="E_xcel" />
                     <MenuItem Header="_PDF" Command="{Binding ExportAsCommand}"
                               CommandParameter="{StaticResource PdfResultExporter}" />
-                    <MenuItem Header="E_MF" />
+                    <MenuItem Header="E_MF" Command="{Binding ExportAsCommand}"
+                              CommandParameter="{StaticResource EmfResultExporter}" />
                     <MenuItem Header="E_PS" />
                 </MenuItem>
             </MenuItem>

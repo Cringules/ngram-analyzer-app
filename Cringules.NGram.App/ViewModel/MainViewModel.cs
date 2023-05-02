@@ -107,9 +107,20 @@ public partial class MainViewModel : ObservableObject
     {
         if (Session == null)
         {
+            throw new NullReferenceException();
+        }
+        
+        string? filename = Path.ChangeExtension(SessionFilename, resultExporter.FileExtension);
+        _dialogService.SaveFilePath = filename ?? string.Empty;
+
+        if (!_dialogService.ShowSaveFileDialog())
+        {
             return;
         }
-        resultExporter.Export(Session, "uwu.pdf");
+
+        filename = _dialogService.SaveFilePath;
+
+        resultExporter.Export(Session, filename);
     }
 
     partial void OnSessionChanged(WorkSession? value)

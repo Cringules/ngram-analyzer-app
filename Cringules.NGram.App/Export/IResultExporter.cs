@@ -7,6 +7,8 @@ namespace Cringules.NGram.App.Export;
 /// </summary>
 public interface IResultExporter
 {
+    string FileExtension { get; }
+
     /// <summary>
     /// Exports analysis results to a file.
     /// </summary>
