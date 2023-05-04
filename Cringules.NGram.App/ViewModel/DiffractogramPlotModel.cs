@@ -1,7 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Cringules.NGram.Api;
+using Cringules.NGram.App.Model;
+using Cringules.NGram.Lib;
 using OxyPlot;
+using OxyPlot.Annotations;
 using OxyPlot.Axes;
 using OxyPlot.Series;
 
@@ -10,39 +15,80 @@ namespace Cringules.NGram.App.ViewModel;
 /// <summary>
 /// Represents a diffractogram plot model.
 /// </summary>
-public class DiffractogramPlotModel : PlotModel
+[ObservableObject]
+public partial class DiffractogramPlotModel : PlotModel
 {
+    [ObservableProperty] private IEnumerable<PlotPoint>? _mainPlotPoints;
+    [ObservableProperty] private List<Point>? _peakBoundaries;
+    [ObservableProperty] private PeakData? _selectedPeak;
+
     /// <summary>
     /// The main series of the plot.
     /// </summary>
-    public LineSeries MainSeries { get; }
+    private readonly LineSeries _mainSeries = new();
+
+    private readonly LineSeries _peakSeries = new();
+
+    private readonly LinearAxis _xAxis = new()
+    {
+        Title = "Angle", Unit = "deg", Position = AxisPosition.Bottom, IsPanEnabled = false, IsZoomEnabled = false
+    };
+
+    private readonly LinearAxis _yAxis = new()
+    {
+        Title = "Intensity", Unit = "a.u.", Position = AxisPosition.Left, IsPanEnabled = false,
+        IsZoomEnabled = false, Minimum = 0
+    };
 
     /// <summary>
     /// Constructs a diffractogram plot model.
     /// </summary>
     public DiffractogramPlotModel()
     {
+        PropertyChanged += UpdatePlot;
+
         Title = "Diffractogram data";
-        Axes.Add(new LinearAxis
-        {
-            Title = "Angle", Unit = "deg", Position = AxisPosition.Bottom, IsPanEnabled = false, IsZoomEnabled = false
-        });
-        Axes.Add(new LinearAxis
-        {
-            Title = "Intensity", Unit = "a.u.", Position = AxisPosition.Left, IsPanEnabled = false,
-            IsZoomEnabled = false
-        });
-        MainSeries = new LineSeries();
-        Series.Add(MainSeries);
+        Axes.Add(_xAxis);
+        Axes.Add(_yAxis);
+        Series.Add(_mainSeries);
     }
 
-    /// <summary>
-    /// Updates the plot data.
-    /// </summary>
-    /// <param name="points">An enumerable of the data points.</param>
-    public void Update(IEnumerable<PlotPoint>? points)
+    partial void OnMainPlotPointsChanged(IEnumerable<PlotPoint>? value)
     {
-        MainSeries.ItemsSource = points?.Select(point => new DataPoint(point.Angle, point.Intensity));
+        _mainSeries.ItemsSource = value?.Select(point => new DataPoint(point.Angle, point.Intensity));
+    }
+
+    partial void OnSelectedPeakChanged(PeakData? value)
+    {
+        Series.Clear();
+        Annotations.Clear();
+
+        if (value == null)
+        {
+            Series.Add(_mainSeries);
+            return;
+        }
+
+        Annotations.Add(new LineAnnotation()
+        {
+            Type = LineAnnotationType.Vertical,
+            X = value.Angle,
+            LineStyle = LineStyle.Dash,
+            StrokeThickness = 1,
+            Color = OxyColors.Red
+        });
+
+        var annotation = new PolylineAnnotation();
+        annotation.Points.Add(new DataPoint(value.LeftBoundary.X, value.LeftBoundary.Y));
+        annotation.Points.Add(new DataPoint(value.RightBoundary.X, value.RightBoundary.Y));
+        Annotations.Add(annotation);
+
+        _peakSeries.ItemsSource = value.XrayPeak.points.Select(point => new DataPoint(point.X, point.Y));
+        Series.Add(_peakSeries);
+    }
+
+    private void UpdatePlot(object? sender, PropertyChangedEventArgs propertyChangedEventArgs)
+    {
         InvalidatePlot(true);
     }
 }
