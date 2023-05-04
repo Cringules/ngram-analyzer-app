@@ -17,10 +17,10 @@ public partial class PeakData : ObservableObject
     public XrayPeak XrayPeak { get; }
     public XrayPeak? Approximation { get; private set; }
 
-    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(Approximate))]
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ApproximateCommand))]
     private bool _determineApproximator = true;
 
-    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(Approximate))]
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ApproximateCommand))]
     private IAutoApproximator? _autoApproximator;
 
     public PeakData(XrayPeak peak)
