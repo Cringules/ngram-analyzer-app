@@ -10,7 +10,7 @@
     <ItemGroup>
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
       <PackageReference Include="Cringules.NGram.Api" Version="0.1.6" />
-      <PackageReference Include="Cringules.NGram.Lib" Version="0.2.1-alpha" />
+      <PackageReference Include="Cringules.NGram.Lib" Version="0.2.3-alpha" />
       <PackageReference Include="NKristek.Wpf.Converters" Version="2.0.2" />
       <PackageReference Include="OxyPlot.Wpf" Version="2.1.2" />
     </ItemGroup>

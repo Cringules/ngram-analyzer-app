@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
+using System.Windows.Documents;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Cringules.NGram.Api;
@@ -21,9 +22,8 @@ public partial class WorkSession : ObservableObject
 
     [ObservableProperty] private List<Point> _peakBoundaries = new();
 
-    [ObservableProperty] private List<XrayPeak> _xrayPeaks = new();
-
-    [ObservableProperty] private List<Peak> _peaks = new();
+    [ObservableProperty] private List<PeakData> _peaks = new();
+    [ObservableProperty] private PeakData? _selectedPeak;
 
     [JsonIgnore] public DiffractogramPlotModel Model { get; } = new();
 
@@ -43,23 +43,25 @@ public partial class WorkSession : ObservableObject
     {
         var xray = new Xray(Data.Points.Select(point => new Point(point.Angle, point.Intensity)));
         PeakBoundaries = xray.GetPeakBoundaries();
+        Model.PeakBoundaries = PeakBoundaries;
 
-        XrayPeaks.Clear();
+        var xrayPeaks = new List<XrayPeak>();
         for (var i = 0; i < PeakBoundaries.Count - 1; i++)
         {
-            XrayPeaks.Add(xray.GetPeak(PeakBoundaries[i].X, PeakBoundaries[i + 1].X));
+            xrayPeaks.Add(xray.GetPeak(PeakBoundaries[i].X, PeakBoundaries[i + 1].X));
         }
 
-        Peaks = XrayPeaks.Select(peak =>
-        {
-            var analyzer = new XrayPeakAnalyzer(peak);
-            return new Peak(analyzer.GetTopAngle(), 0, analyzer.GetIntensityMax(), analyzer.GetIntensityIntegral());
-        }).ToList();
+        Peaks = xrayPeaks.Select(peak => new PeakData(peak)).ToList();
     }
 
     partial void OnDataChanged(PlotData? value)
     {
-        Model.Update(value?.Points);
+        Model.MainPlotPoints = value?.Points;
         // Peaks = PeakFinder.FindPeaks(value);
+    }
+
+    partial void OnSelectedPeakChanged(PeakData? value)
+    {
+        Model.SelectedPeak = value;
     }
 }
