@@ -63,7 +63,7 @@ public class SessionReportDocument : IDocument
                         header.Cell().Text("IntegralIntensity");
                     });
 
-                    foreach (Peak peak in _workSession.Peaks)
+                    foreach (PeakData peak in _workSession.Peaks)
                     {
                         table.Cell().Text($"{peak.Angle}");
                         table.Cell().Text($"{peak.Distance}");

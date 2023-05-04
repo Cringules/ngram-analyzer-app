@@ -70,7 +70,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <oxy:PlotView Grid.Row="0" Grid.Column="0" Model="{Binding Model}" />
-                <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Peaks}" />
+                <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Peaks}" SelectedItem="{Binding SelectedPeak}" />
                 <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
                     <Expander Header="{x:Static res:Strings.WaveLength}">
                         <StackPanel>
