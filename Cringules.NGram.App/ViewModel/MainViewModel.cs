@@ -4,6 +4,7 @@ using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Cringules.NGram.Api;
+using Cringules.NGram.App.Export;
 using Cringules.NGram.App.Model;
 
 namespace Cringules.NGram.App.ViewModel;
@@ -102,8 +103,24 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand(CanExecute = nameof(IsSessionOpened))]
-    private void ExportAs()
+    private void ExportAs(IResultExporter resultExporter)
     {
+        if (Session == null)
+        {
+            throw new NullReferenceException();
+        }
+        
+        string? filename = Path.ChangeExtension(SessionFilename, resultExporter.FileExtension);
+        _dialogService.SaveFilePath = filename ?? string.Empty;
+
+        if (!_dialogService.ShowSaveFileDialog())
+        {
+            return;
+        }
+
+        filename = _dialogService.SaveFilePath;
+
+        resultExporter.Export(Session, filename);
     }
 
     partial void OnSessionChanged(WorkSession? value)
