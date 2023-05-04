@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
-using System.Windows.Documents;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Cringules.NGram.Api;
@@ -42,13 +41,15 @@ public partial class WorkSession : ObservableObject
     private void StartAnalysis()
     {
         var xray = new Xray(Data.Points.Select(point => new Point(point.Angle, point.Intensity)));
-        PeakBoundaries = xray.GetPeakBoundaries();
+        Xray smoothed = xray.SmoothXray();
+        
+        PeakBoundaries = smoothed.GetPeakBoundaries();
         Model.PeakBoundaries = PeakBoundaries;
 
         var xrayPeaks = new List<XrayPeak>();
         for (var i = 0; i < PeakBoundaries.Count - 1; i++)
         {
-            xrayPeaks.Add(xray.GetPeak(PeakBoundaries[i].X, PeakBoundaries[i + 1].X));
+            xrayPeaks.Add(smoothed.GetPeak(PeakBoundaries[i].X, PeakBoundaries[i + 1].X));
         }
 
         Peaks = xrayPeaks.Select(peak => new PeakData(peak)).ToList();
