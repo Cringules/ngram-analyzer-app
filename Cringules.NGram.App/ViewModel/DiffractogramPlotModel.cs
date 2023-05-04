@@ -25,7 +25,7 @@ public partial class DiffractogramPlotModel : PlotModel
     /// <summary>
     /// The main series of the plot.
     /// </summary>
-    private readonly LineSeries _mainSeries = new();
+    public LineSeries MainSeries { get; } = new();
 
     private readonly LineSeries _peakSeries = new();
 
@@ -50,12 +50,12 @@ public partial class DiffractogramPlotModel : PlotModel
         Title = "Diffractogram data";
         Axes.Add(_xAxis);
         Axes.Add(_yAxis);
-        Series.Add(_mainSeries);
+        Series.Add(MainSeries);
     }
 
     partial void OnMainPlotPointsChanged(IEnumerable<PlotPoint>? value)
     {
-        _mainSeries.ItemsSource = value?.Select(point => new DataPoint(point.Angle, point.Intensity));
+        MainSeries.ItemsSource = value?.Select(point => new DataPoint(point.Angle, point.Intensity));
     }
 
     partial void OnSelectedPeakChanged(PeakData? value)
@@ -65,7 +65,7 @@ public partial class DiffractogramPlotModel : PlotModel
 
         if (value == null)
         {
-            Series.Add(_mainSeries);
+            Series.Add(MainSeries);
             return;
         }
 

@@ -10,7 +10,7 @@
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:conv="clr-namespace:NKristek.Wpf.Converters;assembly=NKristek.Wpf.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1200">
+        Title="MainWindow" Height="800" Width="1200" MinHeight="600" MinWidth="800">
     <Window.DataContext>
         <vm:MainViewModel />
     </Window.DataContext>
@@ -51,12 +51,19 @@
         </Menu>
         <Grid>
             <Grid Visibility="{Binding Session, Converter={StaticResource NullVisibilityConverter}}">
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock Text="{x:Static res:Strings.Welcome}" />
-                    <Button Content="{x:Static res:Strings.ImportData}"
-                            Command="{Binding ImportDataCommand}" />
-                    <Button Content="{x:Static res:Strings.Open}"
-                            Command="{Binding OpenSessionCommand}" />
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="500">
+                    <TextBlock Text="{x:Static res:Strings.Welcome}" FontSize="25" TextWrapping="Wrap"
+                               TextAlignment="Center" />
+                    <Grid Height="100">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Content="{x:Static res:Strings.ImportData}"
+                                Command="{Binding ImportDataCommand}" Margin="5" />
+                        <Button Grid.Column="1" Content="{x:Static res:Strings.Open}"
+                                Command="{Binding OpenSessionCommand}" Margin="5" />
+                    </Grid>
                 </StackPanel>
             </Grid>
             <Grid DataContext="{Binding Session}"
@@ -69,22 +76,26 @@
                     <ColumnDefinition Width="3*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <oxy:PlotView Grid.Row="0" Grid.Column="0" Model="{Binding Model}" />
+                <oxy:PlotView Grid.Row="0" Grid.Column="0" Model="{Binding Model}"
+                              Controller="{Binding PlotController}" />
                 <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Peaks}" SelectedItem="{Binding SelectedPeak}" />
-                <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="5">
                     <Expander Header="{x:Static res:Strings.WaveLength}">
                         <StackPanel>
                             <TextBlock
-                                Text="{Binding WaveLength, StringFormat={x:Static res:Strings.SelectedWaveLength}}" />
-                            <Button Content="{x:Static res:Strings.Select}" />
+                                Text="{Binding WaveLength, StringFormat={x:Static res:Strings.SelectedWaveLength}}"
+                                TextWrapping="Wrap" />
+                            <Button Content="{x:Static res:Strings.Select}"
+                                    Command="{Binding GetWaveLengthCommand}" />
                         </StackPanel>
                     </Expander>
                     <Button Content="{x:Static res:Strings.StartAnalysis}"
-                            Command="{Binding StartAnalysisCommand}" />
+                            Command="{Binding StartAnalysisCommand}" Height="50" />
                     <Expander Header="{x:Static res:Strings.Cleanup}">
                         <StackPanel>
-                            <CheckBox Content="{x:Static res:Strings.DetermineNoiseLevel}"
-                                      IsChecked="{Binding DetermineNoiseLevel, Mode=TwoWay}" />
+                            <CheckBox IsChecked="{Binding DetermineNoiseLevel, Mode=TwoWay}">
+                                <TextBlock Text="{x:Static res:Strings.DetermineNoiseLevel}" TextWrapping="Wrap" />
+                            </CheckBox>
                             <Label Content="{x:Static res:Strings.NoiseLevel}" />
                             <TextBox Text="{Binding NoiseLevel, Mode=TwoWay}"
                                      IsEnabled="{Binding DetermineNoiseLevel, Converter={StaticResource InverseBoolConverter}}" />
@@ -97,7 +108,10 @@
                     </Expander>
                     <Expander Header="{x:Static res:Strings.PeakApproximation}">
                         <StackPanel>
-                            <CheckBox Content="{x:Static res:Strings.DetermineApproximationFunction}" />
+                            <CheckBox>
+                                <TextBlock Text="{x:Static res:Strings.DetermineApproximationFunction}"
+                                           TextWrapping="Wrap" />
+                            </CheckBox>
                             <Label Content="{x:Static res:Strings.ApproximationFunction}" />
                             <ComboBox>
                                 <ComboBoxItem Content="{x:Static res:Strings.Gaussian}" />
