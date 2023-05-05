@@ -18,24 +18,24 @@ public partial class PeakData : ObservableObject
     public XrayPeak XrayPeak { get; }
     public XrayPeak? Approximation { get; private set; }
 
-    [ObservableProperty] private ObservableCollection<NamedItem<IAutoApproximator>> _availableApproximators = new()
+    [ObservableProperty] private ObservableCollection<NamedItem<IApproximator>> _availableApproximators = new()
     {
-        new NamedItem<IAutoApproximator>("Gaussian", new ApproximationGaussian()),
-        new NamedItem<IAutoApproximator>("Lorentz", new ApproximationLorentz()),
-        new NamedItem<IAutoApproximator>("Voigt", new ApproximationVoigt())
+        new NamedItem<IApproximator>("Gaussian", new ApproximationGaussian()),
+        new NamedItem<IApproximator>("Lorentz", new ApproximationLorentz()),
+        new NamedItem<IApproximator>("Voigt", new ApproximationVoigt())
     };
 
     [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ApproximateCommand))]
     private bool _determineApproximator = true;
 
     [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ApproximateCommand))]
-    private IAutoApproximator? _autoApproximator;
+    private NamedItem<IApproximator>? _autoApproximator;
 
     public PeakData(XrayPeak peak)
     {
         Top = peak.GetPeakTop();
-        LeftBoundary = peak.points[0];
-        RightBoundary = peak.points[^1];
+        LeftBoundary = peak.Points[0];
+        RightBoundary = peak.Points[^1];
 
         var analyzer = new XrayPeakAnalyzer(peak);
         Angle = analyzer.GetTopAngle();
@@ -65,6 +65,6 @@ public partial class PeakData : ObservableObject
             return;
         }
 
-        Approximation = AutoApproximator.ApproximatePeakAuto(XrayPeak);
+        Approximation = AutoApproximator.Value.ApproximatePeakAuto(XrayPeak);
     }
 }
