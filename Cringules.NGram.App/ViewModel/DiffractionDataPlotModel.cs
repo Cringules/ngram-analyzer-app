@@ -31,11 +31,11 @@ public partial class DiffractionDataPlotModel : PlotModel
     /// <summary>
     /// Constructs a diffractogram plot model.
     /// </summary>
-    public DiffractionDataPlotModel()
+    public DiffractionDataPlotModel(string title)
     {
         PropertyChanged += UpdatePlot;
 
-        Title = "Diffractogram data";
+        Title = title;
         Axes.Add(_xAxis);
         Axes.Add(_yAxis);
         Series.Add(MainSeries);

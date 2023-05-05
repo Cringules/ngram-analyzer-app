@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.Json.Serialization;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -23,7 +24,7 @@ public partial class WorkSession : ObservableObject
 
     [ObservableProperty] private List<Point> _peakBoundaries = new();
 
-    [ObservableProperty] private List<PeakData> _peaks = new();
+    [ObservableProperty] private ObservableCollection<PeakData> _peaks = new();
     [ObservableProperty] private PeakData? _selectedPeak;
 
     [ObservableProperty] private bool _peakShown;
@@ -72,10 +73,33 @@ public partial class WorkSession : ObservableObject
             xrayPeaks.Add(smoothed.GetPeak(PeakBoundaries[i].X, PeakBoundaries[i + 1].X));
         }
 
-        Peaks = xrayPeaks.Select(peak => new PeakData(peak)).ToList();
+        Peaks = new ObservableCollection<PeakData>(xrayPeaks.Select(peak => new PeakData(peak)));
     }
 
-    partial void OnDataChanged(Xray value)
+    [RelayCommand]
+    private void SelectPeak()
+    {
+        Model.CanSelect = true;
+    }
+
+    [RelayCommand]
+    private void CancelSelection()
+    {
+        Model.CanSelect = false;
+    }
+
+    [RelayCommand]
+    private void AddPeak()
+    {
+        List<double> points = Model.SelectedBoundary.ToList();
+        points.Sort();
+        XrayPeak peak = Data.GetPeak(points[0], points[1]);
+        Peaks.Add(new PeakData(peak));
+
+        Model.CanSelect = false;
+    }
+
+        partial void OnDataChanged(Xray value)
     {
         Model.PlotPoints = value.ToPlotPoints();
     }
