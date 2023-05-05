@@ -82,7 +82,8 @@
                         <oxy:PlotView Model="{Binding Model}"
                                       Controller="{Binding PlotController}" />
                     </TabItem>
-                    <TabItem Header="Peak Plot">
+                    <TabItem Header="Peak Plot"
+                             IsEnabled="{Binding SelectedPeak, Converter={StaticResource NullInverseBoolConverter}}">
                         <oxy:PlotView Model="{Binding PeakModel}" />
                     </TabItem>
                 </TabControl>
@@ -152,7 +153,8 @@
                             </Expander>
                         </ListBoxItem>
                         <ListBoxItem
-                            IsEnabled="{Binding SelectedPeak, Converter={StaticResource NullInverseBoolConverter}}">
+                            IsEnabled="{Binding SelectedPeak, Converter={StaticResource NullInverseBoolConverter}}"
+                            IsSelected="{Binding PeakShown}">
                             <Expander Header="{x:Static res:Strings.PeakApproximation}"
                                       DataContext="{Binding SelectedPeak}">
                                 <StackPanel>

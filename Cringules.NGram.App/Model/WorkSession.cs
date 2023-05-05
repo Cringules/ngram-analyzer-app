@@ -26,12 +26,12 @@ public partial class WorkSession : ObservableObject
     [ObservableProperty] private List<PeakData> _peaks = new();
     [ObservableProperty] private PeakData? _selectedPeak;
 
-    [ObservableProperty] private bool _peakShown = false;
+    [ObservableProperty] private bool _peakShown;
 
     [JsonIgnore] public DiffractogramPlotModel Model { get; } = new();
     [JsonIgnore] public PlotController PlotController { get; } = new();
 
-    [JsonIgnore] public DiffractogramPlotModel PeakModel { get; } = new();
+    [JsonIgnore] public PeakPlotModel PeakModel { get; } = new();
 
     public WorkSession(PlotData data)
     {
@@ -63,7 +63,7 @@ public partial class WorkSession : ObservableObject
     {
         var xray = new Xray(Data.Points.Select(point => new Point(point.Angle, point.Intensity)));
         Xray smoothed = xray.SmoothXray();
-        
+
         PeakBoundaries = smoothed.GetPeakBoundaries();
         Model.PeakBoundaries = PeakBoundaries;
 
@@ -78,12 +78,17 @@ public partial class WorkSession : ObservableObject
 
     partial void OnDataChanged(PlotData? value)
     {
-        Model.MainPlotPoints = value?.Points;
+        Model.PlotPoints = value?.Points;
         // Peaks = PeakFinder.FindPeaks(value);
     }
 
     partial void OnSelectedPeakChanged(PeakData? value)
     {
-        Model.SelectedPeak = value;
+        if (value == null)
+        {
+            PeakShown = false;
+        }
+
+        PeakModel.SelectedPeak = value;
     }
 }
