@@ -133,22 +133,19 @@
                                         <TextBlock Text="{x:Static res:Strings.DetermineSmoothingDegree}"
                                                    TextWrapping="Wrap" />
                                     </CheckBox>
-                                    <Label Content="{x:Static res:Strings.SmoothingDegree}" />
-                                    <DockPanel
-                                        IsEnabled="{Binding DetermineSmoothingDegree, Converter={StaticResource InverseBoolConverter}}">
-                                        <TextBox DockPanel.Dock="Right"
-                                                 Text="{Binding SmoothingDegree, UpdateSourceTrigger=PropertyChanged}"
-                                                 Width="35" TextAlignment="Right" />
-                                        <Slider Minimum="0" Maximum="100"
-                                                Value="{Binding SmoothingDegree, Mode=TwoWay}" />
-                                    </DockPanel>
+                                    <local:NumericSlider
+                                        IsEnabled="{Binding DetermineSmoothingDegree, Converter={StaticResource InverseBoolConverter}}"
+                                        Label="{x:Static res:Strings.SmoothingDegree}"
+                                        Value="{Binding SmoothingDegree, Mode=TwoWay}" Minimum="0" Maximum="100" />
                                 </StackPanel>
                             </Expander>
                         </ListBoxItem>
                         <ListBoxItem>
                             <Expander Header="{x:Static res:Strings.Peaks}">
                                 <StackPanel>
-                                    <Button Content="{x:Static res:Strings.AddPeak}" />
+                                    <Button Content="Select" Command="{Binding SelectPeakCommand}"></Button>
+                                    <Button Content="Cancel" Command="{Binding CancelSelectionCommand}"></Button>
+                                    <Button Content="{x:Static res:Strings.AddPeak}" Command="{Binding AddPeakCommand}" />
                                 </StackPanel>
                             </Expander>
                         </ListBoxItem>
@@ -167,8 +164,26 @@
                                               SelectedItem="{Binding Approximator}"
                                               IsEnabled="{Binding DetermineApproximator, Converter={StaticResource InverseBoolConverter}}"
                                               DisplayMemberPath="Name" />
+                                    <CheckBox IsChecked="{Binding AutomaticApproximation}">
+                                        <TextBlock Text="Determine coefficients automatically"
+                                                   TextWrapping="Wrap" />
+                                    </CheckBox>
                                     <Label Content="{x:Static res:Strings.Coefficients}" />
-                                    <TextBox />
+                                    <StackPanel
+                                        IsEnabled="{Binding AutomaticApproximation, Converter={StaticResource InverseBoolConverter}}">
+                                        <local:NumericSlider Label="Height"
+                                                             Value="{Binding Height, UpdateSourceTrigger=PropertyChanged}"
+                                                             Minimum="0" Maximum="100" />
+                                        <local:NumericSlider Label="Width"
+                                                             Value="{Binding Width, UpdateSourceTrigger=PropertyChanged}"
+                                                             Minimum="0" Maximum="100" />
+                                        <local:NumericSlider Label="Corr"
+                                                             Value="{Binding Corr, UpdateSourceTrigger=PropertyChanged}"
+                                                             Minimum="0" Maximum="100" />
+                                        <local:NumericSlider Label="Lambda"
+                                                             Value="{Binding Lambda, UpdateSourceTrigger=PropertyChanged}"
+                                                             Minimum="0" Maximum="10" />
+                                    </StackPanel>
                                 </StackPanel>
                             </Expander>
                         </ListBoxItem>

@@ -9,6 +9,10 @@ public partial class PeakPlotModel : DiffractionDataPlotModel
 {
     [ObservableProperty] private PeakData? _selectedPeak;
 
+    public PeakPlotModel() : base("Peak Data")
+    {
+    }
+
     partial void OnSelectedPeakChanged(PeakData? value)
     {
         Annotations.Clear();
