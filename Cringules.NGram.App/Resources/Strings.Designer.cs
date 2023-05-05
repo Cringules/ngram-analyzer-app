@@ -134,9 +134,9 @@ namespace Cringules.NGram.App.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Determine noise level.
         /// </summary>
-        public static string DetermineNoiseLevel {
+        public static string DetermineSmoothingDegree {
             get {
-                return ResourceManager.GetString("DetermineNoiseLevel", resourceCulture);
+                return ResourceManager.GetString("DetermineSmoothingDegree", resourceCulture);
             }
         }
         
@@ -182,15 +182,6 @@ namespace Cringules.NGram.App.Resources {
         public static string Lorentzian {
             get {
                 return ResourceManager.GetString("Lorentzian", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Noise level.
-        /// </summary>
-        public static string NoiseLevel {
-            get {
-                return ResourceManager.GetString("NoiseLevel", resourceCulture);
             }
         }
         
@@ -254,6 +245,15 @@ namespace Cringules.NGram.App.Resources {
         public static string SelectedWaveLength {
             get {
                 return ResourceManager.GetString("SelectedWaveLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Noise level.
+        /// </summary>
+        public static string SmoothingDegree {
+            get {
+                return ResourceManager.GetString("SmoothingDegree", resourceCulture);
             }
         }
         

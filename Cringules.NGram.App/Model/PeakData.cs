@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Cringules.NGram.Lib;
 
@@ -16,6 +17,13 @@ public partial class PeakData : ObservableObject
 
     public XrayPeak XrayPeak { get; }
     public XrayPeak? Approximation { get; private set; }
+
+    [ObservableProperty] private ObservableCollection<NamedItem<IAutoApproximator>> _availableApproximators = new()
+    {
+        new NamedItem<IAutoApproximator>("Gaussian", new ApproximationGaussian()),
+        new NamedItem<IAutoApproximator>("Lorentz", new ApproximationLorentz()),
+        new NamedItem<IAutoApproximator>("Voigt", new ApproximationVoigt())
+    };
 
     [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ApproximateCommand))]
     private bool _determineApproximator = true;

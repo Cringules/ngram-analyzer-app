@@ -17,17 +17,21 @@ public partial class WorkSession : ObservableObject
 
     [ObservableProperty] private double _waveLength;
 
-    [ObservableProperty] private bool _determineNoiseLevel;
+    [ObservableProperty] private bool _determineSmoothingDegree;
 
-    [ObservableProperty] private int _noiseLevel;
+    [ObservableProperty] private int _smoothingDegree;
 
     [ObservableProperty] private List<Point> _peakBoundaries = new();
 
     [ObservableProperty] private List<PeakData> _peaks = new();
     [ObservableProperty] private PeakData? _selectedPeak;
 
+    [ObservableProperty] private bool _peakShown = false;
+
     [JsonIgnore] public DiffractogramPlotModel Model { get; } = new();
     [JsonIgnore] public PlotController PlotController { get; } = new();
+
+    [JsonIgnore] public DiffractogramPlotModel PeakModel { get; } = new();
 
     public WorkSession(PlotData data)
     {

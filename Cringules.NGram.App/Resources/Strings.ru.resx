@@ -44,10 +44,10 @@
     <data name="Cleanup" xml:space="preserve">
         <value>Очистка</value>
     </data>
-    <data name="DetermineNoiseLevel" xml:space="preserve">
+    <data name="DetermineSmoothingDegree" xml:space="preserve">
         <value>Автоматически определить уровень шума</value>
     </data>
-    <data name="NoiseLevel" xml:space="preserve">
+    <data name="SmoothingDegree" xml:space="preserve">
         <value>Уровень шума</value>
     </data>
     <data name="Peaks" xml:space="preserve">
