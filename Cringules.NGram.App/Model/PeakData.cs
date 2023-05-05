@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Cringules.NGram.Lib;
+using Cringules.NGram.Lib.Approximation;
 
 namespace Cringules.NGram.App.Model;
 
