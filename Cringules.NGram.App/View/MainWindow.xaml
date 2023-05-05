@@ -77,8 +77,15 @@
                     <ColumnDefinition Width="3*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <oxy:PlotView Grid.Row="0" Grid.Column="0" Model="{Binding Model}"
-                              Controller="{Binding PlotController}" />
+                <TabControl SelectedIndex="{Binding PeakShown}">
+                    <TabItem Header="Main Plot">
+                        <oxy:PlotView Model="{Binding Model}"
+                                      Controller="{Binding PlotController}" />
+                    </TabItem>
+                    <TabItem Header="Peak Plot">
+                        <oxy:PlotView Model="{Binding PeakModel}" />
+                    </TabItem>
+                </TabControl>
                 <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Peaks}"
                           SelectedItem="{Binding SelectedPeak}" />
                 <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="5">
@@ -121,13 +128,19 @@
                         <ListBoxItem>
                             <Expander Header="{x:Static res:Strings.Cleanup}">
                                 <StackPanel>
-                                    <CheckBox IsChecked="{Binding DetermineNoiseLevel, Mode=TwoWay}">
-                                        <TextBlock Text="{x:Static res:Strings.DetermineNoiseLevel}"
+                                    <CheckBox IsChecked="{Binding DetermineSmoothingDegree, Mode=TwoWay}">
+                                        <TextBlock Text="{x:Static res:Strings.DetermineSmoothingDegree}"
                                                    TextWrapping="Wrap" />
                                     </CheckBox>
-                                    <Label Content="{x:Static res:Strings.NoiseLevel}" />
-                                    <TextBox Text="{Binding NoiseLevel, Mode=TwoWay}"
-                                             IsEnabled="{Binding DetermineNoiseLevel, Converter={StaticResource InverseBoolConverter}}" />
+                                    <Label Content="{x:Static res:Strings.SmoothingDegree}" />
+                                    <DockPanel
+                                        IsEnabled="{Binding DetermineSmoothingDegree, Converter={StaticResource InverseBoolConverter}}">
+                                        <TextBox DockPanel.Dock="Right"
+                                                 Text="{Binding SmoothingDegree, UpdateSourceTrigger=PropertyChanged}"
+                                                 Width="35" TextAlignment="Right" />
+                                        <Slider Minimum="0" Maximum="100"
+                                                Value="{Binding SmoothingDegree, Mode=TwoWay}" />
+                                    </DockPanel>
                                 </StackPanel>
                             </Expander>
                         </ListBoxItem>
@@ -138,7 +151,8 @@
                                 </StackPanel>
                             </Expander>
                         </ListBoxItem>
-                        <ListBoxItem IsEnabled="{Binding SelectedPeak, Converter={StaticResource NullInverseBoolConverter}}">
+                        <ListBoxItem
+                            IsEnabled="{Binding SelectedPeak, Converter={StaticResource NullInverseBoolConverter}}">
                             <Expander Header="{x:Static res:Strings.PeakApproximation}"
                                       DataContext="{Binding SelectedPeak}">
                                 <StackPanel>

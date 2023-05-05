@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Documents;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Cringules.NGram.Api;
 using Cringules.NGram.App.Model;
@@ -22,6 +23,8 @@ public partial class DiffractogramPlotModel : PlotModel
     [ObservableProperty] private List<Point>? _peakBoundaries;
     [ObservableProperty] private PeakData? _selectedPeak;
 
+    [ObservableProperty] private List<Point> _selectedBoundary = new(2);
+
     /// <summary>
     /// The main series of the plot.
     /// </summary>
@@ -39,6 +42,8 @@ public partial class DiffractogramPlotModel : PlotModel
         Title = "Intensity", Unit = "a.u.", Position = AxisPosition.Left, IsPanEnabled = false,
         IsZoomEnabled = false, Minimum = 0
     };
+    
+    private List<LineAnnotation> _selectionAnnotations = new(2);
 
     /// <summary>
     /// Constructs a diffractogram plot model.
@@ -90,5 +95,31 @@ public partial class DiffractogramPlotModel : PlotModel
     private void UpdatePlot(object? sender, PropertyChangedEventArgs propertyChangedEventArgs)
     {
         InvalidatePlot(true);
+    }
+
+    public LineAnnotation AddSelectedPoint()
+    {
+        if (_selectionAnnotations.Count == 2)
+        {
+            Annotations.Remove(_selectionAnnotations[0]);
+            Annotations.Remove(_selectionAnnotations[1]);
+            _selectionAnnotations.Clear();
+            SelectedBoundary.Clear();
+        }
+
+        var annotation = new LineAnnotation()
+        {
+            StrokeThickness = 2,
+            LineStyle = LineStyle.Solid,
+            Color = OxyColors.Red,
+            Type = LineAnnotationType.Vertical
+        };
+        
+        _selectionAnnotations.Add(annotation);
+        Annotations.Add(annotation);
+
+        InvalidatePlot(true);
+
+        return annotation;
     }
 }

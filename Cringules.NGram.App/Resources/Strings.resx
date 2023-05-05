@@ -51,10 +51,10 @@
     <data name="Cleanup" xml:space="preserve">
         <value>Cleanup</value>
     </data>
-    <data name="DetermineNoiseLevel" xml:space="preserve">
+    <data name="DetermineSmoothingDegree" xml:space="preserve">
         <value>Determine noise level</value>
     </data>
-    <data name="NoiseLevel" xml:space="preserve">
+    <data name="SmoothingDegree" xml:space="preserve">
         <value>Noise level</value>
     </data>
     <data name="Peaks" xml:space="preserve">

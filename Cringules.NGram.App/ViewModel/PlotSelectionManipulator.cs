@@ -14,16 +14,6 @@ public class PlotSelectionManipulator : MouseManipulator
         _plotModel = plotModel;
     }
 
-    private void CreateLine(OxyMouseEventArgs e)
-    {
-        
-    }
-
-    public override void Completed(OxyMouseEventArgs e)
-    {
-        base.Completed(e);
-    }
-
     public override void Delta(OxyMouseEventArgs e)
     {
         base.Delta(e);
@@ -40,16 +30,9 @@ public class PlotSelectionManipulator : MouseManipulator
     public override void Started(OxyMouseEventArgs e)
     {
         base.Started(e);
-        
-        _currentAnnotation = new LineAnnotation()
-        {
-            StrokeThickness = 2,
-            LineStyle = LineStyle.Solid,
-            Color = OxyColors.Red,
-            Type = LineAnnotationType.Vertical
-        };
-        _plotModel.Annotations.Add(_currentAnnotation);
-        
+
+        _currentAnnotation = _plotModel.AddSelectedPoint();
+
         Delta(e);
     }
 }
