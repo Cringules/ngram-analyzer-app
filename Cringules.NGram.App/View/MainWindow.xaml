@@ -164,7 +164,7 @@
                                     </CheckBox>
                                     <Label Content="{x:Static res:Strings.ApproximationFunction}" />
                                     <ComboBox ItemsSource="{Binding AvailableApproximators}"
-                                              SelectedItem="{Binding AutoApproximator}"
+                                              SelectedItem="{Binding Approximator}"
                                               IsEnabled="{Binding DetermineApproximator, Converter={StaticResource InverseBoolConverter}}"
                                               DisplayMemberPath="Name" />
                                     <Label Content="{x:Static res:Strings.Coefficients}" />

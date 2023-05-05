@@ -15,7 +15,7 @@ public static class DataConversionExtensions
 
     public static IEnumerable<DataPoint> ToPlotPoints(this Xray xray)
     {
-        return xray.points.Select(point => new DataPoint(point.X, point.Y));
+        return xray.Points.Select(point => new DataPoint(point.X, point.Y));
     }
     
     public static IEnumerable<DataPoint> ToPlotPoints(this XrayPeak peak)

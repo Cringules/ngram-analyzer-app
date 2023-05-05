@@ -75,9 +75,9 @@ public partial class WorkSession : ObservableObject
         Peaks = xrayPeaks.Select(peak => new PeakData(peak)).ToList();
     }
 
-    partial void OnDataChanged(Xray? value)
+    partial void OnDataChanged(Xray value)
     {
-        Model.PlotPoints = value?.ToPlotPoints();
+        Model.PlotPoints = value.ToPlotPoints();
     }
 
     partial void OnSelectedPeakChanged(PeakData? value)
