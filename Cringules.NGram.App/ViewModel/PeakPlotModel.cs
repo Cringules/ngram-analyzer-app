@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Cringules.NGram.App.Model;
 using OxyPlot;
 using OxyPlot.Annotations;
@@ -9,7 +8,7 @@ namespace Cringules.NGram.App.ViewModel;
 public partial class PeakPlotModel : DiffractionDataPlotModel
 {
     [ObservableProperty] private PeakData? _selectedPeak;
-    
+
     partial void OnSelectedPeakChanged(PeakData? value)
     {
         Annotations.Clear();
@@ -33,6 +32,6 @@ public partial class PeakPlotModel : DiffractionDataPlotModel
         annotation.Points.Add(new DataPoint(value.RightBoundary.X, value.RightBoundary.Y));
         Annotations.Add(annotation);
 
-        MainSeries.ItemsSource = value.XrayPeak.points.Select(point => new DataPoint(point.X, point.Y));
+        PlotPoints = value.XrayPeak.ToPlotPoints();
     }
 }

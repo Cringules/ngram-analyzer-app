@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Cringules.NGram.Api;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
@@ -12,22 +10,22 @@ namespace Cringules.NGram.App.ViewModel;
 [ObservableObject]
 public partial class DiffractionDataPlotModel : PlotModel
 {
-    [ObservableProperty] private IEnumerable<PlotPoint>? _plotPoints;
+    [ObservableProperty] private IEnumerable<DataPoint>? _plotPoints;
 
     /// <summary>
     /// The main series of the plot.
     /// </summary>
     public LineSeries MainSeries { get; } = new();
 
-    protected readonly LinearAxis XAxis = new()
+    private readonly LinearAxis _xAxis = new()
     {
         Title = "Angle", Unit = "deg", Position = AxisPosition.Bottom, IsPanEnabled = false, IsZoomEnabled = false
     };
 
-    protected readonly LinearAxis YAxis = new()
+    private readonly LinearAxis _yAxis = new()
     {
         Title = "Intensity", Unit = "a.u.", Position = AxisPosition.Left, IsPanEnabled = false,
-        IsZoomEnabled = false, Minimum = 0
+        IsZoomEnabled = false
     };
 
     /// <summary>
@@ -38,14 +36,14 @@ public partial class DiffractionDataPlotModel : PlotModel
         PropertyChanged += UpdatePlot;
 
         Title = "Diffractogram data";
-        Axes.Add(XAxis);
-        Axes.Add(YAxis);
+        Axes.Add(_xAxis);
+        Axes.Add(_yAxis);
         Series.Add(MainSeries);
     }
 
-    partial void OnPlotPointsChanged(IEnumerable<PlotPoint>? value)
+    partial void OnPlotPointsChanged(IEnumerable<DataPoint>? value)
     {
-        MainSeries.ItemsSource = value?.Select(point => new DataPoint(point.Angle, point.Intensity));
+        MainSeries.ItemsSource = value;
     }
 
     private void UpdatePlot(object? sender, PropertyChangedEventArgs propertyChangedEventArgs)

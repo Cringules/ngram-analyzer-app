@@ -158,12 +158,15 @@
                             <Expander Header="{x:Static res:Strings.PeakApproximation}"
                                       DataContext="{Binding SelectedPeak}">
                                 <StackPanel>
-                                    <CheckBox>
+                                    <CheckBox IsChecked="{Binding DetermineApproximator}">
                                         <TextBlock Text="{x:Static res:Strings.DetermineApproximationFunction}"
                                                    TextWrapping="Wrap" />
                                     </CheckBox>
                                     <Label Content="{x:Static res:Strings.ApproximationFunction}" />
-                                    <ComboBox ItemsSource="{Binding AvailableApproximators}" DisplayMemberPath="Name" />
+                                    <ComboBox ItemsSource="{Binding AvailableApproximators}"
+                                              SelectedItem="{Binding AutoApproximator}"
+                                              IsEnabled="{Binding DetermineApproximator, Converter={StaticResource InverseBoolConverter}}"
+                                              DisplayMemberPath="Name" />
                                     <Label Content="{x:Static res:Strings.Coefficients}" />
                                     <TextBox />
                                 </StackPanel>

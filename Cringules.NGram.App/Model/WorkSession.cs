@@ -13,7 +13,7 @@ namespace Cringules.NGram.App.Model;
 
 public partial class WorkSession : ObservableObject
 {
-    [ObservableProperty] private PlotData _data = null!;
+    [ObservableProperty] private Xray _data;
 
     [ObservableProperty] private double _waveLength;
 
@@ -35,7 +35,7 @@ public partial class WorkSession : ObservableObject
 
     public WorkSession(PlotData data)
     {
-        Data = data;
+        Data = data.ToXray();
         PlotController.BindMouseDown(OxyMouseButton.Left,
             new DelegatePlotCommand<OxyMouseDownEventArgs>((view, controller, args) =>
                 controller.AddMouseManipulator(view, new PlotSelectionManipulator(view, Model), args)));
@@ -55,14 +55,13 @@ public partial class WorkSession : ObservableObject
     [RelayCommand]
     private void CleanUpData()
     {
-        Data = PlotCleaner.GetCleanedPlot(Data);
+        
     }
 
     [RelayCommand]
     private void StartAnalysis()
     {
-        var xray = new Xray(Data.Points.Select(point => new Point(point.Angle, point.Intensity)));
-        Xray smoothed = xray.SmoothXray();
+        Xray smoothed = Data.SmoothXray();
 
         PeakBoundaries = smoothed.GetPeakBoundaries();
         Model.PeakBoundaries = PeakBoundaries;
@@ -76,10 +75,9 @@ public partial class WorkSession : ObservableObject
         Peaks = xrayPeaks.Select(peak => new PeakData(peak)).ToList();
     }
 
-    partial void OnDataChanged(PlotData? value)
+    partial void OnDataChanged(Xray? value)
     {
-        Model.PlotPoints = value?.Points;
-        // Peaks = PeakFinder.FindPeaks(value);
+        Model.PlotPoints = value?.ToPlotPoints();
     }
 
     partial void OnSelectedPeakChanged(PeakData? value)

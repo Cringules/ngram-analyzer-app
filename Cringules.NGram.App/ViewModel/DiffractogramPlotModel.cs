@@ -1,15 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Windows.Documents;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Cringules.NGram.Api;
-using Cringules.NGram.App.Model;
 using Cringules.NGram.Lib;
 using OxyPlot;
 using OxyPlot.Annotations;
-using OxyPlot.Axes;
-using OxyPlot.Series;
 
 namespace Cringules.NGram.App.ViewModel;
 
@@ -22,7 +15,7 @@ public partial class DiffractogramPlotModel : DiffractionDataPlotModel
 
     [ObservableProperty] private List<Point> _selectedBoundary = new(2);
 
-    private List<LineAnnotation> _selectionAnnotations = new(2);
+    private readonly List<LineAnnotation> _selectionAnnotations = new(2);
 
     public LineAnnotation AddSelectedPoint()
     {
