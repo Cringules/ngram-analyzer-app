@@ -29,7 +29,14 @@ public partial class PeakData : ObservableObject
     private bool _determineApproximator = true;
 
     [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ApproximateCommand))]
-    private NamedItem<IApproximator>? _autoApproximator;
+    private NamedItem<IApproximator>? _approximator;
+
+    [ObservableProperty] private bool _automaticApproximation = true;
+
+    [ObservableProperty] private double _height;
+    [ObservableProperty] private double _width;
+    [ObservableProperty] private double _corr;
+    [ObservableProperty] private double _lambda;
 
     public PeakData(XrayPeak peak)
     {
@@ -48,7 +55,7 @@ public partial class PeakData : ObservableObject
 
     private bool CanApproximate()
     {
-        return DetermineApproximator || AutoApproximator != null;
+        return DetermineApproximator || Approximator != null;
     }
 
     [RelayCommand(CanExecute = nameof(CanApproximate))]
@@ -56,15 +63,20 @@ public partial class PeakData : ObservableObject
     {
         if (DetermineApproximator)
         {
-            // TODO: Implement automatic approximation
+            // TODO: Implement automatic approximator selection
             return;
         }
 
-        if (AutoApproximator == null)
+        if (Approximator == null)
         {
             return;
         }
 
-        Approximation = AutoApproximator.Value.ApproximatePeakAuto(XrayPeak);
+        if (AutomaticApproximation)
+        {
+            Approximation = Approximator.Value.ApproximatePeakAuto(XrayPeak);
+        }
+
+        Approximation = Approximator.Value.ApproximatePeakManual(XrayPeak, Height, Width, Corr, Lambda);
     }
 }
