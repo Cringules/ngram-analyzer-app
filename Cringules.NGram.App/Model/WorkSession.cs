@@ -18,11 +18,11 @@ public partial class WorkSession : ObservableObject
 
     [ObservableProperty] private double _waveLength;
 
-    [ObservableProperty] private bool _determineSmoothingDegree;
-    [ObservableProperty] private int _minSmoothingDegree = 3;
-    [ObservableProperty] private int _maxSmoothingDegree;
+    [ObservableProperty] private int _minSmoothingDegree = 50;
+    [ObservableProperty] private int _maxSmoothingDegree = 120;
 
-    [ObservableProperty] private int _smoothingDegree = 3;
+    [ObservableProperty] private int _smoothingDegree = 70;
+    [ObservableProperty] private Xray? _smoothedData;
 
     [ObservableProperty] private List<Point> _peakBoundaries = new();
 
@@ -63,16 +63,16 @@ public partial class WorkSession : ObservableObject
     [RelayCommand]
     private void StartAnalysis()
     {
-        Xray smoothed = Data.SmoothXray(SmoothingDegree);
-        Model.SmoothedPoints = smoothed.ToPlotPoints();
+        SmoothedData = Data.SmoothXray(SmoothingDegree);
+        Model.SmoothedPoints = SmoothedData.ToPlotPoints();
 
-        PeakBoundaries = smoothed.GetPeakBoundaries();
+        PeakBoundaries = SmoothedData.GetPeakBoundaries();
         Model.PeakBoundaries = PeakBoundaries;
 
         var xrayPeaks = new List<XrayPeak>();
         for (var i = 0; i < PeakBoundaries.Count - 1; i++)
         {
-            xrayPeaks.Add(smoothed.GetPeak(PeakBoundaries[i].X, PeakBoundaries[i + 1].X));
+            xrayPeaks.Add(SmoothedData.GetPeak(PeakBoundaries[i].X, PeakBoundaries[i + 1].X));
         }
 
         Peaks = new ObservableCollection<PeakData>(xrayPeaks.Select(peak => new PeakData(peak)));
@@ -95,7 +95,7 @@ public partial class WorkSession : ObservableObject
     {
         List<double> points = Model.SelectedBoundary.ToList();
         points.Sort();
-        XrayPeak peak = Data.GetPeak(points[0], points[1]);
+        XrayPeak peak = (SmoothedData ?? Data).GetPeak(points[0], points[1]);
         Peaks.Add(new PeakData(peak));
 
         Model.CanSelect = false;
@@ -104,7 +104,6 @@ public partial class WorkSession : ObservableObject
     partial void OnDataChanged(Xray value)
     {
         Model.PlotPoints = value.ToPlotPoints();
-        MaxSmoothingDegree = value.Points.Count;
     }
 
     partial void OnSelectedPeakChanged(PeakData? value)
