@@ -60,6 +60,15 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to a.u..
+        /// </summary>
+        public static string AbsoluteUnits {
+            get {
+                return ResourceManager.GetString("AbsoluteUnits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Peak.
         /// </summary>
         public static string AddPeak {
@@ -78,6 +87,24 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Angle.
+        /// </summary>
+        public static string Angle {
+            get {
+                return ResourceManager.GetString("Angle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0:F4}°.
+        /// </summary>
+        public static string AngleDegreesTemplate {
+            get {
+                return ResourceManager.GetString("AngleDegreesTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Approximation function.
         /// </summary>
         public static string ApproximationFunction {
@@ -87,20 +114,11 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cauchy.
+        ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        public static string Cauchy {
+        public static string Cancel {
             get {
-                return ResourceManager.GetString("Cauchy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cleanup.
-        /// </summary>
-        public static string Cleanup {
-            get {
-                return ResourceManager.GetString("Cleanup", resourceCulture);
+                return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
         
@@ -123,6 +141,33 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Converting value to cell is not supported.
+        /// </summary>
+        public static string ConvertingValueToCellNotSupportedError {
+            get {
+                return ResourceManager.GetString("ConvertingValueToCellNotSupportedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Correlation.
+        /// </summary>
+        public static string Corr {
+            get {
+                return ResourceManager.GetString("Corr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to °.
+        /// </summary>
+        public static string Degrees {
+            get {
+                return ResourceManager.GetString("Degrees", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Determine best peak approximation function.
         /// </summary>
         public static string DetermineApproximationFunction {
@@ -132,11 +177,56 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Determine coefficients automatically.
+        /// </summary>
+        public static string DetermineCoefficientsAutomatically {
+            get {
+                return ResourceManager.GetString("DetermineCoefficientsAutomatically", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Determine noise level.
         /// </summary>
         public static string DetermineSmoothingDegree {
             get {
                 return ResourceManager.GetString("DetermineSmoothingDegree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diffractogram Data.
+        /// </summary>
+        public static string DiffractogramDataHeader {
+            get {
+                return ResourceManager.GetString("DiffractogramDataHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distance.
+        /// </summary>
+        public static string Distance {
+            get {
+                return ResourceManager.GetString("Distance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0:F5} Å.
+        /// </summary>
+        public static string DistanceAngstromTemplate {
+            get {
+                return ResourceManager.GetString("DistanceAngstromTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
             }
         }
         
@@ -168,11 +258,56 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Height.
+        /// </summary>
+        public static string Height {
+            get {
+                return ResourceManager.GetString("Height", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Import Data....
         /// </summary>
         public static string ImportData {
             get {
                 return ResourceManager.GetString("ImportData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Intensity.
+        /// </summary>
+        public static string Intensity {
+            get {
+                return ResourceManager.GetString("Intensity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0:F2} a.u..
+        /// </summary>
+        public static string IntensityAbsoluteUnitsTemplate {
+            get {
+                return ResourceManager.GetString("IntensityAbsoluteUnitsTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Integral Intensity.
+        /// </summary>
+        public static string IntergralIntensity {
+            get {
+                return ResourceManager.GetString("IntergralIntensity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lambda.
+        /// </summary>
+        public static string Lambda {
+            get {
+                return ResourceManager.GetString("Lambda", resourceCulture);
             }
         }
         
@@ -186,11 +321,47 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Main Plot.
+        /// </summary>
+        public static string MainPlotTabHeader {
+            get {
+                return ResourceManager.GetString("MainPlotTabHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NGram Analyzer.
+        /// </summary>
+        public static string MainWindowTitle {
+            get {
+                return ResourceManager.GetString("MainWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum Intensity.
+        /// </summary>
+        public static string MaxIntensity {
+            get {
+                return ResourceManager.GetString("MaxIntensity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Open....
         /// </summary>
         public static string Open {
             get {
                 return ResourceManager.GetString("Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Peak Addition.
+        /// </summary>
+        public static string PeakAddition {
+            get {
+                return ResourceManager.GetString("PeakAddition", resourceCulture);
             }
         }
         
@@ -204,11 +375,20 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Peaks.
+        ///   Looks up a localized string similar to Peak Data.
         /// </summary>
-        public static string Peaks {
+        public static string PeakDataHeader {
             get {
-                return ResourceManager.GetString("Peaks", resourceCulture);
+                return ResourceManager.GetString("PeakDataHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Peak Plot.
+        /// </summary>
+        public static string PeakPlotTabHeader {
+            get {
+                return ResourceManager.GetString("PeakPlotTabHeader", resourceCulture);
             }
         }
         
@@ -240,7 +420,16 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selected wave length: {0:F5}.
+        ///   Looks up a localized string similar to Selected value.
+        /// </summary>
+        public static string SelectedValue {
+            get {
+                return ResourceManager.GetString("SelectedValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected wave length: {0:F5} Å.
         /// </summary>
         public static string SelectedWaveLength {
             get {
@@ -249,7 +438,16 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Noise level.
+        ///   Looks up a localized string similar to Smoothing.
+        /// </summary>
+        public static string Smoothing {
+            get {
+                return ResourceManager.GetString("Smoothing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Smoothing Degree.
         /// </summary>
         public static string SmoothingDegree {
             get {
@@ -267,6 +465,15 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Voigt.
+        /// </summary>
+        public static string Voigt {
+            get {
+                return ResourceManager.GetString("Voigt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Wave Length.
         /// </summary>
         public static string WaveLength {
@@ -276,11 +483,29 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wave Length Selection.
+        /// </summary>
+        public static string WaveLengthWindowTitle {
+            get {
+                return ResourceManager.GetString("WaveLengthWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome to NGram Analyzer! Use buttons below to start working!.
         /// </summary>
         public static string Welcome {
             get {
                 return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        public static string Width {
+            get {
+                return ResourceManager.GetString("Width", resourceCulture);
             }
         }
     }

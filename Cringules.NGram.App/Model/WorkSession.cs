@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.Json.Serialization;
@@ -8,6 +9,7 @@ using Cringules.NGram.Api;
 using Cringules.NGram.App.View;
 using Cringules.NGram.App.ViewModel;
 using Cringules.NGram.Lib;
+using Microsoft.Extensions.Configuration;
 using OxyPlot;
 
 namespace Cringules.NGram.App.Model;
@@ -31,6 +33,8 @@ public partial class WorkSession : ObservableObject
 
     [ObservableProperty] private bool _peakShown;
 
+    private WaveLengthSelection? _waveLengthSelection;
+
     [JsonIgnore] public DiffractogramPlotModel Model { get; } = new();
     [JsonIgnore] public PlotController PlotController { get; } = new();
 
@@ -42,12 +46,28 @@ public partial class WorkSession : ObservableObject
         PlotController.BindMouseDown(OxyMouseButton.Left,
             new DelegatePlotCommand<OxyMouseDownEventArgs>((view, controller, args) =>
                 controller.AddMouseManipulator(view, new PlotSelectionManipulator(view, Model), args)));
+        
+        IConfiguration config = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile(@"appsettings.json")
+            .Build();
+        _waveLengthSelection = config.GetSection(@"WaveLengthSelection").Get<WaveLengthSelection>();
+        WaveLength = _waveLengthSelection?.DefaultValue ?? 0;
+
+        Model.PropertyChanged += (_, _) => SelectPeakCommand.NotifyCanExecuteChanged();
+        Model.PropertyChanged += (_, _) => CancelSelectionCommand.NotifyCanExecuteChanged();
+        Model.PropertyChanged += (_, _) => AddPeakCommand.NotifyCanExecuteChanged();
     }
 
     [RelayCommand]
     private void GetWaveLength()
     {
         var viewModel = new WaveLengthViewModel() {SelectedValue = WaveLength};
+        if (_waveLengthSelection != null)
+        {
+            viewModel.WaveElements = new ObservableCollection<WaveElement>(_waveLengthSelection.Values);
+        }
+        
         var window = new WaveLengthWindow() {DataContext = viewModel};
         if ((window.ShowDialog() ?? false) && viewModel.SelectedValue.HasValue)
         {
@@ -78,19 +98,34 @@ public partial class WorkSession : ObservableObject
         Peaks = new ObservableCollection<PeakData>(xrayPeaks.Select(peak => new PeakData(peak)));
     }
 
-    [RelayCommand]
+    private bool CanSelectPeak()
+    {
+        return !Model.CanSelect;
+    }
+
+    [RelayCommand(CanExecute = nameof(CanSelectPeak))]
     private void SelectPeak()
     {
         Model.CanSelect = true;
     }
+    
+    private bool CanCancelSelection()
+    {
+        return Model.CanSelect;
+    }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanCancelSelection))]
     private void CancelSelection()
     {
         Model.CanSelect = false;
     }
+    
+    private bool CanAddPeak()
+    {
+        return Model.FinishedSelection;
+    }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanAddPeak))]
     private void AddPeak()
     {
         List<double> points = Model.SelectedBoundary.ToList();

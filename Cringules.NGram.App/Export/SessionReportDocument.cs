@@ -1,5 +1,5 @@
 ﻿using Cringules.NGram.App.Model;
-using Cringules.NGram.Lib;
+using Cringules.NGram.App.Resources;
 using OxyPlot;
 using OxyPlot.SkiaSharp;
 using QuestPDF.Drawing;
@@ -44,7 +44,7 @@ public class SessionReportDocument : IDocument
                         canvas.Clear(model.Background.ToSKColor());
                         model.Render(context, new OxyRect(0, 0, space.Width / dpiScale, space.Height / dpiScale));
                     });
-                
+
                 column.Item().Table(table =>
                 {
                     table.ColumnsDefinition(columns =>
@@ -54,21 +54,22 @@ public class SessionReportDocument : IDocument
                         columns.RelativeColumn();
                         columns.RelativeColumn();
                     });
-                    
+
                     table.Header(header =>
                     {
-                        header.Cell().Text("Angle");
-                        header.Cell().Text("Distance");
-                        header.Cell().Text("MaxIntensity");
-                        header.Cell().Text("IntegralIntensity");
+                        header.Cell().Text(Strings.Angle);
+                        header.Cell().Text(Strings.Distance);
+                        header.Cell().Text(Strings.MaxIntensity);
+                        header.Cell().Text(Strings.IntergralIntensity);
                     });
 
                     foreach (PeakData peak in _workSession.Peaks)
                     {
-                        table.Cell().Text($"{peak.Angle}");
-                        table.Cell().Text($"{peak.Distance}");
-                        table.Cell().Text($"{peak.MaxIntensity}");
-                        table.Cell().Text($"{peak.IntegralIntensity}");
+                        table.Cell().Text(string.Format(Strings.AngleDegreesTemplate, peak.Angle));
+                        table.Cell().Text(string.Format(Strings.DistanceAngstromTemplate, peak.Distance));
+                        table.Cell().Text(string.Format(Strings.IntensityAbsoluteUnitsTemplate, peak.MaxIntensity));
+                        table.Cell().Text(string.Format(Strings.IntensityAbsoluteUnitsTemplate,
+                            peak.IntegralIntensity));
                     }
                 });
             });

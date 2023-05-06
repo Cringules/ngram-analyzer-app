@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Cringules.NGram.App.Resources;
 using Cringules.NGram.Lib;
 using Cringules.NGram.Lib.Approximation;
 
@@ -8,6 +9,15 @@ namespace Cringules.NGram.App.Model;
 
 public partial class PeakData : ObservableObject
 {
+    private static readonly NamedItem<IApproximator>
+        GaussianApproximator = new(Strings.Gaussian, new ApproximationGaussian());
+
+    private static readonly NamedItem<IApproximator>
+        LorentzApproximator = new(Strings.Lorentzian, new ApproximationLorentz());
+
+    private static readonly NamedItem<IApproximator>
+        VoigtApproximator = new(Strings.Voigt, new ApproximationVoigt());
+
     public double Angle { get; }
     public double Distance { get; }
     public double MaxIntensity { get; }
@@ -19,18 +29,10 @@ public partial class PeakData : ObservableObject
     public XrayPeak XrayPeak { get; }
     public XrayPeak? Approximation { get; private set; }
 
-    [ObservableProperty] private ObservableCollection<NamedItem<IApproximator>> _availableApproximators = new()
-    {
-        new NamedItem<IApproximator>("Gaussian", new ApproximationGaussian()),
-        new NamedItem<IApproximator>("Lorentz", new ApproximationLorentz()),
-        new NamedItem<IApproximator>("Voigt", new ApproximationVoigt())
-    };
+    [ObservableProperty] private ObservableCollection<NamedItem<IApproximator>> _availableApproximators =
+        new() {GaussianApproximator, LorentzApproximator, VoigtApproximator};
 
-    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ApproximateCommand))]
-    private bool _determineApproximator = true;
-
-    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ApproximateCommand))]
-    private NamedItem<IApproximator>? _approximator;
+    [ObservableProperty] private NamedItem<IApproximator> _approximator = VoigtApproximator;
 
     [ObservableProperty] private bool _automaticApproximation = true;
 
@@ -54,30 +56,14 @@ public partial class PeakData : ObservableObject
         XrayPeak = peak;
     }
 
-    private bool CanApproximate()
-    {
-        return DetermineApproximator || Approximator != null;
-    }
-
-    [RelayCommand(CanExecute = nameof(CanApproximate))]
     private void Approximate()
     {
-        if (DetermineApproximator)
-        {
-            // TODO: Implement automatic approximator selection
-            return;
-        }
-
-        if (Approximator == null)
-        {
-            return;
-        }
-
         if (AutomaticApproximation)
         {
             Approximation = new XrayPeak(Approximator.Value.ApproximatePeakAuto(XrayPeak).Points);
         }
 
-        Approximation = new XrayPeak(Approximator.Value.ApproximatePeakManual(XrayPeak, Height, Width, Corr, Lambda).Points);
+        Approximation =
+            new XrayPeak(Approximator.Value.ApproximatePeakManual(XrayPeak, Height, Width, Corr, Lambda).Points);
     }
 }

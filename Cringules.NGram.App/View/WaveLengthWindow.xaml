@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:Cringules.NGram.App.View"
         xmlns:vm="clr-namespace:Cringules.NGram.App.ViewModel"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:res="clr-namespace:Cringules.NGram.App.Resources"
         mc:Ignorable="d"
-        Title="WaveLengthWindow" Height="400" Width="350" ResizeMode="NoResize">
+        Title="{x:Static res:Strings.WaveLengthWindowTitle}" Height="400" Width="350" ResizeMode="NoResize">
     <Window.DataContext>
         <vm:WaveLengthViewModel />
     </Window.DataContext>
@@ -75,7 +76,7 @@
                     </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <TextBlock Text="Selected value" Margin="5"></TextBlock>
+            <TextBlock Text="{x:Static res:Strings.SelectedValue}" Margin="5"></TextBlock>
             <TextBox
                 Text="{Binding SelectedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Margin="5" />

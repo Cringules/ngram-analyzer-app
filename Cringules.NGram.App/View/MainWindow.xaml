@@ -10,7 +10,8 @@
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:conv="clr-namespace:NKristek.Wpf.Converters;assembly=NKristek.Wpf.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1200" MinHeight="600" MinWidth="800">
+        Title="{x:Static res:Strings.MainWindowTitle}" Height="800" Width="1200" MinHeight="600" MinWidth="800"
+        FontSize="14">
     <Window.DataContext>
         <vm:MainViewModel />
     </Window.DataContext>
@@ -41,7 +42,6 @@
                               CommandParameter="{StaticResource PdfResultExporter}" />
                     <MenuItem Header="E_MF" Command="{Binding ExportAsCommand}"
                               CommandParameter="{StaticResource EmfResultExporter}" />
-                    <MenuItem Header="E_PS" />
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="{x:Static res:Strings.Analysis}"
@@ -78,20 +78,31 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <TabControl SelectedIndex="{Binding PeakShown}">
-                    <TabItem Header="Main Plot">
+                    <TabItem Header="{x:Static res:Strings.MainPlotTabHeader}">
                         <oxy:PlotView Model="{Binding Model}"
                                       Controller="{Binding PlotController}" />
                     </TabItem>
-                    <TabItem Header="Peak Plot"
+                    <TabItem Header="{x:Static res:Strings.PeakPlotTabHeader}"
                              IsEnabled="{Binding SelectedPeak, Converter={StaticResource NullInverseBoolConverter}}">
                         <oxy:PlotView Model="{Binding PeakModel}" />
                     </TabItem>
                 </TabControl>
                 <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Peaks}"
-                          SelectedItem="{Binding SelectedPeak}" />
+                          SelectedItem="{Binding SelectedPeak}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{x:Static res:Strings.Angle}"
+                                            Binding="{Binding Angle, StringFormat={x:Static res:Strings.AngleDegreesTemplate}}" />
+                        <DataGridTextColumn Header="{x:Static res:Strings.Distance}"
+                                            Binding="{Binding Distance, StringFormat={x:Static res:Strings.DistanceAngstromTemplate}}" />
+                        <DataGridTextColumn Header="{x:Static res:Strings.MaxIntensity}"
+                                            Binding="{Binding MaxIntensity, StringFormat={x:Static res:Strings.IntensityAbsoluteUnitsTemplate}}" />
+                        <DataGridTextColumn Header="{x:Static res:Strings.IntergralIntensity}"
+                                            Binding="{Binding IntegralIntensity, StringFormat={x:Static res:Strings.IntensityAbsoluteUnitsTemplate}}" />
+                    </DataGrid.Columns>
+                </DataGrid>
                 <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="5">
                     <Button Content="{x:Static res:Strings.StartAnalysis}"
-                            Command="{Binding StartAnalysisCommand}" Height="50" />
+                            Command="{Binding StartAnalysisCommand}" Height="50" FontSize="20" />
                     <ListBox>
                         <ListBox.Resources>
                             <Style TargetType="Expander">
@@ -127,7 +138,7 @@
                             </Expander>
                         </ListBoxItem>
                         <ListBoxItem>
-                            <Expander Header="{x:Static res:Strings.Cleanup}">
+                            <Expander Header="{x:Static res:Strings.Smoothing}">
                                 <StackPanel>
                                     <local:NumericSlider
                                         Label="{x:Static res:Strings.SmoothingDegree}"
@@ -137,10 +148,12 @@
                             </Expander>
                         </ListBoxItem>
                         <ListBoxItem>
-                            <Expander Header="{x:Static res:Strings.Peaks}">
+                            <Expander Header="{x:Static res:Strings.PeakAddition}">
                                 <StackPanel>
-                                    <Button Content="Select" Command="{Binding SelectPeakCommand}"></Button>
-                                    <Button Content="Cancel" Command="{Binding CancelSelectionCommand}"></Button>
+                                    <Button Content="{x:Static res:Strings.Select}"
+                                            Command="{Binding SelectPeakCommand}" />
+                                    <Button Content="{x:Static res:Strings.Cancel}"
+                                            Command="{Binding CancelSelectionCommand}" />
                                     <Button Content="{x:Static res:Strings.AddPeak}" Command="{Binding AddPeakCommand}" />
                                 </StackPanel>
                             </Expander>
@@ -151,32 +164,27 @@
                             <Expander Header="{x:Static res:Strings.PeakApproximation}"
                                       DataContext="{Binding SelectedPeak}">
                                 <StackPanel>
-                                    <CheckBox IsChecked="{Binding DetermineApproximator}">
-                                        <TextBlock Text="{x:Static res:Strings.DetermineApproximationFunction}"
-                                                   TextWrapping="Wrap" />
-                                    </CheckBox>
                                     <Label Content="{x:Static res:Strings.ApproximationFunction}" />
                                     <ComboBox ItemsSource="{Binding AvailableApproximators}"
                                               SelectedItem="{Binding Approximator}"
                                               IsEnabled="{Binding DetermineApproximator, Converter={StaticResource InverseBoolConverter}}"
                                               DisplayMemberPath="Name" />
                                     <CheckBox IsChecked="{Binding AutomaticApproximation}">
-                                        <TextBlock Text="Determine coefficients automatically"
+                                        <TextBlock Text="{x:Static res:Strings.DetermineCoefficientsAutomatically}"
                                                    TextWrapping="Wrap" />
                                     </CheckBox>
-                                    <Label Content="{x:Static res:Strings.Coefficients}" />
                                     <StackPanel
                                         IsEnabled="{Binding AutomaticApproximation, Converter={StaticResource InverseBoolConverter}}">
-                                        <local:NumericSlider Label="Height"
+                                        <local:NumericSlider Label="{x:Static res:Strings.Height}"
                                                              Value="{Binding Height, UpdateSourceTrigger=PropertyChanged}"
                                                              Minimum="0" Maximum="100" />
-                                        <local:NumericSlider Label="Width"
+                                        <local:NumericSlider Label="{x:Static res:Strings.Width}"
                                                              Value="{Binding Width, UpdateSourceTrigger=PropertyChanged}"
                                                              Minimum="0" Maximum="100" />
-                                        <local:NumericSlider Label="Corr"
+                                        <local:NumericSlider Label="{x:Static res:Strings.Corr}"
                                                              Value="{Binding Corr, UpdateSourceTrigger=PropertyChanged}"
                                                              Minimum="0" Maximum="100" />
-                                        <local:NumericSlider Label="Lambda"
+                                        <local:NumericSlider Label="{x:Static res:Strings.Lambda}"
                                                              Value="{Binding Lambda, UpdateSourceTrigger=PropertyChanged}"
                                                              Minimum="0" Maximum="10" />
                                     </StackPanel>
