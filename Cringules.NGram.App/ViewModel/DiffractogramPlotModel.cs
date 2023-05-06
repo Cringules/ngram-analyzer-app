@@ -13,33 +13,77 @@ public partial class DiffractogramPlotModel : DiffractionDataPlotModel
 {
     [ObservableProperty] private List<Point>? _peakBoundaries;
 
-    [ObservableProperty] private List<Point> _selectedBoundary = new(2);
-
+    [ObservableProperty] private bool _canSelect;
+    private double? _currentSelection;
+    [ObservableProperty] private List<double> _selectedBoundary = new(2);
+    
+    private LineAnnotation? _currentAnnotation;
     private readonly List<LineAnnotation> _selectionAnnotations = new(2);
 
-    public LineAnnotation AddSelectedPoint()
+    public DiffractogramPlotModel() : base("Diffractogram data")
     {
-        if (_selectionAnnotations.Count == 2)
+    }
+
+    private void ClearSelection()
+    {
+        _currentSelection = null;
+        _currentAnnotation = null;
+        foreach (LineAnnotation annotation in _selectionAnnotations)
         {
-            Annotations.Remove(_selectionAnnotations[0]);
-            Annotations.Remove(_selectionAnnotations[1]);
-            _selectionAnnotations.Clear();
-            SelectedBoundary.Clear();
+            Annotations.Remove(annotation);
         }
 
-        var annotation = new LineAnnotation()
-        {
-            StrokeThickness = 2,
-            LineStyle = LineStyle.Solid,
-            Color = OxyColors.Red,
-            Type = LineAnnotationType.Vertical
-        };
-        
-        _selectionAnnotations.Add(annotation);
-        Annotations.Add(annotation);
+        SelectedBoundary.Clear();
+        _selectionAnnotations.Clear();
 
         InvalidatePlot(true);
+    }
 
-        return annotation;
+    partial void OnCanSelectChanged(bool value)
+    {
+        ClearSelection();
+    }
+
+    public void UpdateSelection(DataPoint point)
+    {
+        if (!CanSelect)
+        {
+            return;
+        }
+
+        if (_currentAnnotation == null)
+        {
+            if (_selectionAnnotations.Count == 2)
+            {
+                ClearSelection();
+            }
+
+            _currentAnnotation = new LineAnnotation()
+            {
+                StrokeThickness = 2,
+                LineStyle = LineStyle.Solid,
+                Color = OxyColors.Red,
+                Type = LineAnnotationType.Vertical
+            };
+            
+            Annotations.Add(_currentAnnotation);
+            _selectionAnnotations.Add(_currentAnnotation);
+        }
+
+        _currentAnnotation.X = point.X;
+        _currentSelection = point.X;
+
+        InvalidatePlot(true);
+    }
+
+    public void FinishSelection()
+    {
+        if (!CanSelect || _currentAnnotation == null || _currentSelection == null)
+        {
+            return;
+        }
+
+        SelectedBoundary.Add(_currentSelection.Value);
+        _currentAnnotation = null;
     }
 }

@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="Cringules.NGram.App.View.NumericSlider"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Cringules.NGram.App.View"
+             mc:Ignorable="d"
+             d:DesignHeight="50" d:DesignWidth="300">
+    <DockPanel DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}">
+        <Label DockPanel.Dock="Top" Content="{Binding Label}" />
+        <TextBox DockPanel.Dock="Right"
+                 Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                 Width="35" TextAlignment="Right" />
+        <Slider Minimum="{Binding Minimum}" Maximum="{Binding Maximum}"
+                Value="{Binding Value, Mode=TwoWay}" />
+    </DockPanel>
+</UserControl>
