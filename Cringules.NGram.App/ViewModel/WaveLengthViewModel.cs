@@ -14,20 +14,6 @@ public partial class WaveLengthViewModel : ObservableObject
 
     [ObservableProperty] private ObservableCollection<WaveElement> _waveElements = new();
 
-    public WaveLengthViewModel()
-    {
-        IConfiguration config = new ConfigurationBuilder()
-            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            .AddJsonFile(@"appsettings.json")
-            .Build();
-
-        var waveLengthSelection = config.GetSection(@"WaveLengthSelection").Get<WaveLengthSelection>();
-        if (waveLengthSelection != null)
-        {
-            _waveElements = new ObservableCollection<WaveElement>(waveLengthSelection.Values);
-        }
-    }
-
     partial void OnSelectedGridValueChanged(double? value)
     {
         if (value == null)

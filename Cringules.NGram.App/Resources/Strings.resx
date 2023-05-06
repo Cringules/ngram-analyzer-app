@@ -85,7 +85,7 @@
         <value>_File</value>
     </data>
     <data name="SelectedWaveLength" xml:space="preserve">
-        <value>Selected wave length: {0:F5}</value>
+        <value>Selected wave length: {0:F5} Å</value>
     </data>
     <data name="Welcome" xml:space="preserve">
         <value>Welcome to NGram Analyzer! Use buttons below to start working!</value>
@@ -164,5 +164,8 @@
     </data>
     <data name="PeakDataHeader" xml:space="preserve">
         <value>Peak Data</value>
+    </data>
+    <data name="WaveLengthWindowTitle" xml:space="preserve">
+        <value>Wave Length Selection</value>
     </data>
 </root>

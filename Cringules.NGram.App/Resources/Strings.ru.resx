@@ -78,7 +78,7 @@
         <value>_Файл</value>
     </data>
     <data name="SelectedWaveLength" xml:space="preserve">
-        <value>Выбранное излучение: {0:F5}</value>
+        <value>Выбранное излучение: {0:F5} Å</value>
     </data>
     <data name="Welcome" xml:space="preserve">
         <value>Добро пожаловать в NGram Analyzer! Используйте кнопки снизу, чтобы начать работу!</value>
@@ -142,5 +142,8 @@
     </data>
     <data name="PeakDataHeader" xml:space="preserve">
         <value>Данные пика</value>
+    </data>
+    <data name="WaveLengthWindowTitle" xml:space="preserve">
+        <value>Выбор длины волны</value>
     </data>
 </root>

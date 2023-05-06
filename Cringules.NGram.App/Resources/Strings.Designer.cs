@@ -429,7 +429,7 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selected wave length: {0:F5}.
+        ///   Looks up a localized string similar to Selected wave length: {0:F5} Å.
         /// </summary>
         public static string SelectedWaveLength {
             get {
@@ -479,6 +479,15 @@ namespace Cringules.NGram.App.Resources {
         public static string WaveLength {
             get {
                 return ResourceManager.GetString("WaveLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wave Length Selection.
+        /// </summary>
+        public static string WaveLengthWindowTitle {
+            get {
+                return ResourceManager.GetString("WaveLengthWindowTitle", resourceCulture);
             }
         }
         

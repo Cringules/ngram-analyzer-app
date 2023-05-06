@@ -19,6 +19,7 @@ public partial class DiffractogramPlotModel : DiffractionDataPlotModel
     [ObservableProperty] private List<Point>? _peakBoundaries;
 
     [ObservableProperty] private bool _canSelect;
+    [ObservableProperty] private bool _finishedSelection;
     private double? _currentSelection;
     [ObservableProperty] private List<double> _selectedBoundary = new(2);
 
@@ -31,6 +32,7 @@ public partial class DiffractogramPlotModel : DiffractionDataPlotModel
 
     private void ClearSelection()
     {
+        FinishedSelection = false;
         _currentSelection = null;
         _currentAnnotation = null;
         foreach (LineAnnotation annotation in _selectionAnnotations)
@@ -89,6 +91,10 @@ public partial class DiffractogramPlotModel : DiffractionDataPlotModel
         }
 
         SelectedBoundary.Add(_currentSelection.Value);
+        if (SelectedBoundary.Count == 2)
+        {
+            FinishedSelection = true;
+        }
         _currentAnnotation = null;
     }
 
