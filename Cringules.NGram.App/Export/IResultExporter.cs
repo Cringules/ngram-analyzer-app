@@ -1,4 +1,5 @@
-﻿using Cringules.NGram.App.Model;
+﻿using System.ComponentModel;
+using Cringules.NGram.App.Model;
 
 namespace Cringules.NGram.App.Export;
 
@@ -7,7 +8,7 @@ namespace Cringules.NGram.App.Export;
 /// </summary>
 public interface IResultExporter
 {
-    string FileExtension { get; }
+    [Localizable(false)] string FileExtension { get; }
 
     /// <summary>
     /// Exports analysis results to a file.

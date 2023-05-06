@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using Cringules.NGram.Api;
 
@@ -39,9 +40,10 @@ public class TextFileDataSource : IFileDataSource
     /// <exception cref="FileFormatException">The line has invalid format.</exception>
     private static PlotPoint ParsePoint(string line)
     {
-        string[] lines = line.Split((string[]?)null, StringSplitOptions.RemoveEmptyEntries);
-        if (lines.Length != 2 || !double.TryParse(lines[0], out double angle) ||
-            !double.TryParse(lines[1], out double intensity))
+        string[] lines = line.Split((string[]?) null, StringSplitOptions.RemoveEmptyEntries);
+        if (lines.Length != 2 ||
+            !double.TryParse(lines[0], NumberStyles.Any, CultureInfo.InvariantCulture, out double angle) ||
+            !double.TryParse(lines[1], NumberStyles.Any, CultureInfo.InvariantCulture, out double intensity))
         {
             throw new FileFormatException();
         }

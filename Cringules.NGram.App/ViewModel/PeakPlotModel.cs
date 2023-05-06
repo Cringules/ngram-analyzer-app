@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Cringules.NGram.App.Model;
+using Cringules.NGram.App.Resources;
 using OxyPlot;
 using OxyPlot.Annotations;
 
@@ -9,7 +10,7 @@ public partial class PeakPlotModel : DiffractionDataPlotModel
 {
     [ObservableProperty] private PeakData? _selectedPeak;
 
-    public PeakPlotModel() : base("Peak Data")
+    public PeakPlotModel() : base(Strings.PeakDataHeader)
     {
     }
 

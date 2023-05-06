@@ -41,17 +41,17 @@
     <data name="Select" xml:space="preserve">
         <value>Выбрать...</value>
     </data>
-    <data name="Cleanup" xml:space="preserve">
-        <value>Очистка</value>
+    <data name="Smoothing" xml:space="preserve">
+        <value>Сглаживание</value>
     </data>
     <data name="DetermineSmoothingDegree" xml:space="preserve">
         <value>Автоматически определить уровень шума</value>
     </data>
     <data name="SmoothingDegree" xml:space="preserve">
-        <value>Уровень шума</value>
+        <value>Степень сглаживания</value>
     </data>
-    <data name="Peaks" xml:space="preserve">
-        <value>Пики</value>
+    <data name="PeakAddition" xml:space="preserve">
+        <value>Добавление пика</value>
     </data>
     <data name="AddPeak" xml:space="preserve">
         <value>Добавить пик</value>
@@ -71,9 +71,6 @@
     <data name="Lorentzian" xml:space="preserve">
         <value>Лоренца</value>
     </data>
-    <data name="Cauchy" xml:space="preserve">
-        <value>Коши</value>
-    </data>
     <data name="Coefficients" xml:space="preserve">
         <value>Коэффициенты</value>
     </data>
@@ -85,5 +82,65 @@
     </data>
     <data name="Welcome" xml:space="preserve">
         <value>Добро пожаловать в NGram Analyzer! Используйте кнопки снизу, чтобы начать работу!</value>
+    </data>
+    <data name="MainPlotTabHeader" xml:space="preserve">
+        <value>Основной график</value>
+    </data>
+    <data name="PeakPlotTabHeader" xml:space="preserve">
+        <value>График пика</value>
+    </data>
+    <data name="Cancel" xml:space="preserve">
+        <value>Отмена</value>
+    </data>
+    <data name="DetermineCoefficientsAutomatically" xml:space="preserve">
+        <value>Подобрать коэффициенты автоматически</value>
+    </data>
+    <data name="Height" xml:space="preserve">
+        <value>Высота</value>
+    </data>
+    <data name="Width" xml:space="preserve">
+        <value>Ширина</value>
+    </data>
+    <data name="Corr" xml:space="preserve">
+        <value>Корреляция</value>
+    </data>
+    <data name="Lambda" xml:space="preserve">
+        <value>Лямбда</value>
+    </data>
+    <data name="SelectedValue" xml:space="preserve">
+        <value>Выбранное значение</value>
+    </data>
+    <data name="Angle" xml:space="preserve">
+        <value>Угол</value>
+    </data>
+    <data name="Distance" xml:space="preserve">
+        <value>Межплоскостное расстояние</value>
+    </data>
+    <data name="MaxIntensity" xml:space="preserve">
+        <value>Максимальная интенсивность</value>
+    </data>
+    <data name="IntergralIntensity" xml:space="preserve">
+        <value>Интегральная интенсивность</value>
+    </data>
+    <data name="IntensityAbsoluteUnitsTemplate" xml:space="preserve">
+        <value>{0:F2} отн. ед.</value>
+    </data>
+    <data name="Voigt" xml:space="preserve">
+        <value>Войта</value>
+    </data>
+    <data name="Error" xml:space="preserve">
+        <value>Ошибка</value>
+    </data>
+    <data name="Intensity" xml:space="preserve">
+        <value>Интенсивность</value>
+    </data>
+    <data name="AbsoluteUnits" xml:space="preserve">
+        <value>отн. ед.</value>
+    </data>
+    <data name="DiffractogramDataHeader" xml:space="preserve">
+        <value>Данные дифрактограммы</value>
+    </data>
+    <data name="PeakDataHeader" xml:space="preserve">
+        <value>Данные пика</value>
     </data>
 </root>

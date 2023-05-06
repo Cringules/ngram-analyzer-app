@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Cringules.NGram.App.Resources;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
@@ -19,12 +20,13 @@ public partial class DiffractionDataPlotModel : PlotModel
 
     private readonly LinearAxis _xAxis = new()
     {
-        Title = "Angle", Unit = "deg", Position = AxisPosition.Bottom, IsPanEnabled = false, IsZoomEnabled = false
+        Title = Strings.Angle, Unit = Strings.Degrees, Position = AxisPosition.Bottom, IsPanEnabled = false,
+        IsZoomEnabled = false
     };
 
     private readonly LinearAxis _yAxis = new()
     {
-        Title = "Intensity", Unit = "a.u.", Position = AxisPosition.Left, IsPanEnabled = false,
+        Title = Strings.Intensity, Unit = Strings.AbsoluteUnits, Position = AxisPosition.Left, IsPanEnabled = false,
         IsZoomEnabled = false
     };
 

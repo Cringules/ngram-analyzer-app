@@ -48,17 +48,17 @@
     <data name="Select" xml:space="preserve">
         <value>Select...</value>
     </data>
-    <data name="Cleanup" xml:space="preserve">
-        <value>Cleanup</value>
+    <data name="Smoothing" xml:space="preserve">
+        <value>Smoothing</value>
     </data>
     <data name="DetermineSmoothingDegree" xml:space="preserve">
         <value>Determine noise level</value>
     </data>
     <data name="SmoothingDegree" xml:space="preserve">
-        <value>Noise level</value>
+        <value>Smoothing Degree</value>
     </data>
-    <data name="Peaks" xml:space="preserve">
-        <value>Peaks</value>
+    <data name="PeakAddition" xml:space="preserve">
+        <value>Peak Addition</value>
     </data>
     <data name="AddPeak" xml:space="preserve">
         <value>Add Peak</value>
@@ -78,9 +78,6 @@
     <data name="Lorentzian" xml:space="preserve">
         <value>Lorentzian</value>
     </data>
-    <data name="Cauchy" xml:space="preserve">
-        <value>Cauchy</value>
-    </data>
     <data name="Coefficients" xml:space="preserve">
         <value>Coefficients</value>
     </data>
@@ -92,5 +89,80 @@
     </data>
     <data name="Welcome" xml:space="preserve">
         <value>Welcome to NGram Analyzer! Use buttons below to start working!</value>
+    </data>
+    <data name="MainWindowTitle" xml:space="preserve">
+        <value>NGram Analyzer</value>
+    </data>
+    <data name="MainPlotTabHeader" xml:space="preserve">
+        <value>Main Plot</value>
+    </data>
+    <data name="PeakPlotTabHeader" xml:space="preserve">
+        <value>Peak Plot</value>
+    </data>
+    <data name="Cancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="DetermineCoefficientsAutomatically" xml:space="preserve">
+        <value>Determine coefficients automatically</value>
+    </data>
+    <data name="Height" xml:space="preserve">
+        <value>Height</value>
+    </data>
+    <data name="Width" xml:space="preserve">
+        <value>Width</value>
+    </data>
+    <data name="Corr" xml:space="preserve">
+        <value>Correlation</value>
+    </data>
+    <data name="Lambda" xml:space="preserve">
+        <value>Lambda</value>
+    </data>
+    <data name="SelectedValue" xml:space="preserve">
+        <value>Selected value</value>
+    </data>
+    <data name="Angle" xml:space="preserve">
+        <value>Angle</value>
+    </data>
+    <data name="Distance" xml:space="preserve">
+        <value>Distance</value>
+    </data>
+    <data name="MaxIntensity" xml:space="preserve">
+        <value>Maximum Intensity</value>
+    </data>
+    <data name="IntergralIntensity" xml:space="preserve">
+        <value>Integral Intensity</value>
+    </data>
+    <data name="AngleDegreesTemplate" xml:space="preserve">
+        <value>{0:F4}°</value>
+    </data>
+    <data name="DistanceAngstromTemplate" xml:space="preserve">
+        <value>{0:F5} Å</value>
+    </data>
+    <data name="IntensityAbsoluteUnitsTemplate" xml:space="preserve">
+        <value>{0:F2} a.u.</value>
+    </data>
+    <data name="Voigt" xml:space="preserve">
+        <value>Voigt</value>
+    </data>
+    <data name="ConvertingValueToCellNotSupportedError" xml:space="preserve">
+        <value>Converting value to cell is not supported</value>
+    </data>
+    <data name="Error" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="Intensity" xml:space="preserve">
+        <value>Intensity</value>
+    </data>
+    <data name="AbsoluteUnits" xml:space="preserve">
+        <value>a.u.</value>
+    </data>
+    <data name="Degrees" xml:space="preserve">
+        <value>°</value>
+    </data>
+    <data name="DiffractogramDataHeader" xml:space="preserve">
+        <value>Diffractogram Data</value>
+    </data>
+    <data name="PeakDataHeader" xml:space="preserve">
+        <value>Peak Data</value>
     </data>
 </root>

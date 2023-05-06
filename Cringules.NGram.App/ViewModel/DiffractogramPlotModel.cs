@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Cringules.NGram.App.Resources;
 using Cringules.NGram.Lib;
 using OxyPlot;
 using OxyPlot.Annotations;
@@ -24,7 +25,7 @@ public partial class DiffractogramPlotModel : DiffractionDataPlotModel
     private LineAnnotation? _currentAnnotation;
     private readonly List<LineAnnotation> _selectionAnnotations = new(2);
 
-    public DiffractogramPlotModel() : base("Diffractogram data")
+    public DiffractogramPlotModel() : base(Strings.DiffractogramDataHeader)
     {
     }
 

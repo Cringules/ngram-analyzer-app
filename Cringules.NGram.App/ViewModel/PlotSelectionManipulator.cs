@@ -1,7 +1,5 @@
 ﻿using OxyPlot;
-using OxyPlot.Annotations;
 using OxyPlot.Axes;
-using OxyPlot.Series;
 
 namespace Cringules.NGram.App.ViewModel;
 

@@ -18,10 +18,10 @@ public partial class WaveLengthViewModel : ObservableObject
     {
         IConfiguration config = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            .AddJsonFile("appsettings.json")
+            .AddJsonFile(@"appsettings.json")
             .Build();
 
-        var waveLengthSelection = config.GetSection("WaveLengthSelection").Get<WaveLengthSelection>();
+        var waveLengthSelection = config.GetSection(@"WaveLengthSelection").Get<WaveLengthSelection>();
         if (waveLengthSelection != null)
         {
             _waveElements = new ObservableCollection<WaveElement>(waveLengthSelection.Values);

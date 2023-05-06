@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Cringules.NGram.App.Resources;
 using Microsoft.Win32;
 
 namespace Cringules.NGram.App.ViewModel;
@@ -8,7 +9,7 @@ public class DialogService : IDialogService
     public string OpenFilePath { get; set; } = string.Empty;
     public bool ShowOpenFileDialog()
     {
-        var dialog = new OpenFileDialog { FileName = OpenFilePath, DefaultExt = ".sp" };
+        var dialog = new OpenFileDialog { FileName = OpenFilePath, DefaultExt = @".sp" };
 
         bool result = dialog.ShowDialog() ?? false;
         if (result)
@@ -23,7 +24,7 @@ public class DialogService : IDialogService
 
     public bool ShowSaveFileDialog()
     {
-        var dialog = new SaveFileDialog { FileName = SaveFilePath, DefaultExt = ".ngram" };
+        var dialog = new SaveFileDialog { FileName = SaveFilePath, DefaultExt = @".ngram" };
 
         bool result = dialog.ShowDialog() ?? false;
         if (result)
@@ -36,6 +37,6 @@ public class DialogService : IDialogService
 
     public void ShowErrorMessage(string message)
     {
-        MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        MessageBox.Show(message, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 }
