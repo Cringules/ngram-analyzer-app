@@ -75,9 +75,9 @@ public partial class PeakData : ObservableObject
 
         if (AutomaticApproximation)
         {
-            Approximation = Approximator.Value.ApproximatePeakAuto(XrayPeak);
+            Approximation = new XrayPeak(Approximator.Value.ApproximatePeakAuto(XrayPeak).Points);
         }
 
-        Approximation = Approximator.Value.ApproximatePeakManual(XrayPeak, Height, Width, Corr, Lambda);
+        Approximation = new XrayPeak(Approximator.Value.ApproximatePeakManual(XrayPeak, Height, Width, Corr, Lambda).Points);
     }
 }

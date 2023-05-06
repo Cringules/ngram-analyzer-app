@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using Cringules.NGram.Lib;
 using OxyPlot;
 using OxyPlot.Annotations;
+using OxyPlot.Series;
 
 namespace Cringules.NGram.App.ViewModel;
 
@@ -11,12 +12,15 @@ namespace Cringules.NGram.App.ViewModel;
 /// </summary>
 public partial class DiffractogramPlotModel : DiffractionDataPlotModel
 {
+    private LineSeries _smoothedSeries = new();
+    [ObservableProperty] private IEnumerable<DataPoint>? _smoothedPoints;
+
     [ObservableProperty] private List<Point>? _peakBoundaries;
 
     [ObservableProperty] private bool _canSelect;
     private double? _currentSelection;
     [ObservableProperty] private List<double> _selectedBoundary = new(2);
-    
+
     private LineAnnotation? _currentAnnotation;
     private readonly List<LineAnnotation> _selectionAnnotations = new(2);
 
@@ -65,7 +69,7 @@ public partial class DiffractogramPlotModel : DiffractionDataPlotModel
                 Color = OxyColors.Red,
                 Type = LineAnnotationType.Vertical
             };
-            
+
             Annotations.Add(_currentAnnotation);
             _selectionAnnotations.Add(_currentAnnotation);
         }
@@ -85,5 +89,20 @@ public partial class DiffractogramPlotModel : DiffractionDataPlotModel
 
         SelectedBoundary.Add(_currentSelection.Value);
         _currentAnnotation = null;
+    }
+
+    partial void OnSmoothedPointsChanged(IEnumerable<DataPoint>? oldValue, IEnumerable<DataPoint>? newValue)
+    {
+        if (oldValue != null && newValue == null)
+        {
+            Series.Remove(_smoothedSeries);
+        }
+
+        _smoothedSeries.ItemsSource = newValue;
+
+        if (oldValue == null && newValue != null)
+        {
+            Series.Add(_smoothedSeries);
+        }
     }
 }
