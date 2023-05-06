@@ -129,14 +129,10 @@
                         <ListBoxItem>
                             <Expander Header="{x:Static res:Strings.Cleanup}">
                                 <StackPanel>
-                                    <CheckBox IsChecked="{Binding DetermineSmoothingDegree, Mode=TwoWay}">
-                                        <TextBlock Text="{x:Static res:Strings.DetermineSmoothingDegree}"
-                                                   TextWrapping="Wrap" />
-                                    </CheckBox>
                                     <local:NumericSlider
-                                        IsEnabled="{Binding DetermineSmoothingDegree, Converter={StaticResource InverseBoolConverter}}"
                                         Label="{x:Static res:Strings.SmoothingDegree}"
-                                        Value="{Binding SmoothingDegree, Mode=TwoWay}" Minimum="0" Maximum="100" />
+                                        Value="{Binding SmoothingDegree, Mode=TwoWay}"
+                                        Minimum="{Binding MinSmoothingDegree}" Maximum="{Binding MaxSmoothingDegree}" />
                                 </StackPanel>
                             </Expander>
                         </ListBoxItem>
