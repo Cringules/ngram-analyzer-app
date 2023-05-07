@@ -172,4 +172,13 @@ public partial class WorkSession : ObservableObject
 
         PeakModel.SelectedPeak = value;
     }
+
+    [RelayCommand]
+    private void ShowPeak()
+    {
+        if (SelectedPeak != null)
+        {
+            PeakShown = true;
+        }
+    }
 }
