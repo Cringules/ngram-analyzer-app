@@ -16,7 +16,7 @@ public class PlotSelectionManipulator : MouseManipulator
     {
         base.Completed(e);
         e.Handled = true;
-        
+
         _plotModel.FinishSelection();
     }
 
@@ -25,6 +25,11 @@ public class PlotSelectionManipulator : MouseManipulator
         base.Delta(e);
         e.Handled = true;
 
+        if (XAxis == null || YAxis == null)
+        {
+            return;
+        }
+
         DataPoint point = Axis.InverseTransform(e.Position, XAxis, YAxis);
         _plotModel.UpdateSelection(point);
     }
@@ -32,7 +37,7 @@ public class PlotSelectionManipulator : MouseManipulator
     public override void Started(OxyMouseEventArgs e)
     {
         base.Started(e);
-        
+
         Delta(e);
     }
 }

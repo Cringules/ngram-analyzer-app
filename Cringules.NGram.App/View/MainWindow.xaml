@@ -87,7 +87,7 @@
                         <oxy:PlotView Model="{Binding PeakModel}" />
                     </TabItem>
                 </TabControl>
-                <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Peaks}"
+                <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Peaks}" IsReadOnly="True"
                           SelectedItem="{Binding SelectedPeak}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{x:Static res:Strings.Angle}"
@@ -98,6 +98,15 @@
                                             Binding="{Binding MaxIntensity, StringFormat={x:Static res:Strings.IntensityAbsoluteUnitsTemplate}}" />
                         <DataGridTextColumn Header="{x:Static res:Strings.IntergralIntensity}"
                                             Binding="{Binding IntegralIntensity, StringFormat={x:Static res:Strings.IntensityAbsoluteUnitsTemplate}}" />
+                        <DataGridTextColumn Header="{x:Static res:Strings.FullWidthHalfMaximum}"
+                                            Binding="{Binding FullWidthHalfMaximum, StringFormat={x:Static res:Strings.AngleDegreesTemplate}}" />
+                        <DataGridTextColumn Header="{x:Static res:Strings.IntegralWidth}"
+                                            Binding="{Binding IntegralWidth, StringFormat={x:Static res:Strings.AngleDegreesTemplate}}" />
+                        <DataGridTextColumn Header="{x:Static res:Strings.ApproximatedIntegralIntensity}"
+                                            Binding="{Binding ApproximatedIntegralIntensity, StringFormat={x:Static res:Strings.IntensityAbsoluteUnitsTemplate}}" />
+                        <DataGridTextColumn Header="{x:Static res:Strings.ApproximationAccuracy}"
+                                            Binding="{Binding ApproximationAccuracy}" />
+
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="5">

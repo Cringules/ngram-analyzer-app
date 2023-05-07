@@ -146,4 +146,16 @@
     <data name="WaveLengthWindowTitle" xml:space="preserve">
         <value>Выбор длины волны</value>
     </data>
+    <data name="FullWidthHalfMaximum" xml:space="preserve">
+        <value>Ширина</value>
+    </data>
+    <data name="IntegralWidth" xml:space="preserve">
+        <value>Интегральная ширина</value>
+    </data>
+    <data name="ApproximatedIntegralIntensity" xml:space="preserve">
+        <value>Оцененная интегральная интенсивность</value>
+    </data>
+    <data name="ApproximationAccuracy" xml:space="preserve">
+        <value>Точность аппроксимации</value>
+    </data>
 </root>

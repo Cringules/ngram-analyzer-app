@@ -95,7 +95,11 @@ public partial class WorkSession : ObservableObject
             xrayPeaks.Add(SmoothedData.GetPeak(PeakBoundaries[i].X, PeakBoundaries[i + 1].X));
         }
 
-        Peaks = new ObservableCollection<PeakData>(xrayPeaks.Select(peak => new PeakData(peak)));
+        Peaks = new ObservableCollection<PeakData>(xrayPeaks.Select(peak => new PeakData(peak, WaveLength)));
+        foreach (PeakData peak in Peaks)
+        {
+            peak.Approximate();
+        }
     }
 
     private bool CanSelectPeak()
@@ -131,7 +135,7 @@ public partial class WorkSession : ObservableObject
         List<double> points = Model.SelectedBoundary.ToList();
         points.Sort();
         XrayPeak peak = (SmoothedData ?? Data).GetPeak(points[0], points[1]);
-        Peaks.Add(new PeakData(peak));
+        Peaks.Add(new PeakData(peak, WaveLength));
 
         Model.CanSelect = false;
     }
