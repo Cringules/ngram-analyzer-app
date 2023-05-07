@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Cringules.NGram.Api;
 using Cringules.NGram.App.View;
 using Cringules.NGram.App.ViewModel;
 using Cringules.NGram.Lib;
@@ -23,6 +22,7 @@ public partial class WorkSession : ObservableObject
     [ObservableProperty] private int _minSmoothingDegree = 50;
     [ObservableProperty] private int _maxSmoothingDegree = 120;
 
+    [ObservableProperty] private bool _smoothingEnabled = true;
     [ObservableProperty] private int _smoothingDegree = 70;
     [ObservableProperty] private Xray? _smoothedData;
 
@@ -40,13 +40,13 @@ public partial class WorkSession : ObservableObject
 
     [JsonIgnore] public PeakPlotModel PeakModel { get; } = new();
 
-    public WorkSession(PlotData data)
+    public WorkSession(Xray xray)
     {
-        Data = data.ToXray();
+        Data = xray;
         PlotController.BindMouseDown(OxyMouseButton.Left,
             new DelegatePlotCommand<OxyMouseDownEventArgs>((view, controller, args) =>
                 controller.AddMouseManipulator(view, new PlotSelectionManipulator(view, Model), args)));
-        
+
         IConfiguration config = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
             .AddJsonFile(@"appsettings.json")
@@ -67,7 +67,7 @@ public partial class WorkSession : ObservableObject
         {
             viewModel.WaveElements = new ObservableCollection<WaveElement>(_waveLengthSelection.Values);
         }
-        
+
         var window = new WaveLengthWindow() {DataContext = viewModel};
         if ((window.ShowDialog() ?? false) && viewModel.SelectedValue.HasValue)
         {
@@ -80,19 +80,37 @@ public partial class WorkSession : ObservableObject
     {
     }
 
-    [RelayCommand]
-    private void StartAnalysis()
+    public void SmoothData()
     {
         SmoothedData = Data.SmoothXray(SmoothingDegree);
         Model.SmoothedPoints = SmoothedData.ToPlotPoints();
+    }
 
-        PeakBoundaries = SmoothedData.GetPeakBoundaries();
+    [RelayCommand]
+    private void StartAnalysis()
+    {
+        Xray data = Data;
+
+        if (SmoothingEnabled)
+        {
+            SmoothedData = Data.SmoothXray(SmoothingDegree);
+            Model.SmoothedPoints = SmoothedData.ToPlotPoints();
+
+            data = SmoothedData;
+        }
+        else
+        {
+            SmoothedData = null;
+            Model.SmoothedPoints = null;
+        }
+
+        PeakBoundaries = data.GetPeakBoundaries();
         Model.PeakBoundaries = PeakBoundaries;
 
         var xrayPeaks = new List<XrayPeak>();
         for (var i = 0; i < PeakBoundaries.Count - 1; i++)
         {
-            xrayPeaks.Add(SmoothedData.GetPeak(PeakBoundaries[i].X, PeakBoundaries[i + 1].X));
+            xrayPeaks.Add(data.GetPeak(PeakBoundaries[i].X, PeakBoundaries[i + 1].X));
         }
 
         Peaks = new ObservableCollection<PeakData>(xrayPeaks.Select(peak => new PeakData(peak, WaveLength)));
@@ -112,7 +130,7 @@ public partial class WorkSession : ObservableObject
     {
         Model.CanSelect = true;
     }
-    
+
     private bool CanCancelSelection()
     {
         return Model.CanSelect;
@@ -123,7 +141,7 @@ public partial class WorkSession : ObservableObject
     {
         Model.CanSelect = false;
     }
-    
+
     private bool CanAddPeak()
     {
         return Model.FinishedSelection;

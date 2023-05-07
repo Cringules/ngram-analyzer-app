@@ -158,4 +158,7 @@
     <data name="ApproximationAccuracy" xml:space="preserve">
         <value>Точность аппроксимации</value>
     </data>
+    <data name="EnableSmoothing" xml:space="preserve">
+        <value>Включить сглаживание графика</value>
+    </data>
 </root>
