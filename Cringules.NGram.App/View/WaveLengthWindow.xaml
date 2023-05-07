@@ -8,7 +8,8 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:res="clr-namespace:Cringules.NGram.App.Resources"
         mc:Ignorable="d"
-        Title="{x:Static res:Strings.WaveLengthWindowTitle}" Height="400" Width="350" ResizeMode="NoResize">
+        Title="{x:Static res:Strings.WaveLengthWindowTitle}" Height="400" Width="400" ResizeMode="NoResize"
+        FontSize="14">
     <Window.DataContext>
         <vm:WaveLengthViewModel />
     </Window.DataContext>

@@ -87,8 +87,22 @@
                         <oxy:PlotView Model="{Binding PeakModel}" />
                     </TabItem>
                 </TabControl>
-                <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Peaks}" IsReadOnly="True"
-                          SelectedItem="{Binding SelectedPeak}" AutoGenerateColumns="False">
+                <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Peaks}" IsReadOnly="True"
+                          SelectedItem="{Binding SelectedPeak}" AutoGenerateColumns="False" ColumnWidth="*">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding}" />
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.InputBindings>
+                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ShowPeakCommand}"></MouseBinding>
+                    </DataGrid.InputBindings>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{x:Static res:Strings.Angle}"
                                             Binding="{Binding Angle, StringFormat={x:Static res:Strings.AngleDegreesTemplate}}" />
@@ -106,10 +120,9 @@
                                             Binding="{Binding ApproximatedIntegralIntensity, StringFormat={x:Static res:Strings.IntensityAbsoluteUnitsTemplate}}" />
                         <DataGridTextColumn Header="{x:Static res:Strings.ApproximationAccuracy}"
                                             Binding="{Binding ApproximationAccuracy}" />
-
                     </DataGrid.Columns>
                 </DataGrid>
-                <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="5">
+                <StackPanel Grid.Row="0" Grid.Column="1" Margin="5">
                     <Button Content="{x:Static res:Strings.StartAnalysis}"
                             Command="{Binding StartAnalysisCommand}" Height="50" FontSize="20" />
                     <ListBox>
