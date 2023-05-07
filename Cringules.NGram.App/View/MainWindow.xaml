@@ -202,6 +202,7 @@
                                                              Value="{Binding Lambda, UpdateSourceTrigger=PropertyChanged}"
                                                              Minimum="0" Maximum="10" />
                                     </StackPanel>
+                                    <Button Content="{x:Static res:Strings.Approximate}" Command="{Binding ApproximateCommand}"></Button>
                                 </StackPanel>
                             </Expander>
                         </ListBoxItem>

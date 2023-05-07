@@ -161,4 +161,7 @@
     <data name="EnableSmoothing" xml:space="preserve">
         <value>Включить сглаживание графика</value>
     </data>
+    <data name="Approximate" xml:space="preserve">
+        <value>Оценить</value>
+    </data>
 </root>

@@ -30,7 +30,7 @@ public partial class PeakData : ObservableObject
 
     public XrayPeak XrayPeak { get; }
     private ApproximationResult? _approximationResult;
-    public XrayPeak? Approximation { get; private set; }
+    [ObservableProperty] private XrayPeak? _approximation;
 
     private readonly XrayPeakAnalyzer _analyzer;
 
@@ -55,17 +55,18 @@ public partial class PeakData : ObservableObject
         LeftBoundary = peak.Points[0];
         RightBoundary = peak.Points[^1];
 
-        _analyzer = new XrayPeakAnalyzer(peak);
-        Angle = _analyzer.GetTopAngle();
-        Distance = _analyzer.GetInterplaneDistance(lambda);
-        MaxIntensity = _analyzer.GetIntensityMaximum();
-        IntegralIntensity = _analyzer.GetIntensityIntegral();
-        FullWidthHalfMaximum = _analyzer.GetPeakWidth();
-        IntegralWidth = _analyzer.GetIntegralWidth();
+        _analyzer = new XrayPeakAnalyzer();
+        Angle = _analyzer.GetTopAngle(peak);
+        Distance = _analyzer.GetInterplanarDistance(peak, lambda);
+        MaxIntensity = _analyzer.GetIntensityMaximum(peak);
+        IntegralIntensity = _analyzer.GetIntensityIntegral(peak);
+        FullWidthHalfMaximum = _analyzer.GetPeakWidth(peak);
+        IntegralWidth = _analyzer.GetIntegralWidth(peak);
 
         XrayPeak = peak;
     }
 
+    [RelayCommand]
     public void Approximate()
     {
         _approximationResult = AutomaticApproximation
@@ -73,7 +74,7 @@ public partial class PeakData : ObservableObject
             : Approximator.Value.ApproximatePeakManual(XrayPeak, Height, Width, Corr, Lambda);
 
         Approximation = new XrayPeak(_approximationResult.Value.Points);
-        ApproximatedIntegralIntensity = _analyzer.GetIntensityApproximated(_approximationResult.Value);
-        ApproximationAccuracy = _analyzer.GetIntensityDifference();
+        ApproximatedIntegralIntensity = _analyzer.GetIntensityApproximated(XrayPeak, _approximationResult.Value);
+        ApproximationAccuracy = _analyzer.GetIntensityDifference(XrayPeak, _approximationResult.Value);
     }
 }
