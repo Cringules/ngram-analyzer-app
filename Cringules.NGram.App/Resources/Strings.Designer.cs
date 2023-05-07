@@ -105,6 +105,24 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Approximated Integral Intensity.
+        /// </summary>
+        public static string ApproximatedIntegralIntensity {
+            get {
+                return ResourceManager.GetString("ApproximatedIntegralIntensity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Approximation Accuracy.
+        /// </summary>
+        public static string ApproximationAccuracy {
+            get {
+                return ResourceManager.GetString("ApproximationAccuracy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Approximation function.
         /// </summary>
         public static string ApproximationFunction {
@@ -249,6 +267,15 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        public static string FullWidthHalfMaximum {
+            get {
+                return ResourceManager.GetString("FullWidthHalfMaximum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gaussian.
         /// </summary>
         public static string Gaussian {
@@ -272,6 +299,15 @@ namespace Cringules.NGram.App.Resources {
         public static string ImportData {
             get {
                 return ResourceManager.GetString("ImportData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Integral Width.
+        /// </summary>
+        public static string IntegralWidth {
+            get {
+                return ResourceManager.GetString("IntegralWidth", resourceCulture);
             }
         }
         

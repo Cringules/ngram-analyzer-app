@@ -22,12 +22,17 @@ public partial class PeakData : ObservableObject
     public double Distance { get; }
     public double MaxIntensity { get; }
     public double IntegralIntensity { get; }
+    public double FullWidthHalfMaximum { get; }
+    public double IntegralWidth { get; }
     public Point Top { get; }
     public Point LeftBoundary { get; }
     public Point RightBoundary { get; }
 
     public XrayPeak XrayPeak { get; }
+    private ApproximationResult? _approximationResult;
     public XrayPeak? Approximation { get; private set; }
+
+    private readonly XrayPeakAnalyzer _analyzer;
 
     [ObservableProperty] private ObservableCollection<NamedItem<IApproximator>> _availableApproximators =
         new() {GaussianApproximator, LorentzApproximator, VoigtApproximator};
@@ -41,29 +46,34 @@ public partial class PeakData : ObservableObject
     [ObservableProperty] private double _corr;
     [ObservableProperty] private double _lambda;
 
-    public PeakData(XrayPeak peak)
+    [ObservableProperty] private double? _approximatedIntegralIntensity;
+    [ObservableProperty] private double? _approximationAccuracy;
+
+    public PeakData(XrayPeak peak, double lambda)
     {
         Top = peak.GetPeakTop();
         LeftBoundary = peak.Points[0];
         RightBoundary = peak.Points[^1];
 
-        var analyzer = new XrayPeakAnalyzer(peak);
-        Angle = analyzer.GetTopAngle();
-        Distance = 0; // TODO Implement
-        MaxIntensity = analyzer.GetIntensityMax();
-        IntegralIntensity = analyzer.GetIntensityIntegral();
+        _analyzer = new XrayPeakAnalyzer(peak);
+        Angle = _analyzer.GetTopAngle();
+        Distance = _analyzer.GetInterplaneDistance(lambda);
+        MaxIntensity = _analyzer.GetIntensityMaximum();
+        IntegralIntensity = _analyzer.GetIntensityIntegral();
+        FullWidthHalfMaximum = _analyzer.GetPeakWidth();
+        IntegralWidth = _analyzer.GetIntegralWidth();
 
         XrayPeak = peak;
     }
 
-    private void Approximate()
+    public void Approximate()
     {
-        if (AutomaticApproximation)
-        {
-            Approximation = new XrayPeak(Approximator.Value.ApproximatePeakAuto(XrayPeak).Points);
-        }
+        _approximationResult = AutomaticApproximation
+            ? Approximator.Value.ApproximatePeakAuto(XrayPeak)
+            : Approximator.Value.ApproximatePeakManual(XrayPeak, Height, Width, Corr, Lambda);
 
-        Approximation =
-            new XrayPeak(Approximator.Value.ApproximatePeakManual(XrayPeak, Height, Width, Corr, Lambda).Points);
+        Approximation = new XrayPeak(_approximationResult.Value.Points);
+        ApproximatedIntegralIntensity = _analyzer.GetIntensityApproximated(_approximationResult.Value);
+        ApproximationAccuracy = _analyzer.GetIntensityDifference();
     }
 }

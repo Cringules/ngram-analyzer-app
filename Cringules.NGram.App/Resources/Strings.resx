@@ -168,4 +168,16 @@
     <data name="WaveLengthWindowTitle" xml:space="preserve">
         <value>Wave Length Selection</value>
     </data>
+    <data name="FullWidthHalfMaximum" xml:space="preserve">
+        <value>Width</value>
+    </data>
+    <data name="IntegralWidth" xml:space="preserve">
+        <value>Integral Width</value>
+    </data>
+    <data name="ApproximatedIntegralIntensity" xml:space="preserve">
+        <value>Approximated Integral Intensity</value>
+    </data>
+    <data name="ApproximationAccuracy" xml:space="preserve">
+        <value>Approximation Accuracy</value>
+    </data>
 </root>
