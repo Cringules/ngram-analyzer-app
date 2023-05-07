@@ -240,6 +240,15 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable smoothing.
+        /// </summary>
+        public static string EnableSmoothing {
+            get {
+                return ResourceManager.GetString("EnableSmoothing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error {

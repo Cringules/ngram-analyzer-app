@@ -180,4 +180,7 @@
     <data name="ApproximationAccuracy" xml:space="preserve">
         <value>Approximation Accuracy</value>
     </data>
+    <data name="EnableSmoothing" xml:space="preserve">
+        <value>Enable smoothing</value>
+    </data>
 </root>

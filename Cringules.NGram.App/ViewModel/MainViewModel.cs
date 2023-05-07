@@ -32,7 +32,7 @@ public partial class MainViewModel : ObservableObject
             try
             {
                 PlotData data = _fileDataSource.GetPlotData(_dialogService.OpenFilePath);
-                Session = new WorkSession(data);
+                Session = new WorkSession(data.ToXray());
                 SessionSaved = false;
                 SessionFilename = null;
             }
@@ -48,7 +48,7 @@ public partial class MainViewModel : ObservableObject
     {
         if (_dialogService.ShowOpenFileDialog())
         {
-            Session = SessionOpener.OpenSession(_dialogService.OpenFilePath);
+            Session = SessionFileManager.OpenSession(_dialogService.OpenFilePath);
             SessionSaved = true;
             SessionFilename = _dialogService.OpenFilePath;
         }
@@ -97,7 +97,7 @@ public partial class MainViewModel : ObservableObject
             filename = _dialogService.SaveFilePath;
         }
 
-        SessionSaver.SaveSession(Session, filename);
+        SessionFileManager.SaveSession(Session, filename);
         SessionSaved = true;
         SessionFilename = filename;
     }

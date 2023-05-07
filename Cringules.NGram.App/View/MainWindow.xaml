@@ -149,10 +149,15 @@
                         <ListBoxItem>
                             <Expander Header="{x:Static res:Strings.Smoothing}">
                                 <StackPanel>
+                                    <CheckBox IsChecked="{Binding SmoothingEnabled}">
+                                        <TextBlock Text="{x:Static res:Strings.EnableSmoothing}"
+                                                   TextWrapping="Wrap" />
+                                    </CheckBox>
                                     <local:NumericSlider
                                         Label="{x:Static res:Strings.SmoothingDegree}"
                                         Value="{Binding SmoothingDegree, Mode=TwoWay}"
-                                        Minimum="{Binding MinSmoothingDegree}" Maximum="{Binding MaxSmoothingDegree}" />
+                                        Minimum="{Binding MinSmoothingDegree}" Maximum="{Binding MaxSmoothingDegree}"
+                                        IsEnabled="{Binding SmoothingEnabled}"/>
                                 </StackPanel>
                             </Expander>
                         </ListBoxItem>
