@@ -183,4 +183,7 @@
     <data name="EnableSmoothing" xml:space="preserve">
         <value>Enable smoothing</value>
     </data>
+    <data name="Approximate" xml:space="preserve">
+        <value>Approximate</value>
+    </data>
 </root>

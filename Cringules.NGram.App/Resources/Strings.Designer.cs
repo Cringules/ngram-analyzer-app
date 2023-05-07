@@ -105,6 +105,15 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Approximate.
+        /// </summary>
+        public static string Approximate {
+            get {
+                return ResourceManager.GetString("Approximate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Approximated Integral Intensity.
         /// </summary>
         public static string ApproximatedIntegralIntensity {

@@ -1,8 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Cringules.NGram.App.Model;
 using Cringules.NGram.App.Resources;
 using OxyPlot;
 using OxyPlot.Annotations;
+using OxyPlot.Series;
 
 namespace Cringules.NGram.App.ViewModel;
 
@@ -10,15 +12,18 @@ public partial class PeakPlotModel : DiffractionDataPlotModel
 {
     [ObservableProperty] private PeakData? _selectedPeak;
 
+    private readonly LineSeries _approximationSeries = new();
+
     public PeakPlotModel() : base(Strings.PeakDataHeader)
     {
+        Series.Add(_approximationSeries);
     }
 
-    partial void OnSelectedPeakChanged(PeakData? value)
+    private void UpdateData()
     {
         Annotations.Clear();
 
-        if (value == null)
+        if (SelectedPeak == null)
         {
             return;
         }
@@ -26,17 +31,39 @@ public partial class PeakPlotModel : DiffractionDataPlotModel
         Annotations.Add(new LineAnnotation()
         {
             Type = LineAnnotationType.Vertical,
-            X = value.Angle,
+            X = SelectedPeak.Angle,
             LineStyle = LineStyle.Dash,
             StrokeThickness = 1,
             Color = OxyColors.Red
         });
 
         var annotation = new PolylineAnnotation();
-        annotation.Points.Add(new DataPoint(value.LeftBoundary.X, value.LeftBoundary.Y));
-        annotation.Points.Add(new DataPoint(value.RightBoundary.X, value.RightBoundary.Y));
+        annotation.Points.Add(new DataPoint(SelectedPeak.LeftBoundary.X, SelectedPeak.LeftBoundary.Y));
+        annotation.Points.Add(new DataPoint(SelectedPeak.RightBoundary.X, SelectedPeak.RightBoundary.Y));
         Annotations.Add(annotation);
 
-        PlotPoints = value.XrayPeak.ToPlotPoints();
+        PlotPoints = SelectedPeak.XrayPeak.ToPlotPoints();
+        _approximationSeries.ItemsSource = SelectedPeak.Approximation?.ToPlotPoints();
+    }
+
+
+    partial void OnSelectedPeakChanged(PeakData? oldValue, PeakData? newValue)
+    {
+        if (oldValue != null)
+        {
+            oldValue.PropertyChanged -= SelectedPeakOnPropertyChanged;
+        }
+
+        if (newValue != null)
+        {
+            newValue.PropertyChanged += SelectedPeakOnPropertyChanged;
+        }
+        
+        UpdateData();
+    }
+
+    private void SelectedPeakOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        UpdateData();
     }
 }
