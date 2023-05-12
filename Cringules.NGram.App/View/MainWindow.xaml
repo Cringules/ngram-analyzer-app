@@ -87,7 +87,8 @@
                         <oxy:PlotView Model="{Binding PeakModel}" />
                     </TabItem>
                 </TabControl>
-                <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Peaks}" IsReadOnly="True"
+                <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Peaks}"
+                          IsReadOnly="True"
                           SelectedItem="{Binding SelectedPeak}" AutoGenerateColumns="False" ColumnWidth="*">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
@@ -171,7 +172,7 @@
                                         Label="{x:Static res:Strings.SmoothingDegree}"
                                         Value="{Binding SmoothingDegree, Mode=TwoWay}"
                                         Minimum="{Binding MinSmoothingDegree}" Maximum="{Binding MaxSmoothingDegree}"
-                                        IsEnabled="{Binding SmoothingEnabled}"/>
+                                        IsEnabled="{Binding SmoothingEnabled}" />
                                 </StackPanel>
                             </Expander>
                         </ListBoxItem>
@@ -182,7 +183,12 @@
                                             Command="{Binding SelectPeakCommand}" />
                                     <Button Content="{x:Static res:Strings.Cancel}"
                                             Command="{Binding CancelSelectionCommand}" />
-                                    <Button Content="{x:Static res:Strings.AddPeak}" Command="{Binding AddPeakCommand}" />
+                                    <Button Content="{x:Static res:Strings.AddPeak}"
+                                            Command="{Binding AddPeakCommand}" />
+                                    <Button Content="Update Peak"
+                                            Command="{Binding UpdatePeakCommand}" />
+                                    <Button Content="Delete Peak"
+                                            Command="{Binding DeletePeakCommand}" />
                                 </StackPanel>
                             </Expander>
                         </ListBoxItem>
@@ -195,7 +201,8 @@
                                     <Label Content="Symmetrize"></Label>
                                     <ComboBox ItemsSource="{Binding SymmetrizeTypes}"
                                               SelectedItem="{Binding SelectedSymmetrizeType}"
-                                              DisplayMemberPath="Name"></ComboBox>
+                                              DisplayMemberPath="Name">
+                                    </ComboBox>
                                     <Label Content="{x:Static res:Strings.ApproximationFunction}" />
                                     <ComboBox ItemsSource="{Binding AvailableApproximators}"
                                               SelectedItem="{Binding Approximator}"
@@ -220,7 +227,9 @@
                                                              Value="{Binding Lambda, UpdateSourceTrigger=PropertyChanged}"
                                                              Minimum="0" Maximum="10" />
                                     </StackPanel>
-                                    <Button Content="{x:Static res:Strings.Approximate}" Command="{Binding ApproximateCommand}"></Button>
+                                    <Button Content="{x:Static res:Strings.Approximate}"
+                                            Command="{Binding ApproximateCommand}">
+                                    </Button>
                                 </StackPanel>
                             </Expander>
                         </ListBoxItem>

@@ -33,7 +33,7 @@ public partial class PeakData : ObservableObject
     public Point LeftBoundary { get; private set; }
     public Point RightBoundary { get; private set; }
 
-    public XrayPeak XrayPeak { get; private set; }
+    [ObservableProperty] private XrayPeak _xrayPeak;
 
     [ObservableProperty] private NamedItem<SymmetrizeType> _selectedSymmetrizeType = LeftSymmetrize;
 
@@ -103,6 +103,13 @@ public partial class PeakData : ObservableObject
 
         Approximate();
     }
+
+    partial void OnXrayPeakChanged(XrayPeak value)
+    {
+        CalculateAll();
+    }
+
+    
 
     partial void OnApproximatorChanged(NamedItem<IApproximator> value)
     {

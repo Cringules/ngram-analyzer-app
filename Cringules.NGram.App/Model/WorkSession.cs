@@ -29,7 +29,9 @@ public partial class WorkSession : ObservableObject
     [ObservableProperty] private List<Point> _peakBoundaries = new();
 
     [ObservableProperty] private ObservableCollection<PeakData> _peaks = new();
-    [ObservableProperty] private PeakData? _selectedPeak;
+
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(UpdatePeakCommand))] [NotifyCanExecuteChangedFor(nameof(DeletePeakCommand))]
+    private PeakData? _selectedPeak;
 
     [ObservableProperty] private bool _peakShown;
 
@@ -59,6 +61,7 @@ public partial class WorkSession : ObservableObject
         Model.PropertyChanged += (_, _) => SelectPeakCommand.NotifyCanExecuteChanged();
         Model.PropertyChanged += (_, _) => CancelSelectionCommand.NotifyCanExecuteChanged();
         Model.PropertyChanged += (_, _) => AddPeakCommand.NotifyCanExecuteChanged();
+        Model.PropertyChanged += (_, _) => UpdatePeakCommand.NotifyCanExecuteChanged();
     }
 
     [RelayCommand]
@@ -160,6 +163,26 @@ public partial class WorkSession : ObservableObject
         Model.CanSelect = false;
     }
 
+    private bool CanUpdatePeak()
+    {
+        return Model.FinishedSelection && SelectedPeak != null;
+    }
+
+    [RelayCommand(CanExecute = nameof(CanUpdatePeak))]
+    private void UpdatePeak()
+    {
+        if (SelectedPeak == null)
+        {
+            return;
+        }
+
+        List<double> points = Model.SelectedBoundary.ToList();
+        points.Sort();
+        SelectedPeak.XrayPeak = (SmoothedData ?? Data).GetPeak(points[0], points[1]);
+
+        Model.CanSelect = false;
+    }
+
     partial void OnDataChanged(Xray value)
     {
         Model.PlotPoints = value.ToPlotPoints();
@@ -172,6 +195,7 @@ public partial class WorkSession : ObservableObject
             PeakShown = false;
         }
 
+        Model.SelectedPeak = value;
         PeakModel.SelectedPeak = value;
     }
 
@@ -184,7 +208,12 @@ public partial class WorkSession : ObservableObject
         }
     }
 
-    [RelayCommand]
+    private bool CanDeletePeak()
+    {
+        return SelectedPeak != null;
+    }
+
+    [RelayCommand(CanExecute = nameof(CanDeletePeak))]
     private void DeletePeak()
     {
         if (SelectedPeak == null)
