@@ -42,7 +42,7 @@ public partial class PeakPlotModel : DiffractionDataPlotModel
         annotation.Points.Add(new DataPoint(SelectedPeak.RightBoundary.X, SelectedPeak.RightBoundary.Y));
         Annotations.Add(annotation);
 
-        PlotPoints = SelectedPeak.XrayPeak.ToPlotPoints();
+        PlotPoints = SelectedPeak.Symmetrized.ToPlotPoints();
         _approximationSeries.ItemsSource = SelectedPeak.Approximation?.ToPlotPoints();
     }
 

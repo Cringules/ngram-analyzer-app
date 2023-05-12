@@ -191,6 +191,10 @@
                             <Expander Header="{x:Static res:Strings.PeakApproximation}"
                                       DataContext="{Binding SelectedPeak}">
                                 <StackPanel>
+                                    <Label Content="Symmetrize"></Label>
+                                    <ComboBox ItemsSource="{Binding SymmetrizeTypes}"
+                                              SelectedItem="{Binding SelectedSymmetrizeType}"
+                                              DisplayMemberPath="Name"></ComboBox>
                                     <Label Content="{x:Static res:Strings.ApproximationFunction}" />
                                     <ComboBox ItemsSource="{Binding AvailableApproximators}"
                                               SelectedItem="{Binding Approximator}"
