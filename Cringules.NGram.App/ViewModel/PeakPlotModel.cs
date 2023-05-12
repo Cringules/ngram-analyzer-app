@@ -38,8 +38,8 @@ public partial class PeakPlotModel : DiffractionDataPlotModel
         });
 
         var annotation = new PolylineAnnotation();
-        annotation.Points.Add(new DataPoint(SelectedPeak.LeftBoundary.X, SelectedPeak.LeftBoundary.Y));
-        annotation.Points.Add(new DataPoint(SelectedPeak.RightBoundary.X, SelectedPeak.RightBoundary.Y));
+        annotation.Points.Add(new DataPoint(SelectedPeak.SymmetrizedLeftBoundary.X, SelectedPeak.SymmetrizedLeftBoundary.Y));
+        annotation.Points.Add(new DataPoint(SelectedPeak.SymmetrizedRightBoundary.X, SelectedPeak.SymmetrizedRightBoundary.Y));
         Annotations.Add(annotation);
 
         PlotPoints = SelectedPeak.Symmetrized.ToPlotPoints();

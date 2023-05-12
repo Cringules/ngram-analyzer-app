@@ -32,6 +32,8 @@ public partial class PeakData : ObservableObject
     public Point Top { get; private set; }
     public Point LeftBoundary { get; private set; }
     public Point RightBoundary { get; private set; }
+    public Point SymmetrizedLeftBoundary { get; private set; }
+    public Point SymmetrizedRightBoundary { get; private set; }
 
     [ObservableProperty] private XrayPeak _xrayPeak;
 
@@ -86,13 +88,16 @@ public partial class PeakData : ObservableObject
 
     private void CalculateAll()
     {
+        LeftBoundary = XrayPeak.Points[0];
+        RightBoundary = XrayPeak.Points[^1];
+        
         Symmetrized = SelectedSymmetrizeType.Value == SymmetrizeType.Left
             ? XrayPeak.SymmetrizePeakLeft()
             : XrayPeak.SymmetrizePeakRight();
         
         Top = Symmetrized.GetPeakTop();
-        LeftBoundary = Symmetrized.Points[0];
-        RightBoundary = Symmetrized.Points[^1];
+        SymmetrizedLeftBoundary = Symmetrized.Points[0];
+        SymmetrizedRightBoundary = Symmetrized.Points[^1];
         
         Angle = _analyzer.GetTopAngle(Symmetrized);
         Distance = _analyzer.GetInterplanarDistance(Symmetrized, _waveLength);
