@@ -47,6 +47,7 @@ public partial class PeakData : ObservableObject
 
     private readonly XrayPeakAnalyzer _analyzer;
 
+    // TODO Fix this
     [ObservableProperty] private ObservableCollection<NamedItem<IApproximator>> _availableApproximators =
         new() {GaussianApproximator, LorentzApproximator/*, VoigtApproximator*/};
 

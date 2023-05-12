@@ -102,6 +102,7 @@
                     </DataGrid.Resources>
                     <DataGrid.InputBindings>
                         <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ShowPeakCommand}"></MouseBinding>
+                        <KeyBinding Key="Delete" Command="{Binding DeletePeakCommand}"></KeyBinding>
                     </DataGrid.InputBindings>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{x:Static res:Strings.Angle}"

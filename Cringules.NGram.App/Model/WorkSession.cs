@@ -40,6 +40,8 @@ public partial class WorkSession : ObservableObject
 
     [JsonIgnore] public PeakPlotModel PeakModel { get; } = new();
 
+    private readonly IDialogService _dialogService = new DialogService();
+
     public WorkSession(Xray xray)
     {
         Data = xray;
@@ -179,6 +181,20 @@ public partial class WorkSession : ObservableObject
         if (SelectedPeak != null)
         {
             PeakShown = true;
+        }
+    }
+
+    [RelayCommand]
+    private void DeletePeak()
+    {
+        if (SelectedPeak == null)
+        {
+            return;
+        }
+
+        if (_dialogService.AskConfirmation("Are you sure you want to delete this peak?"))
+        {
+            Peaks.Remove(SelectedPeak);
         }
     }
 }
