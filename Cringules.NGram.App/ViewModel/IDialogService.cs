@@ -9,4 +9,6 @@ public interface IDialogService
     public bool ShowSaveFileDialog();
         
     public void ShowErrorMessage(string message);
+
+    public bool AskConfirmation(string message);
 }

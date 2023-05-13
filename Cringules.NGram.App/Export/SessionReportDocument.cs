@@ -60,7 +60,7 @@ public class SessionReportDocument : IDocument
                         header.Cell().Text(Strings.Angle);
                         header.Cell().Text(Strings.Distance);
                         header.Cell().Text(Strings.MaxIntensity);
-                        header.Cell().Text(Strings.IntergralIntensity);
+                        header.Cell().Text(Strings.IntegralIntensity);
                     });
 
                     foreach (PeakData peak in _workSession.Peaks)

@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Documents;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Cringules.NGram.App.Model;
 using Cringules.NGram.App.Resources;
 using Cringules.NGram.Lib;
 using OxyPlot;
@@ -25,6 +28,9 @@ public partial class DiffractogramPlotModel : DiffractionDataPlotModel
 
     private LineAnnotation? _currentAnnotation;
     private readonly List<LineAnnotation> _selectionAnnotations = new(2);
+
+    [ObservableProperty] private PeakData? _selectedPeak;
+    private readonly List<LineAnnotation> _selectedPeakAnnotations = new(2);
 
     public DiffractogramPlotModel() : base(Strings.DiffractogramDataHeader)
     {
@@ -111,5 +117,58 @@ public partial class DiffractogramPlotModel : DiffractionDataPlotModel
         {
             Series.Add(_smoothedSeries);
         }
+    }
+
+    private void RefreshSelectedPeak()
+    {
+        foreach (LineAnnotation annotation in _selectedPeakAnnotations)
+        {
+            Annotations.Remove(annotation);
+        }
+        _selectedPeakAnnotations.Clear();
+
+        if (SelectedPeak != null)
+        {
+            var leftAnnotation =  new LineAnnotation()
+            {
+                StrokeThickness = 2,
+                LineStyle = LineStyle.Dash,
+                Color = OxyColors.Green,
+                Type = LineAnnotationType.Vertical,
+                X = SelectedPeak.LeftBoundary.X
+            };
+            var rightAnnotation =  new LineAnnotation()
+            {
+                StrokeThickness = 2,
+                LineStyle = LineStyle.Dash,
+                Color = OxyColors.Green,
+                Type = LineAnnotationType.Vertical,
+                X = SelectedPeak.RightBoundary.X
+            };
+            _selectedPeakAnnotations.Add(leftAnnotation);
+            _selectedPeakAnnotations.Add(rightAnnotation);
+            Annotations.Add(leftAnnotation);
+            Annotations.Add(rightAnnotation);
+        }
+        
+        InvalidatePlot(true);
+    }
+
+    partial void OnSelectedPeakChanged(PeakData? oldValue, PeakData? newValue)
+    {
+        if (oldValue != null)
+        {
+            oldValue.PropertyChanged -= SelectedPeakOnPropertyChanged;
+        }
+        if (newValue != null)
+        {
+            newValue.PropertyChanged += SelectedPeakOnPropertyChanged;
+        }
+        RefreshSelectedPeak();
+    }
+
+    private void SelectedPeakOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        RefreshSelectedPeak();
     }
 }

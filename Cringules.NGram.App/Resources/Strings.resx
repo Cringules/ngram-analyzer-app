@@ -57,8 +57,8 @@
     <data name="SmoothingDegree" xml:space="preserve">
         <value>Smoothing Degree</value>
     </data>
-    <data name="PeakAddition" xml:space="preserve">
-        <value>Peak Addition</value>
+    <data name="Peaks" xml:space="preserve">
+        <value>Peaks</value>
     </data>
     <data name="AddPeak" xml:space="preserve">
         <value>Add Peak</value>
@@ -129,7 +129,7 @@
     <data name="MaxIntensity" xml:space="preserve">
         <value>Maximum Intensity</value>
     </data>
-    <data name="IntergralIntensity" xml:space="preserve">
+    <data name="IntegralIntensity" xml:space="preserve">
         <value>Integral Intensity</value>
     </data>
     <data name="AngleDegreesTemplate" xml:space="preserve">
@@ -177,13 +177,40 @@
     <data name="ApproximatedIntegralIntensity" xml:space="preserve">
         <value>Approximated Integral Intensity</value>
     </data>
-    <data name="ApproximationAccuracy" xml:space="preserve">
-        <value>Approximation Accuracy</value>
+    <data name="ApproximationRatio" xml:space="preserve">
+        <value>Approximation Ratio</value>
     </data>
     <data name="EnableSmoothing" xml:space="preserve">
         <value>Enable smoothing</value>
     </data>
     <data name="Approximate" xml:space="preserve">
         <value>Approximate</value>
+    </data>
+    <data name="RelativeMaxIntensity" xml:space="preserve">
+        <value>Relative Maximum Intensity</value>
+    </data>
+    <data name="RelativeIntegralIntensity" xml:space="preserve">
+        <value>Relative Integral Intensity</value>
+    </data>
+    <data name="RelativeIntensityPercentTemplate" xml:space="preserve">
+        <value>{0:P2}</value>
+    </data>
+    <data name="RatioTemplate" xml:space="preserve">
+        <value>{0:F3}</value>
+    </data>
+    <data name="UpdatePeak" xml:space="preserve">
+        <value>Update Peak</value>
+    </data>
+    <data name="DeletePeak" xml:space="preserve">
+        <value>Delete Peak</value>
+    </data>
+    <data name="Symmetrization" xml:space="preserve">
+        <value>Symmetrization</value>
+    </data>
+    <data name="LeftSymmetrization" xml:space="preserve">
+        <value>Left</value>
+    </data>
+    <data name="RightSymmetrization" xml:space="preserve">
+        <value>Right</value>
     </data>
 </root>

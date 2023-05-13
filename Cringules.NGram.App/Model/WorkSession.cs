@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text.Json.Serialization;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -29,7 +31,9 @@ public partial class WorkSession : ObservableObject
     [ObservableProperty] private List<Point> _peakBoundaries = new();
 
     [ObservableProperty] private ObservableCollection<PeakData> _peaks = new();
-    [ObservableProperty] private PeakData? _selectedPeak;
+
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(UpdatePeakCommand))] [NotifyCanExecuteChangedFor(nameof(DeletePeakCommand))]
+    private PeakData? _selectedPeak;
 
     [ObservableProperty] private bool _peakShown;
 
@@ -39,6 +43,8 @@ public partial class WorkSession : ObservableObject
     [JsonIgnore] public PlotController PlotController { get; } = new();
 
     [JsonIgnore] public PeakPlotModel PeakModel { get; } = new();
+
+    private readonly IDialogService _dialogService = new DialogService();
 
     public WorkSession(Xray xray)
     {
@@ -57,6 +63,9 @@ public partial class WorkSession : ObservableObject
         Model.PropertyChanged += (_, _) => SelectPeakCommand.NotifyCanExecuteChanged();
         Model.PropertyChanged += (_, _) => CancelSelectionCommand.NotifyCanExecuteChanged();
         Model.PropertyChanged += (_, _) => AddPeakCommand.NotifyCanExecuteChanged();
+        Model.PropertyChanged += (_, _) => UpdatePeakCommand.NotifyCanExecuteChanged();
+        
+        Peaks.CollectionChanged += OnPeaksCollectionChanged;
     }
 
     [RelayCommand]
@@ -158,6 +167,26 @@ public partial class WorkSession : ObservableObject
         Model.CanSelect = false;
     }
 
+    private bool CanUpdatePeak()
+    {
+        return Model.FinishedSelection && SelectedPeak != null;
+    }
+
+    [RelayCommand(CanExecute = nameof(CanUpdatePeak))]
+    private void UpdatePeak()
+    {
+        if (SelectedPeak == null)
+        {
+            return;
+        }
+
+        List<double> points = Model.SelectedBoundary.ToList();
+        points.Sort();
+        SelectedPeak.XrayPeak = (SmoothedData ?? Data).GetPeak(points[0], points[1]);
+
+        Model.CanSelect = false;
+    }
+
     partial void OnDataChanged(Xray value)
     {
         Model.PlotPoints = value.ToPlotPoints();
@@ -170,6 +199,7 @@ public partial class WorkSession : ObservableObject
             PeakShown = false;
         }
 
+        Model.SelectedPeak = value;
         PeakModel.SelectedPeak = value;
     }
 
@@ -180,5 +210,73 @@ public partial class WorkSession : ObservableObject
         {
             PeakShown = true;
         }
+    }
+
+    private bool CanDeletePeak()
+    {
+        return SelectedPeak != null;
+    }
+
+    [RelayCommand(CanExecute = nameof(CanDeletePeak))]
+    private void DeletePeak()
+    {
+        if (SelectedPeak == null)
+        {
+            return;
+        }
+
+        if (_dialogService.AskConfirmation("Are you sure you want to delete this peak?"))
+        {
+            Peaks.Remove(SelectedPeak);
+        }
+    }
+
+    partial void OnPeaksChanged(ObservableCollection<PeakData>? oldValue, ObservableCollection<PeakData> newValue)
+    {
+        if (oldValue != null)
+        {
+            oldValue.CollectionChanged -= OnPeaksCollectionChanged;
+        }
+        newValue.CollectionChanged += OnPeaksCollectionChanged;
+        
+        UpdatePeakIntensity();
+    }
+
+    private void UpdatePeakIntensity()
+    {
+        double maxPeakMaxIntensity = Peaks.Select(data => data.MaxIntensity).Max();
+        double maxPeakIntegralIntensity = Peaks.Select(data => data.IntegralIntensity).Max();
+
+        foreach (PeakData peak in Peaks)
+        {
+            peak.MaxPeakMaxIntensity = maxPeakMaxIntensity;
+            peak.MaxPeakIntegralIntensity = maxPeakIntegralIntensity;
+        }
+    }
+
+    private void OnPeaksCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (e.OldItems != null)
+        {
+            foreach (PeakData peakData in e.OldItems)
+            {
+                peakData.PropertyChanged -= PeakDataOnPropertyChanged;
+            }
+        }
+        
+        if (e.NewItems != null)
+        {
+            foreach (PeakData peakData in e.NewItems)
+            {
+                peakData.PropertyChanged += PeakDataOnPropertyChanged;
+            }
+        }
+        
+        UpdatePeakIntensity();
+    }
+
+    private void PeakDataOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        UpdatePeakIntensity();
     }
 }
