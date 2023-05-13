@@ -10,7 +10,7 @@
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:conv="clr-namespace:NKristek.Wpf.Converters;assembly=NKristek.Wpf.Converters"
         mc:Ignorable="d"
-        Title="{x:Static res:Strings.MainWindowTitle}" Height="800" Width="1200" MinHeight="600" MinWidth="800"
+        Title="{x:Static res:Strings.MainWindowTitle}" Height="800" Width="1200" MinHeight="768" MinWidth="1024"
         FontSize="14">
     <Window.DataContext>
         <vm:MainViewModel />
@@ -112,133 +112,136 @@
                                             Binding="{Binding Distance, StringFormat={x:Static res:Strings.DistanceAngstromTemplate}}" />
                         <DataGridTextColumn Header="{x:Static res:Strings.MaxIntensity}"
                                             Binding="{Binding MaxIntensity, StringFormat={x:Static res:Strings.IntensityAbsoluteUnitsTemplate}}" />
-                        <DataGridTextColumn Header="Max intensity relative"
-                                            Binding="{Binding MaxIntensityRelative}" />
-                        <DataGridTextColumn Header="{x:Static res:Strings.IntergralIntensity}"
+                        <DataGridTextColumn Header="{x:Static res:Strings.RelativeMaxIntensity}"
+                                            Binding="{Binding MaxIntensityRelative, StringFormat={x:Static res:Strings.RelativeIntensityPercentTemplate}}" />
+                        <DataGridTextColumn Header="{x:Static res:Strings.IntegralIntensity}"
                                             Binding="{Binding IntegralIntensity, StringFormat={x:Static res:Strings.IntensityAbsoluteUnitsTemplate}}" />
-                        <DataGridTextColumn Header="Integral intensity relative"
-                                            Binding="{Binding IntegralIntensityRelative}" />
+                        <DataGridTextColumn Header="{x:Static res:Strings.RelativeIntegralIntensity}"
+                                            Binding="{Binding IntegralIntensityRelative, StringFormat={x:Static res:Strings.RelativeIntensityPercentTemplate}}" />
                         <DataGridTextColumn Header="{x:Static res:Strings.FullWidthHalfMaximum}"
                                             Binding="{Binding FullWidthHalfMaximum, StringFormat={x:Static res:Strings.AngleDegreesTemplate}}" />
                         <DataGridTextColumn Header="{x:Static res:Strings.IntegralWidth}"
                                             Binding="{Binding IntegralWidth, StringFormat={x:Static res:Strings.AngleDegreesTemplate}}" />
                         <DataGridTextColumn Header="{x:Static res:Strings.ApproximatedIntegralIntensity}"
                                             Binding="{Binding ApproximatedIntegralIntensity, StringFormat={x:Static res:Strings.IntensityAbsoluteUnitsTemplate}}" />
-                        <DataGridTextColumn Header="{x:Static res:Strings.ApproximationAccuracy}"
-                                            Binding="{Binding ApproximationAccuracy}" />
+                        <DataGridTextColumn Header="{x:Static res:Strings.ApproximationRatio}"
+                                            Binding="{Binding ApproximationRatio, StringFormat={x:Static res:Strings.RatioTemplate}}" />
                     </DataGrid.Columns>
                 </DataGrid>
-                <StackPanel Grid.Row="0" Grid.Column="1" Margin="5">
-                    <Button Content="{x:Static res:Strings.StartAnalysis}"
+                <DockPanel Grid.Row="0" Grid.Column="1" Margin="5">
+                    <Button DockPanel.Dock="Top" Content="{x:Static res:Strings.StartAnalysis}"
                             Command="{Binding StartAnalysisCommand}" Height="50" FontSize="20" />
-                    <ListBox>
-                        <ListBox.Resources>
-                            <Style TargetType="Expander">
-                                <Setter Property="IsExpanded"
-                                        Value="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" />
-                            </Style>
-                        </ListBox.Resources>
-                        <ListBox.Template>
-                            <ControlTemplate TargetType="ListBox">
-                                <ItemsPresenter />
-                            </ControlTemplate>
-                        </ListBox.Template>
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="ListBoxItem">
-                                            <ContentPresenter Content="{TemplateBinding Content}" />
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
-                        <ListBoxItem>
-                            <Expander Header="{x:Static res:Strings.WaveLength}">
-                                <StackPanel>
-                                    <TextBlock
-                                        Text="{Binding WaveLength, StringFormat={x:Static res:Strings.SelectedWaveLength}}"
-                                        TextWrapping="Wrap" />
-                                    <Button Content="{x:Static res:Strings.Select}"
-                                            Command="{Binding GetWaveLengthCommand}" />
-                                </StackPanel>
-                            </Expander>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <Expander Header="{x:Static res:Strings.Smoothing}">
-                                <StackPanel>
-                                    <CheckBox IsChecked="{Binding SmoothingEnabled}">
-                                        <TextBlock Text="{x:Static res:Strings.EnableSmoothing}"
-                                                   TextWrapping="Wrap" />
-                                    </CheckBox>
-                                    <local:NumericSlider
-                                        Label="{x:Static res:Strings.SmoothingDegree}"
-                                        Value="{Binding SmoothingDegree, Mode=TwoWay}"
-                                        Minimum="{Binding MinSmoothingDegree}" Maximum="{Binding MaxSmoothingDegree}"
-                                        IsEnabled="{Binding SmoothingEnabled}" />
-                                </StackPanel>
-                            </Expander>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <Expander Header="{x:Static res:Strings.PeakAddition}">
-                                <StackPanel>
-                                    <Button Content="{x:Static res:Strings.Select}"
-                                            Command="{Binding SelectPeakCommand}" />
-                                    <Button Content="{x:Static res:Strings.Cancel}"
-                                            Command="{Binding CancelSelectionCommand}" />
-                                    <Button Content="{x:Static res:Strings.AddPeak}"
-                                            Command="{Binding AddPeakCommand}" />
-                                    <Button Content="Update Peak"
-                                            Command="{Binding UpdatePeakCommand}" />
-                                    <Button Content="Delete Peak"
-                                            Command="{Binding DeletePeakCommand}" />
-                                </StackPanel>
-                            </Expander>
-                        </ListBoxItem>
-                        <ListBoxItem
-                            IsEnabled="{Binding SelectedPeak, Converter={StaticResource NullInverseBoolConverter}}"
-                            IsSelected="{Binding PeakShown}">
-                            <Expander Header="{x:Static res:Strings.PeakApproximation}"
-                                      DataContext="{Binding SelectedPeak}">
-                                <StackPanel>
-                                    <Label Content="Symmetrize"></Label>
-                                    <ComboBox ItemsSource="{Binding SymmetrizeTypes}"
-                                              SelectedItem="{Binding SelectedSymmetrizeType}"
-                                              DisplayMemberPath="Name">
-                                    </ComboBox>
-                                    <Label Content="{x:Static res:Strings.ApproximationFunction}" />
-                                    <ComboBox ItemsSource="{Binding AvailableApproximators}"
-                                              SelectedItem="{Binding Approximator}"
-                                              IsEnabled="{Binding DetermineApproximator, Converter={StaticResource InverseBoolConverter}}"
-                                              DisplayMemberPath="Name" />
-                                    <CheckBox IsChecked="{Binding AutomaticApproximation}">
-                                        <TextBlock Text="{x:Static res:Strings.DetermineCoefficientsAutomatically}"
-                                                   TextWrapping="Wrap" />
-                                    </CheckBox>
-                                    <StackPanel
-                                        IsEnabled="{Binding AutomaticApproximation, Converter={StaticResource InverseBoolConverter}}">
-                                        <local:NumericSlider Label="{x:Static res:Strings.Height}"
-                                                             Value="{Binding Height, UpdateSourceTrigger=PropertyChanged}"
-                                                             Minimum="0" Maximum="100" />
-                                        <local:NumericSlider Label="{x:Static res:Strings.Width}"
-                                                             Value="{Binding Width, UpdateSourceTrigger=PropertyChanged}"
-                                                             Minimum="0" Maximum="100" />
-                                        <local:NumericSlider Label="{x:Static res:Strings.Corr}"
-                                                             Value="{Binding Corr, UpdateSourceTrigger=PropertyChanged}"
-                                                             Minimum="0" Maximum="100" />
-                                        <local:NumericSlider Label="{x:Static res:Strings.Lambda}"
-                                                             Value="{Binding Lambda, UpdateSourceTrigger=PropertyChanged}"
-                                                             Minimum="0" Maximum="10" />
-                                    </StackPanel>
-                                    <Button Content="{x:Static res:Strings.Approximate}"
-                                            Command="{Binding ApproximateCommand}">
-                                    </Button>
-                                </StackPanel>
-                            </Expander>
-                        </ListBoxItem>
-                    </ListBox>
-                </StackPanel>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <ListBox>
+                                <ListBox.Resources>
+                                    <Style TargetType="Expander">
+                                        <Setter Property="IsExpanded"
+                                                Value="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" />
+                                    </Style>
+                                </ListBox.Resources>
+                                <ListBox.Template>
+                                    <ControlTemplate TargetType="ListBox">
+                                        <ItemsPresenter />
+                                    </ControlTemplate>
+                                </ListBox.Template>
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListBoxItem">
+                                                    <ContentPresenter Content="{TemplateBinding Content}" />
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <ListBoxItem>
+                                    <Expander Header="{x:Static res:Strings.WaveLength}">
+                                        <StackPanel>
+                                            <TextBlock
+                                                Text="{Binding WaveLength, StringFormat={x:Static res:Strings.SelectedWaveLength}}"
+                                                TextWrapping="Wrap" />
+                                            <Button Content="{x:Static res:Strings.Select}"
+                                                    Command="{Binding GetWaveLengthCommand}" />
+                                        </StackPanel>
+                                    </Expander>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <Expander Header="{x:Static res:Strings.Smoothing}">
+                                        <StackPanel>
+                                            <CheckBox IsChecked="{Binding SmoothingEnabled}">
+                                                <TextBlock Text="{x:Static res:Strings.EnableSmoothing}"
+                                                           TextWrapping="Wrap" />
+                                            </CheckBox>
+                                            <local:NumericSlider
+                                                Label="{x:Static res:Strings.SmoothingDegree}"
+                                                Value="{Binding SmoothingDegree, Mode=TwoWay}"
+                                                Minimum="{Binding MinSmoothingDegree}"
+                                                Maximum="{Binding MaxSmoothingDegree}"
+                                                IsEnabled="{Binding SmoothingEnabled}" />
+                                        </StackPanel>
+                                    </Expander>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <Expander Header="{x:Static res:Strings.Peaks}">
+                                        <StackPanel>
+                                            <Button Content="{x:Static res:Strings.Select}"
+                                                    Command="{Binding SelectPeakCommand}" />
+                                            <Button Content="{x:Static res:Strings.Cancel}"
+                                                    Command="{Binding CancelSelectionCommand}" />
+                                            <Button Content="{x:Static res:Strings.AddPeak}"
+                                                    Command="{Binding AddPeakCommand}" />
+                                            <Button Content="{x:Static res:Strings.UpdatePeak}"
+                                                    Command="{Binding UpdatePeakCommand}" />
+                                            <Button Content="{x:Static res:Strings.DeletePeak}"
+                                                    Command="{Binding DeletePeakCommand}" />
+                                        </StackPanel>
+                                    </Expander>
+                                </ListBoxItem>
+                                <ListBoxItem
+                                    IsEnabled="{Binding SelectedPeak, Converter={StaticResource NullInverseBoolConverter}}"
+                                    IsSelected="{Binding PeakShown}">
+                                    <Expander Header="{x:Static res:Strings.PeakApproximation}"
+                                              DataContext="{Binding SelectedPeak}">
+                                        <StackPanel>
+                                            <Label Content="{x:Static res:Strings.Symmetrization}"></Label>
+                                            <ComboBox ItemsSource="{Binding SymmetrizeTypes}"
+                                                      SelectedItem="{Binding SelectedSymmetrizeType}"
+                                                      DisplayMemberPath="Name">
+                                            </ComboBox>
+                                            <Label Content="{x:Static res:Strings.ApproximationFunction}" />
+                                            <ComboBox ItemsSource="{Binding AvailableApproximators}"
+                                                      SelectedItem="{Binding Approximator}"
+                                                      IsEnabled="{Binding DetermineApproximator, Converter={StaticResource InverseBoolConverter}}"
+                                                      DisplayMemberPath="Name" />
+                                            <CheckBox IsChecked="{Binding AutomaticApproximation}">
+                                                <TextBlock
+                                                    Text="{x:Static res:Strings.DetermineCoefficientsAutomatically}"
+                                                    TextWrapping="Wrap" />
+                                            </CheckBox>
+                                            <StackPanel
+                                                IsEnabled="{Binding AutomaticApproximation, Converter={StaticResource InverseBoolConverter}}">
+                                                <local:NumericSlider Label="{x:Static res:Strings.Height}"
+                                                                     Value="{Binding Height, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Minimum="0" Maximum="100" />
+                                                <local:NumericSlider Label="{x:Static res:Strings.Width}"
+                                                                     Value="{Binding Width, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Minimum="0" Maximum="100" />
+                                                <local:NumericSlider Label="{x:Static res:Strings.Corr}"
+                                                                     Value="{Binding Corr, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Minimum="0" Maximum="100" />
+                                                <local:NumericSlider Label="{x:Static res:Strings.Lambda}"
+                                                                     Value="{Binding Lambda, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Minimum="0" Maximum="10" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Expander>
+                                </ListBoxItem>
+                            </ListBox>
+                        </StackPanel>
+                    </ScrollViewer>
+                </DockPanel>
             </Grid>
         </Grid>
     </DockPanel>

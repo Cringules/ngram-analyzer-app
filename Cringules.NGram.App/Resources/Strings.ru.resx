@@ -50,8 +50,8 @@
     <data name="SmoothingDegree" xml:space="preserve">
         <value>Степень сглаживания</value>
     </data>
-    <data name="PeakAddition" xml:space="preserve">
-        <value>Добавление пика</value>
+    <data name="Peaks" xml:space="preserve">
+        <value>Пики</value>
     </data>
     <data name="AddPeak" xml:space="preserve">
         <value>Добавить пик</value>
@@ -119,7 +119,7 @@
     <data name="MaxIntensity" xml:space="preserve">
         <value>Максимальная интенсивность</value>
     </data>
-    <data name="IntergralIntensity" xml:space="preserve">
+    <data name="IntegralIntensity" xml:space="preserve">
         <value>Интегральная интенсивность</value>
     </data>
     <data name="IntensityAbsoluteUnitsTemplate" xml:space="preserve">
@@ -155,13 +155,34 @@
     <data name="ApproximatedIntegralIntensity" xml:space="preserve">
         <value>Оцененная интегральная интенсивность</value>
     </data>
-    <data name="ApproximationAccuracy" xml:space="preserve">
-        <value>Точность аппроксимации</value>
+    <data name="ApproximationRatio" xml:space="preserve">
+        <value>Отношение аппроксимации к измерению</value>
     </data>
     <data name="EnableSmoothing" xml:space="preserve">
         <value>Включить сглаживание графика</value>
     </data>
     <data name="Approximate" xml:space="preserve">
         <value>Оценить</value>
+    </data>
+    <data name="RelativeMaxIntensity" xml:space="preserve">
+        <value>Относительная максимальная интенсивность</value>
+    </data>
+    <data name="RelativeIntegralIntensity" xml:space="preserve">
+        <value>Относительная интегральная интенсивность</value>
+    </data>
+    <data name="UpdatePeak" xml:space="preserve">
+        <value>Обновить пик</value>
+    </data>
+    <data name="DeletePeak" xml:space="preserve">
+        <value>Удалить пик</value>
+    </data>
+    <data name="Symmetrization" xml:space="preserve">
+        <value>Симметризация</value>
+    </data>
+    <data name="LeftSymmetrization" xml:space="preserve">
+        <value>Левосторонняя</value>
+    </data>
+    <data name="RightSymmetrization" xml:space="preserve">
+        <value>Правосторонняя</value>
     </data>
 </root>

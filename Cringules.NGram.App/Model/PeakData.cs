@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Cringules.NGram.App.Resources;
@@ -11,8 +10,8 @@ namespace Cringules.NGram.App.Model;
 public partial class PeakData : ObservableObject
 {
     private readonly double _waveLength;
-    private static readonly NamedItem<SymmetrizeType> LeftSymmetrize = new("Left", SymmetrizeType.Left);
-    private static readonly NamedItem<SymmetrizeType> RightSymmetrize = new("Right", SymmetrizeType.Right);
+    private static readonly NamedItem<SymmetrizeType> LeftSymmetrize = new(Strings.LeftSymmetrization, SymmetrizeType.Left);
+    private static readonly NamedItem<SymmetrizeType> RightSymmetrize = new(Strings.RightSymmetrization, SymmetrizeType.Right);
 
     private static readonly NamedItem<IApproximator>
         GaussianApproximator = new(Strings.Gaussian, new ApproximationGaussian());
@@ -68,7 +67,7 @@ public partial class PeakData : ObservableObject
     [ObservableProperty] private double _lambda;
 
     [ObservableProperty] private double? _approximatedIntegralIntensity;
-    [ObservableProperty] private double? _approximationAccuracy;
+    [ObservableProperty] private double? _approximationRatio;
 
     public PeakData(XrayPeak peak, double waveLength)
     {
@@ -88,7 +87,7 @@ public partial class PeakData : ObservableObject
 
         Approximation = new XrayPeak(_approximationResult.Value.Points);
         ApproximatedIntegralIntensity = _analyzer.GetIntensityApproximated(Symmetrized, _approximationResult.Value);
-        ApproximationAccuracy = _analyzer.GetIntensityDifference(Symmetrized, _approximationResult.Value);
+        ApproximationRatio = _analyzer.GetIntensityDifference(Symmetrized, _approximationResult.Value);
     }
 
     private void CalculateAll()

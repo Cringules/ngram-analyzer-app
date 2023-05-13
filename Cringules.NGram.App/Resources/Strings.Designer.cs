@@ -123,20 +123,20 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Approximation Accuracy.
-        /// </summary>
-        public static string ApproximationAccuracy {
-            get {
-                return ResourceManager.GetString("ApproximationAccuracy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Approximation function.
         /// </summary>
         public static string ApproximationFunction {
             get {
                 return ResourceManager.GetString("ApproximationFunction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Approximation Ratio.
+        /// </summary>
+        public static string ApproximationRatio {
+            get {
+                return ResourceManager.GetString("ApproximationRatio", resourceCulture);
             }
         }
         
@@ -191,6 +191,15 @@ namespace Cringules.NGram.App.Resources {
         public static string Degrees {
             get {
                 return ResourceManager.GetString("Degrees", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Peak.
+        /// </summary>
+        public static string DeletePeak {
+            get {
+                return ResourceManager.GetString("DeletePeak", resourceCulture);
             }
         }
         
@@ -321,6 +330,15 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Integral Intensity.
+        /// </summary>
+        public static string IntegralIntensity {
+            get {
+                return ResourceManager.GetString("IntegralIntensity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Integral Width.
         /// </summary>
         public static string IntegralWidth {
@@ -348,20 +366,20 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Integral Intensity.
-        /// </summary>
-        public static string IntergralIntensity {
-            get {
-                return ResourceManager.GetString("IntergralIntensity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Lambda.
         /// </summary>
         public static string Lambda {
             get {
                 return ResourceManager.GetString("Lambda", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left.
+        /// </summary>
+        public static string LeftSymmetrization {
+            get {
+                return ResourceManager.GetString("LeftSymmetrization", resourceCulture);
             }
         }
         
@@ -411,15 +429,6 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Peak Addition.
-        /// </summary>
-        public static string PeakAddition {
-            get {
-                return ResourceManager.GetString("PeakAddition", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Peak Approximation.
         /// </summary>
         public static string PeakApproximation {
@@ -443,6 +452,60 @@ namespace Cringules.NGram.App.Resources {
         public static string PeakPlotTabHeader {
             get {
                 return ResourceManager.GetString("PeakPlotTabHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Peaks.
+        /// </summary>
+        public static string Peaks {
+            get {
+                return ResourceManager.GetString("Peaks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0:F3}.
+        /// </summary>
+        public static string RatioTemplate {
+            get {
+                return ResourceManager.GetString("RatioTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Relative Integral Intensity.
+        /// </summary>
+        public static string RelativeIntegralIntensity {
+            get {
+                return ResourceManager.GetString("RelativeIntegralIntensity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0:P2}.
+        /// </summary>
+        public static string RelativeIntensityPercentTemplate {
+            get {
+                return ResourceManager.GetString("RelativeIntensityPercentTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Relative Maximum Intensity.
+        /// </summary>
+        public static string RelativeMaxIntensity {
+            get {
+                return ResourceManager.GetString("RelativeMaxIntensity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Right.
+        /// </summary>
+        public static string RightSymmetrization {
+            get {
+                return ResourceManager.GetString("RightSymmetrization", resourceCulture);
             }
         }
         
@@ -515,6 +578,24 @@ namespace Cringules.NGram.App.Resources {
         public static string StartAnalysis {
             get {
                 return ResourceManager.GetString("StartAnalysis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Symmetrization.
+        /// </summary>
+        public static string Symmetrization {
+            get {
+                return ResourceManager.GetString("Symmetrization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Peak.
+        /// </summary>
+        public static string UpdatePeak {
+            get {
+                return ResourceManager.GetString("UpdatePeak", resourceCulture);
             }
         }
         
