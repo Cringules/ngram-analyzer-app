@@ -112,8 +112,12 @@
                                             Binding="{Binding Distance, StringFormat={x:Static res:Strings.DistanceAngstromTemplate}}" />
                         <DataGridTextColumn Header="{x:Static res:Strings.MaxIntensity}"
                                             Binding="{Binding MaxIntensity, StringFormat={x:Static res:Strings.IntensityAbsoluteUnitsTemplate}}" />
+                        <DataGridTextColumn Header="Max intensity relative"
+                                            Binding="{Binding MaxIntensityRelative}" />
                         <DataGridTextColumn Header="{x:Static res:Strings.IntergralIntensity}"
                                             Binding="{Binding IntegralIntensity, StringFormat={x:Static res:Strings.IntensityAbsoluteUnitsTemplate}}" />
+                        <DataGridTextColumn Header="Integral intensity relative"
+                                            Binding="{Binding IntegralIntensityRelative}" />
                         <DataGridTextColumn Header="{x:Static res:Strings.FullWidthHalfMaximum}"
                                             Binding="{Binding FullWidthHalfMaximum, StringFormat={x:Static res:Strings.AngleDegreesTemplate}}" />
                         <DataGridTextColumn Header="{x:Static res:Strings.IntegralWidth}"

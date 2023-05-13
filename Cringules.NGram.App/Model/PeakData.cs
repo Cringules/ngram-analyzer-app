@@ -25,8 +25,10 @@ public partial class PeakData : ObservableObject
 
     public double Angle { get; private set; }
     public double Distance { get; private set; }
-    public double MaxIntensity { get; private set; }
-    public double IntegralIntensity { get; private set; }
+    [ObservableProperty] private double _maxIntensity;
+    public double MaxIntensityRelative { get; private set; }
+    [ObservableProperty] private double _integralIntensity;
+    public double IntegralIntensityRelative { get; private set; }
     public double FullWidthHalfMaximum { get; private set; }
     public double IntegralWidth { get; private set; }
     public Point Top { get; private set; }
@@ -34,6 +36,9 @@ public partial class PeakData : ObservableObject
     public Point RightBoundary { get; private set; }
     public Point SymmetrizedLeftBoundary { get; private set; }
     public Point SymmetrizedRightBoundary { get; private set; }
+
+    [ObservableProperty] private double _maxPeakMaxIntensity;
+    [ObservableProperty] private double _maxPeakIntegralIntensity;
 
     [ObservableProperty] private XrayPeak _xrayPeak;
 
@@ -102,7 +107,9 @@ public partial class PeakData : ObservableObject
         Angle = _analyzer.GetTopAngle(Symmetrized);
         Distance = _analyzer.GetInterplanarDistance(Symmetrized, _waveLength);
         MaxIntensity = _analyzer.GetIntensityMaximum(Symmetrized);
+        MaxIntensityRelative = MaxIntensity / MaxPeakMaxIntensity;
         IntegralIntensity = _analyzer.GetIntensityIntegral(Symmetrized);
+        IntegralIntensityRelative = IntegralIntensity / MaxPeakIntegralIntensity;
         FullWidthHalfMaximum = _analyzer.GetPeakWidth(Symmetrized);
         IntegralWidth = _analyzer.GetIntegralWidth(Symmetrized);
 
@@ -114,8 +121,6 @@ public partial class PeakData : ObservableObject
         CalculateAll();
     }
 
-    
-
     partial void OnApproximatorChanged(NamedItem<IApproximator> value)
     {
         CalculateAll();
@@ -125,5 +130,15 @@ public partial class PeakData : ObservableObject
     partial void OnSelectedSymmetrizeTypeChanged(NamedItem<SymmetrizeType> value)
     {
         CalculateAll();
+    }
+
+    partial void OnMaxPeakMaxIntensityChanged(double value)
+    {
+        MaxIntensityRelative = MaxIntensity / value;
+    }
+    
+    partial void OnMaxPeakIntegralIntensityChanged(double value)
+    {
+        IntegralIntensityRelative = IntegralIntensity / value;
     }
 }

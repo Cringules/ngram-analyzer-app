@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text.Json.Serialization;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -62,6 +64,8 @@ public partial class WorkSession : ObservableObject
         Model.PropertyChanged += (_, _) => CancelSelectionCommand.NotifyCanExecuteChanged();
         Model.PropertyChanged += (_, _) => AddPeakCommand.NotifyCanExecuteChanged();
         Model.PropertyChanged += (_, _) => UpdatePeakCommand.NotifyCanExecuteChanged();
+        
+        Peaks.CollectionChanged += OnPeaksCollectionChanged;
     }
 
     [RelayCommand]
@@ -225,5 +229,54 @@ public partial class WorkSession : ObservableObject
         {
             Peaks.Remove(SelectedPeak);
         }
+    }
+
+    partial void OnPeaksChanged(ObservableCollection<PeakData>? oldValue, ObservableCollection<PeakData> newValue)
+    {
+        if (oldValue != null)
+        {
+            oldValue.CollectionChanged -= OnPeaksCollectionChanged;
+        }
+        newValue.CollectionChanged += OnPeaksCollectionChanged;
+        
+        UpdatePeakIntensity();
+    }
+
+    private void UpdatePeakIntensity()
+    {
+        double maxPeakMaxIntensity = Peaks.Select(data => data.MaxIntensity).Max();
+        double maxPeakIntegralIntensity = Peaks.Select(data => data.IntegralIntensity).Max();
+
+        foreach (PeakData peak in Peaks)
+        {
+            peak.MaxPeakMaxIntensity = maxPeakMaxIntensity;
+            peak.MaxPeakIntegralIntensity = maxPeakIntegralIntensity;
+        }
+    }
+
+    private void OnPeaksCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (e.OldItems != null)
+        {
+            foreach (PeakData peakData in e.OldItems)
+            {
+                peakData.PropertyChanged -= PeakDataOnPropertyChanged;
+            }
+        }
+        
+        if (e.NewItems != null)
+        {
+            foreach (PeakData peakData in e.NewItems)
+            {
+                peakData.PropertyChanged += PeakDataOnPropertyChanged;
+            }
+        }
+        
+        UpdatePeakIntensity();
+    }
+
+    private void PeakDataOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        UpdatePeakIntensity();
     }
 }
