@@ -26,7 +26,7 @@ public partial class DiffractionDataPlotModel : PlotModel
 
     private readonly LinearAxis _yAxis = new()
     {
-        Title = Strings.Intensity, Unit = Strings.AbsoluteUnits, Position = AxisPosition.Left, IsPanEnabled = false,
+        Title = Strings.Intensity, Unit = Strings.ArbitraryUnits, Position = AxisPosition.Left, IsPanEnabled = false,
         IsZoomEnabled = false
     };
 

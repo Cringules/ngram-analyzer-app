@@ -121,25 +121,25 @@
         <value>Selected value</value>
     </data>
     <data name="Angle" xml:space="preserve">
-        <value>Angle</value>
+        <value>Angle, °</value>
     </data>
     <data name="Distance" xml:space="preserve">
-        <value>Distance</value>
+        <value>Distance, Å</value>
     </data>
     <data name="MaxIntensity" xml:space="preserve">
-        <value>Maximum Intensity</value>
+        <value>Maximum Intensity, a.u.</value>
     </data>
     <data name="IntegralIntensity" xml:space="preserve">
-        <value>Integral Intensity</value>
+        <value>Integral Intensity, a.u.</value>
     </data>
     <data name="AngleDegreesTemplate" xml:space="preserve">
-        <value>{0:F4}°</value>
+        <value>{0:F4}</value>
     </data>
     <data name="DistanceAngstromTemplate" xml:space="preserve">
-        <value>{0:F5} Å</value>
+        <value>{0:F5}</value>
     </data>
-    <data name="IntensityAbsoluteUnitsTemplate" xml:space="preserve">
-        <value>{0:F2} a.u.</value>
+    <data name="IntensityArbitraryUnitsTemplate" xml:space="preserve">
+        <value>{0:F2}</value>
     </data>
     <data name="Voigt" xml:space="preserve">
         <value>Voigt</value>
@@ -153,7 +153,7 @@
     <data name="Intensity" xml:space="preserve">
         <value>Intensity</value>
     </data>
-    <data name="AbsoluteUnits" xml:space="preserve">
+    <data name="ArbitraryUnits" xml:space="preserve">
         <value>a.u.</value>
     </data>
     <data name="Degrees" xml:space="preserve">
@@ -169,16 +169,16 @@
         <value>Wave Length Selection</value>
     </data>
     <data name="FullWidthHalfMaximum" xml:space="preserve">
-        <value>Width</value>
+        <value>Width, °</value>
     </data>
     <data name="IntegralWidth" xml:space="preserve">
-        <value>Integral Width</value>
+        <value>Integral Width, °</value>
     </data>
     <data name="ApproximatedIntegralIntensity" xml:space="preserve">
-        <value>Approximated Integral Intensity</value>
+        <value>Approximated Integral Intensity, a.u.</value>
     </data>
     <data name="ApproximationRatio" xml:space="preserve">
-        <value>Approximation Ratio</value>
+        <value>Approximation Ratio, %</value>
     </data>
     <data name="EnableSmoothing" xml:space="preserve">
         <value>Enable smoothing</value>
@@ -187,13 +187,13 @@
         <value>Approximate</value>
     </data>
     <data name="RelativeMaxIntensity" xml:space="preserve">
-        <value>Relative Maximum Intensity</value>
+        <value>Relative Maximum Intensity, %</value>
     </data>
     <data name="RelativeIntegralIntensity" xml:space="preserve">
-        <value>Relative Integral Intensity</value>
+        <value>Relative Integral Intensity, %</value>
     </data>
     <data name="RelativeIntensityPercentTemplate" xml:space="preserve">
-        <value>{0:P2}</value>
+        <value>{0:F2}</value>
     </data>
     <data name="RatioTemplate" xml:space="preserve">
         <value>{0:F3}</value>
