@@ -4,6 +4,7 @@ using OxyPlot;
 using OxyPlot.SkiaSharp;
 using QuestPDF.Drawing;
 using QuestPDF.Fluent;
+using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 
 namespace Cringules.NGram.App.Export;
@@ -26,10 +27,15 @@ public class SessionReportDocument : IDocument
     {
         container.Page(page =>
         {
+            TextStyle textStyle = TextStyle
+                .Default
+                .FontFamily(Fonts.Arial);
+            
+            page.DefaultTextStyle(textStyle);
             page.Content().Column(column =>
             {
                 column.Item()
-                    .Height(500)
+                    .Height(300)
                     .Canvas((canvas, space) =>
                     {
                         using var context = new SkiaRenderContext
