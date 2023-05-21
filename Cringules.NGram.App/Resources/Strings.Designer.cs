@@ -60,15 +60,6 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to a.u..
-        /// </summary>
-        public static string AbsoluteUnits {
-            get {
-                return ResourceManager.GetString("AbsoluteUnits", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Add Peak.
         /// </summary>
         public static string AddPeak {
@@ -96,11 +87,20 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0:F4}°.
+        ///   Looks up a localized string similar to {0:F4}.
         /// </summary>
         public static string AngleDegreesTemplate {
             get {
                 return ResourceManager.GetString("AngleDegreesTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angle, °.
+        /// </summary>
+        public static string AngleHeading {
+            get {
+                return ResourceManager.GetString("AngleHeading", resourceCulture);
             }
         }
         
@@ -114,7 +114,7 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Approximated Integral Intensity.
+        ///   Looks up a localized string similar to Approximated Integral Intensity, a.u..
         /// </summary>
         public static string ApproximatedIntegralIntensity {
             get {
@@ -132,11 +132,20 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Approximation Ratio.
+        ///   Looks up a localized string similar to Approximation Ratio, %.
         /// </summary>
         public static string ApproximationRatio {
             get {
                 return ResourceManager.GetString("ApproximationRatio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to a.u..
+        /// </summary>
+        public static string ArbitraryUnits {
+            get {
+                return ResourceManager.GetString("ArbitraryUnits", resourceCulture);
             }
         }
         
@@ -240,7 +249,7 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Distance.
+        ///   Looks up a localized string similar to Distance, Å.
         /// </summary>
         public static string Distance {
             get {
@@ -249,7 +258,7 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0:F5} Å.
+        ///   Looks up a localized string similar to {0:F5}.
         /// </summary>
         public static string DistanceAngstromTemplate {
             get {
@@ -294,7 +303,7 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Width.
+        ///   Looks up a localized string similar to Width, °.
         /// </summary>
         public static string FullWidthHalfMaximum {
             get {
@@ -330,7 +339,7 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Integral Intensity.
+        ///   Looks up a localized string similar to Integral Intensity, a.u..
         /// </summary>
         public static string IntegralIntensity {
             get {
@@ -339,7 +348,7 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Integral Width.
+        ///   Looks up a localized string similar to Integral Width, °.
         /// </summary>
         public static string IntegralWidth {
             get {
@@ -357,11 +366,11 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0:F2} a.u..
+        ///   Looks up a localized string similar to {0:F2}.
         /// </summary>
-        public static string IntensityAbsoluteUnitsTemplate {
+        public static string IntensityArbitraryUnitsTemplate {
             get {
-                return ResourceManager.GetString("IntensityAbsoluteUnitsTemplate", resourceCulture);
+                return ResourceManager.GetString("IntensityArbitraryUnitsTemplate", resourceCulture);
             }
         }
         
@@ -411,7 +420,7 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maximum Intensity.
+        ///   Looks up a localized string similar to Maximum Intensity, a.u..
         /// </summary>
         public static string MaxIntensity {
             get {
@@ -474,7 +483,7 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Relative Integral Intensity.
+        ///   Looks up a localized string similar to Relative Integral Intensity, %.
         /// </summary>
         public static string RelativeIntegralIntensity {
             get {
@@ -483,7 +492,7 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0:P2}.
+        ///   Looks up a localized string similar to {0:F2}.
         /// </summary>
         public static string RelativeIntensityPercentTemplate {
             get {
@@ -492,7 +501,7 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Relative Maximum Intensity.
+        ///   Looks up a localized string similar to Relative Maximum Intensity, %.
         /// </summary>
         public static string RelativeMaxIntensity {
             get {

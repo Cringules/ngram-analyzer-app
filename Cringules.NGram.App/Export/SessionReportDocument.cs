@@ -57,7 +57,7 @@ public class SessionReportDocument : IDocument
 
                     table.Header(header =>
                     {
-                        header.Cell().Text(Strings.Angle);
+                        header.Cell().Text(Strings.AngleHeading);
                         header.Cell().Text(Strings.Distance);
                         header.Cell().Text(Strings.MaxIntensity);
                         header.Cell().Text(Strings.IntegralIntensity);
@@ -67,8 +67,8 @@ public class SessionReportDocument : IDocument
                     {
                         table.Cell().Text(string.Format(Strings.AngleDegreesTemplate, peak.Angle));
                         table.Cell().Text(string.Format(Strings.DistanceAngstromTemplate, peak.Distance));
-                        table.Cell().Text(string.Format(Strings.IntensityAbsoluteUnitsTemplate, peak.MaxIntensity));
-                        table.Cell().Text(string.Format(Strings.IntensityAbsoluteUnitsTemplate,
+                        table.Cell().Text(string.Format(Strings.IntensityArbitraryUnitsTemplate, peak.MaxIntensity));
+                        table.Cell().Text(string.Format(Strings.IntensityArbitraryUnitsTemplate,
                             peak.IntegralIntensity));
                     }
                 });

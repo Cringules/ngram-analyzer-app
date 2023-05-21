@@ -110,20 +110,20 @@
     <data name="SelectedValue" xml:space="preserve">
         <value>Выбранное значение</value>
     </data>
-    <data name="Angle" xml:space="preserve">
-        <value>Угол</value>
+    <data name="AngleHeading" xml:space="preserve">
+        <value>Угол отражения, °</value>
     </data>
     <data name="Distance" xml:space="preserve">
-        <value>Межплоскостное расстояние</value>
+        <value>Межплоскостное расстояние, Å</value>
     </data>
     <data name="MaxIntensity" xml:space="preserve">
-        <value>Максимальная интенсивность</value>
+        <value>Максимальная интенсивность, отн. ед.</value>
     </data>
     <data name="IntegralIntensity" xml:space="preserve">
-        <value>Интегральная интенсивность</value>
+        <value>Интегральная интенсивность, отн. ед.</value>
     </data>
-    <data name="IntensityAbsoluteUnitsTemplate" xml:space="preserve">
-        <value>{0:F2} отн. ед.</value>
+    <data name="IntensityArbitraryUnitsTemplate" xml:space="preserve">
+        <value>{0:F2}</value>
     </data>
     <data name="Voigt" xml:space="preserve">
         <value>Войта</value>
@@ -134,7 +134,7 @@
     <data name="Intensity" xml:space="preserve">
         <value>Интенсивность</value>
     </data>
-    <data name="AbsoluteUnits" xml:space="preserve">
+    <data name="ArbitraryUnits" xml:space="preserve">
         <value>отн. ед.</value>
     </data>
     <data name="DiffractogramDataHeader" xml:space="preserve">
@@ -147,16 +147,16 @@
         <value>Выбор длины волны</value>
     </data>
     <data name="FullWidthHalfMaximum" xml:space="preserve">
-        <value>Ширина</value>
+        <value>Ширина, °</value>
     </data>
     <data name="IntegralWidth" xml:space="preserve">
-        <value>Интегральная ширина</value>
+        <value>Интегральная ширина, °</value>
     </data>
     <data name="ApproximatedIntegralIntensity" xml:space="preserve">
-        <value>Оцененная интегральная интенсивность</value>
+        <value>Оцененная интегральная интенсивность, отн. ед.</value>
     </data>
     <data name="ApproximationRatio" xml:space="preserve">
-        <value>Отношение аппроксимации к измерению</value>
+        <value>Отношение измеренной интегральной интенсивности к оцененной, %</value>
     </data>
     <data name="EnableSmoothing" xml:space="preserve">
         <value>Включить сглаживание графика</value>
@@ -165,10 +165,10 @@
         <value>Оценить</value>
     </data>
     <data name="RelativeMaxIntensity" xml:space="preserve">
-        <value>Относительная максимальная интенсивность</value>
+        <value>Относительная максимальная интенсивность, %</value>
     </data>
     <data name="RelativeIntegralIntensity" xml:space="preserve">
-        <value>Относительная интегральная интенсивность</value>
+        <value>Относительная интегральная интенсивность, %</value>
     </data>
     <data name="UpdatePeak" xml:space="preserve">
         <value>Обновить пик</value>
@@ -184,5 +184,8 @@
     </data>
     <data name="RightSymmetrization" xml:space="preserve">
         <value>Правосторонняя</value>
+    </data>
+    <data name="Angle" xml:space="preserve">
+        <value>Угол отражения</value>
     </data>
 </root>

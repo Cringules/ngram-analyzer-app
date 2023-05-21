@@ -108,16 +108,16 @@
                         <KeyBinding Key="Delete" Command="{Binding DeletePeakCommand}"></KeyBinding>
                     </DataGrid.InputBindings>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="{x:Static res:Strings.Angle}"
+                        <DataGridTextColumn Header="{x:Static res:Strings.AngleHeading}"
                                             Binding="{Binding Angle, StringFormat={x:Static res:Strings.AngleDegreesTemplate}}" />
                         <DataGridTextColumn Header="{x:Static res:Strings.Distance}"
                                             Binding="{Binding Distance, StringFormat={x:Static res:Strings.DistanceAngstromTemplate}}" />
                         <DataGridTextColumn Header="{x:Static res:Strings.MaxIntensity}"
-                                            Binding="{Binding MaxIntensity, StringFormat={x:Static res:Strings.IntensityAbsoluteUnitsTemplate}}" />
+                                            Binding="{Binding MaxIntensity, StringFormat={x:Static res:Strings.IntensityArbitraryUnitsTemplate}}" />
                         <DataGridTextColumn Header="{x:Static res:Strings.RelativeMaxIntensity}"
                                             Binding="{Binding MaxIntensityRelative, StringFormat={x:Static res:Strings.RelativeIntensityPercentTemplate}}" />
                         <DataGridTextColumn Header="{x:Static res:Strings.IntegralIntensity}"
-                                            Binding="{Binding IntegralIntensity, StringFormat={x:Static res:Strings.IntensityAbsoluteUnitsTemplate}}" />
+                                            Binding="{Binding IntegralIntensity, StringFormat={x:Static res:Strings.IntensityArbitraryUnitsTemplate}}" />
                         <DataGridTextColumn Header="{x:Static res:Strings.RelativeIntegralIntensity}"
                                             Binding="{Binding IntegralIntensityRelative, StringFormat={x:Static res:Strings.RelativeIntensityPercentTemplate}}" />
                         <DataGridTextColumn Header="{x:Static res:Strings.FullWidthHalfMaximum}"
@@ -125,7 +125,7 @@
                         <DataGridTextColumn Header="{x:Static res:Strings.IntegralWidth}"
                                             Binding="{Binding IntegralWidth, StringFormat={x:Static res:Strings.AngleDegreesTemplate}}" />
                         <DataGridTextColumn Header="{x:Static res:Strings.ApproximatedIntegralIntensity}"
-                                            Binding="{Binding ApproximatedIntegralIntensity, StringFormat={x:Static res:Strings.IntensityAbsoluteUnitsTemplate}}" />
+                                            Binding="{Binding ApproximatedIntegralIntensity, StringFormat={x:Static res:Strings.IntensityArbitraryUnitsTemplate}}" />
                         <DataGridTextColumn Header="{x:Static res:Strings.ApproximationRatio}"
                                             Binding="{Binding ApproximationRatio, StringFormat={x:Static res:Strings.RatioTemplate}}" />
                     </DataGrid.Columns>
