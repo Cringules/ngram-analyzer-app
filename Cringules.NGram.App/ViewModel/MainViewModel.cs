@@ -27,7 +27,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void ImportData()
     {
-        if (_dialogService.ShowOpenFileDialog())
+        if (_dialogService.ShowOpenFileDialog(@".sp"))
         {
             try
             {
@@ -46,7 +46,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void OpenSession()
     {
-        if (_dialogService.ShowOpenFileDialog())
+        if (_dialogService.ShowOpenFileDialog(@".ngram"))
         {
             Session = SessionFileManager.OpenSession(_dialogService.OpenFilePath);
             SessionSaved = true;
@@ -89,7 +89,7 @@ public partial class MainViewModel : ObservableObject
         {
             _dialogService.SaveFilePath = filename ?? string.Empty;
 
-            if (!_dialogService.ShowSaveFileDialog())
+            if (!_dialogService.ShowSaveFileDialog(@".ngram"))
             {
                 return;
             }
@@ -113,7 +113,7 @@ public partial class MainViewModel : ObservableObject
         string? filename = Path.ChangeExtension(SessionFilename, resultExporter.FileExtension);
         _dialogService.SaveFilePath = filename ?? string.Empty;
 
-        if (!_dialogService.ShowSaveFileDialog())
+        if (!_dialogService.ShowSaveFileDialog(resultExporter.FileExtension))
         {
             return;
         }
