@@ -57,7 +57,7 @@ public class SessionReportDocument : IDocument
 
                     table.Header(header =>
                     {
-                        header.Cell().Text(Strings.Angle);
+                        header.Cell().Text(Strings.AngleHeading);
                         header.Cell().Text(Strings.Distance);
                         header.Cell().Text(Strings.MaxIntensity);
                         header.Cell().Text(Strings.IntegralIntensity);

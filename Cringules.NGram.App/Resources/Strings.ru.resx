@@ -110,7 +110,7 @@
     <data name="SelectedValue" xml:space="preserve">
         <value>Выбранное значение</value>
     </data>
-    <data name="Angle" xml:space="preserve">
+    <data name="AngleHeading" xml:space="preserve">
         <value>Угол отражения, °</value>
     </data>
     <data name="Distance" xml:space="preserve">
@@ -184,5 +184,8 @@
     </data>
     <data name="RightSymmetrization" xml:space="preserve">
         <value>Правосторонняя</value>
+    </data>
+    <data name="Angle" xml:space="preserve">
+        <value>Угол отражения</value>
     </data>
 </root>

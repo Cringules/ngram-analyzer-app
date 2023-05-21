@@ -120,7 +120,7 @@
     <data name="SelectedValue" xml:space="preserve">
         <value>Selected value</value>
     </data>
-    <data name="Angle" xml:space="preserve">
+    <data name="AngleHeading" xml:space="preserve">
         <value>Angle, °</value>
     </data>
     <data name="Distance" xml:space="preserve">
@@ -212,5 +212,8 @@
     </data>
     <data name="RightSymmetrization" xml:space="preserve">
         <value>Right</value>
+    </data>
+    <data name="Angle" xml:space="preserve">
+        <value>Angle</value>
     </data>
 </root>

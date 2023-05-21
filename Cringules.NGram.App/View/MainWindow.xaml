@@ -108,7 +108,7 @@
                         <KeyBinding Key="Delete" Command="{Binding DeletePeakCommand}"></KeyBinding>
                     </DataGrid.InputBindings>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="{x:Static res:Strings.Angle}"
+                        <DataGridTextColumn Header="{x:Static res:Strings.AngleHeading}"
                                             Binding="{Binding Angle, StringFormat={x:Static res:Strings.AngleDegreesTemplate}}" />
                         <DataGridTextColumn Header="{x:Static res:Strings.Distance}"
                                             Binding="{Binding Distance, StringFormat={x:Static res:Strings.DistanceAngstromTemplate}}" />

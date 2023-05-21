@@ -78,7 +78,7 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Angle, °.
+        ///   Looks up a localized string similar to Angle.
         /// </summary>
         public static string Angle {
             get {
@@ -92,6 +92,15 @@ namespace Cringules.NGram.App.Resources {
         public static string AngleDegreesTemplate {
             get {
                 return ResourceManager.GetString("AngleDegreesTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angle, °.
+        /// </summary>
+        public static string AngleHeading {
+            get {
+                return ResourceManager.GetString("AngleHeading", resourceCulture);
             }
         }
         
