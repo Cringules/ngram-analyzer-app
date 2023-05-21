@@ -8,9 +8,13 @@ public class DialogService : IDialogService
 {
     public string OpenFilePath { get; set; } = string.Empty;
 
-    public bool ShowOpenFileDialog()
+    public bool ShowOpenFileDialog(string? extension)
     {
-        var dialog = new OpenFileDialog {FileName = OpenFilePath, DefaultExt = @".sp"};
+        var dialog = new OpenFileDialog {FileName = OpenFilePath};
+        if (extension != null)
+        {
+            dialog.Filter = $@"*{extension}|*{extension}";
+        }
 
         bool result = dialog.ShowDialog() ?? false;
         if (result)
@@ -23,9 +27,13 @@ public class DialogService : IDialogService
 
     public string SaveFilePath { get; set; } = string.Empty;
 
-    public bool ShowSaveFileDialog()
+    public bool ShowSaveFileDialog(string? extension)
     {
-        var dialog = new SaveFileDialog {FileName = SaveFilePath, DefaultExt = @".ngram"};
+        var dialog = new SaveFileDialog {FileName = SaveFilePath};
+        if (extension != null)
+        {
+            dialog.Filter = $@"*{extension}|*{extension}";
+        }
 
         bool result = dialog.ShowDialog() ?? false;
         if (result)

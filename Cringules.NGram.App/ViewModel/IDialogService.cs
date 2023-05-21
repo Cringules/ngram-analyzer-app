@@ -3,10 +3,10 @@
 public interface IDialogService
 {
     public string OpenFilePath { get; set; }
-    public bool ShowOpenFileDialog();
+    public bool ShowOpenFileDialog(string? extension);
     
     public string SaveFilePath { get; set; }
-    public bool ShowSaveFileDialog();
+    public bool ShowSaveFileDialog(string? extension);
         
     public void ShowErrorMessage(string message);
 
