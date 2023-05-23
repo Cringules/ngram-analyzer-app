@@ -10,8 +10,12 @@ namespace Cringules.NGram.App.Model;
 public partial class PeakData : ObservableObject
 {
     private readonly double _waveLength;
-    private static readonly NamedItem<SymmetrizeType> LeftSymmetrize = new(Strings.LeftSymmetrization, SymmetrizeType.Left);
-    private static readonly NamedItem<SymmetrizeType> RightSymmetrize = new(Strings.RightSymmetrization, SymmetrizeType.Right);
+
+    private static readonly NamedItem<SymmetrizeType> LeftSymmetrize =
+        new(Strings.LeftSymmetrization, SymmetrizeType.Left);
+
+    private static readonly NamedItem<SymmetrizeType> RightSymmetrize =
+        new(Strings.RightSymmetrization, SymmetrizeType.Right);
 
     private static readonly NamedItem<IApproximator>
         GaussianApproximator = new(Strings.Gaussian, new ApproximationGaussian());
@@ -22,19 +26,19 @@ public partial class PeakData : ObservableObject
     private static readonly NamedItem<IApproximator>
         VoigtApproximator = new(Strings.Voigt, new ApproximationVoigt());
 
-    public double Angle { get; private set; }
-    public double Distance { get; private set; }
+    [ObservableProperty] private double _angle;
+    [ObservableProperty] private double _distance;
     [ObservableProperty] private double _maxIntensity;
-    public double MaxIntensityRelative { get; private set; }
+    [ObservableProperty] private double _maxIntensityRelativePercent;
     [ObservableProperty] private double _integralIntensity;
-    public double IntegralIntensityRelative { get; private set; }
-    public double FullWidthHalfMaximum { get; private set; }
-    public double IntegralWidth { get; private set; }
-    public Point Top { get; private set; }
-    public Point LeftBoundary { get; private set; }
-    public Point RightBoundary { get; private set; }
-    public Point SymmetrizedLeftBoundary { get; private set; }
-    public Point SymmetrizedRightBoundary { get; private set; }
+    [ObservableProperty] private double _integralIntensityRelativePercent;
+    [ObservableProperty] private double _fullWidthHalfMaximum;
+    [ObservableProperty] private double _integralWidth;
+    [ObservableProperty] private Point _top;
+    [ObservableProperty] private Point _leftBoundary;
+    [ObservableProperty] private Point _rightBoundary;
+    [ObservableProperty] private Point _symmetrizedLeftBoundary;
+    [ObservableProperty] private Point _symmetrizedRightBoundary;
 
     [ObservableProperty] private double _maxPeakMaxIntensity;
     [ObservableProperty] private double _maxPeakIntegralIntensity;
@@ -55,7 +59,7 @@ public partial class PeakData : ObservableObject
 
     // TODO Fix this
     [ObservableProperty] private ObservableCollection<NamedItem<IApproximator>> _availableApproximators =
-        new() {GaussianApproximator, LorentzApproximator/*, VoigtApproximator*/};
+        new() {GaussianApproximator, LorentzApproximator /*, VoigtApproximator*/};
 
     [ObservableProperty] private NamedItem<IApproximator> _approximator = /*VoigtApproximator*/ LorentzApproximator;
 
@@ -87,28 +91,27 @@ public partial class PeakData : ObservableObject
 
         Approximation = new XrayPeak(_approximationResult.Value.Points);
         ApproximatedIntegralIntensity = _analyzer.GetIntensityApproximated(Symmetrized, _approximationResult.Value);
-        ApproximationRatio = _analyzer.GetIntensityDifference(Symmetrized, _approximationResult.Value);
+        ApproximationRatio = 100 * _analyzer.GetIntensityDifference(Symmetrized, _approximationResult.Value);
     }
 
     private void CalculateAll()
     {
         LeftBoundary = XrayPeak.Points[0];
         RightBoundary = XrayPeak.Points[^1];
-        
+
         Symmetrized = SelectedSymmetrizeType.Value == SymmetrizeType.Left
             ? XrayPeak.SymmetrizePeakLeft()
             : XrayPeak.SymmetrizePeakRight();
-        
         Top = Symmetrized.GetPeakTop();
         SymmetrizedLeftBoundary = Symmetrized.Points[0];
         SymmetrizedRightBoundary = Symmetrized.Points[^1];
-        
+
         Angle = _analyzer.GetTopAngle(Symmetrized);
         Distance = _analyzer.GetInterplanarDistance(Symmetrized, _waveLength);
         MaxIntensity = _analyzer.GetIntensityMaximum(Symmetrized);
-        MaxIntensityRelative = MaxIntensity / MaxPeakMaxIntensity;
+        MaxIntensityRelativePercent = 100 * MaxIntensity / MaxPeakMaxIntensity;
         IntegralIntensity = _analyzer.GetIntensityIntegral(Symmetrized);
-        IntegralIntensityRelative = IntegralIntensity / MaxPeakIntegralIntensity;
+        IntegralIntensityRelativePercent = 100 * IntegralIntensity / MaxPeakIntegralIntensity;
         FullWidthHalfMaximum = _analyzer.GetPeakWidth(Symmetrized);
         IntegralWidth = _analyzer.GetIntegralWidth(Symmetrized);
 
@@ -133,11 +136,11 @@ public partial class PeakData : ObservableObject
 
     partial void OnMaxPeakMaxIntensityChanged(double value)
     {
-        MaxIntensityRelative = MaxIntensity / value;
+        MaxIntensityRelativePercent = 100 * MaxIntensity / value;
     }
-    
+
     partial void OnMaxPeakIntegralIntensityChanged(double value)
     {
-        IntegralIntensityRelative = IntegralIntensity / value;
+        IntegralIntensityRelativePercent = 100 * IntegralIntensity / value;
     }
 }

@@ -188,4 +188,7 @@
     <data name="Angle" xml:space="preserve">
         <value>Угол отражения</value>
     </data>
+    <data name="PeakDeleteQuestion" xml:space="preserve">
+        <value>Вы уверены, что хотите удалить пик?</value>
+    </data>
 </root>
