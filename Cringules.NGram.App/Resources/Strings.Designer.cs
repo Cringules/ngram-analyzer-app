@@ -456,6 +456,15 @@ namespace Cringules.NGram.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this peak?.
+        /// </summary>
+        public static string PeakDeleteQuestion {
+            get {
+                return ResourceManager.GetString("PeakDeleteQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Peak Plot.
         /// </summary>
         public static string PeakPlotTabHeader {

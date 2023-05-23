@@ -216,4 +216,7 @@
     <data name="Angle" xml:space="preserve">
         <value>Angle</value>
     </data>
+    <data name="PeakDeleteQuestion" xml:space="preserve">
+        <value>Are you sure you want to delete this peak?</value>
+    </data>
 </root>

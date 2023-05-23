@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Cringules.NGram.App.Resources;
 using Cringules.NGram.App.View;
 using Cringules.NGram.App.ViewModel;
 using Cringules.NGram.Lib;
@@ -64,8 +65,6 @@ public partial class WorkSession : ObservableObject
         Model.PropertyChanged += (_, _) => CancelSelectionCommand.NotifyCanExecuteChanged();
         Model.PropertyChanged += (_, _) => AddPeakCommand.NotifyCanExecuteChanged();
         Model.PropertyChanged += (_, _) => UpdatePeakCommand.NotifyCanExecuteChanged();
-        
-        Peaks.CollectionChanged += OnPeaksCollectionChanged;
     }
 
     [RelayCommand]
@@ -127,6 +126,11 @@ public partial class WorkSession : ObservableObject
         {
             peak.Approximate();
         }
+
+        if (Peaks.Count > 0)
+        {
+            UpdatePeakIntensity();
+        }
     }
 
     private bool CanSelectPeak()
@@ -165,6 +169,7 @@ public partial class WorkSession : ObservableObject
         Peaks.Add(new PeakData(peak, WaveLength));
 
         Model.CanSelect = false;
+        UpdatePeakIntensity();
     }
 
     private bool CanUpdatePeak()
@@ -185,6 +190,7 @@ public partial class WorkSession : ObservableObject
         SelectedPeak.XrayPeak = (SmoothedData ?? Data).GetPeak(points[0], points[1]);
 
         Model.CanSelect = false;
+        UpdatePeakIntensity();
     }
 
     partial void OnDataChanged(Xray value)
@@ -225,21 +231,15 @@ public partial class WorkSession : ObservableObject
             return;
         }
 
-        if (_dialogService.AskConfirmation("Are you sure you want to delete this peak?"))
+        if (_dialogService.AskConfirmation(Strings.PeakDeleteQuestion))
         {
             Peaks.Remove(SelectedPeak);
         }
-    }
-
-    partial void OnPeaksChanged(ObservableCollection<PeakData>? oldValue, ObservableCollection<PeakData> newValue)
-    {
-        if (oldValue != null)
-        {
-            oldValue.CollectionChanged -= OnPeaksCollectionChanged;
-        }
-        newValue.CollectionChanged += OnPeaksCollectionChanged;
         
-        UpdatePeakIntensity();
+        if (Peaks.Count > 0)
+        {
+            UpdatePeakIntensity();
+        }
     }
 
     private void UpdatePeakIntensity()
@@ -252,31 +252,5 @@ public partial class WorkSession : ObservableObject
             peak.MaxPeakMaxIntensity = maxPeakMaxIntensity;
             peak.MaxPeakIntegralIntensity = maxPeakIntegralIntensity;
         }
-    }
-
-    private void OnPeaksCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-    {
-        if (e.OldItems != null)
-        {
-            foreach (PeakData peakData in e.OldItems)
-            {
-                peakData.PropertyChanged -= PeakDataOnPropertyChanged;
-            }
-        }
-        
-        if (e.NewItems != null)
-        {
-            foreach (PeakData peakData in e.NewItems)
-            {
-                peakData.PropertyChanged += PeakDataOnPropertyChanged;
-            }
-        }
-        
-        UpdatePeakIntensity();
-    }
-
-    private void PeakDataOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        UpdatePeakIntensity();
     }
 }
