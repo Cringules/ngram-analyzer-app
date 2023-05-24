@@ -59,16 +59,16 @@ public partial class PeakData : ObservableObject
 
     // TODO Fix this
     [ObservableProperty] private ObservableCollection<NamedItem<IApproximator>> _availableApproximators =
-        new() {GaussianApproximator, LorentzApproximator /*, VoigtApproximator*/};
+        new() {GaussianApproximator, LorentzApproximator, VoigtApproximator};
 
-    [ObservableProperty] private NamedItem<IApproximator> _approximator = /*VoigtApproximator*/ LorentzApproximator;
+    [ObservableProperty] private NamedItem<IApproximator> _approximator = VoigtApproximator;
 
     [ObservableProperty] private bool _automaticApproximation = true;
 
-    [ObservableProperty] private double _height;
-    [ObservableProperty] private double _width;
-    [ObservableProperty] private double _corr;
-    [ObservableProperty] private double _lambda;
+    [ObservableProperty] private double _xCoefficient = 1;
+    [ObservableProperty] private double _yCoefficient = 1;
+    [ObservableProperty] private double _backCoefficient = 0;
+    [ObservableProperty] private double _lambda = 0;
 
     [ObservableProperty] private double? _approximatedIntegralIntensity;
     [ObservableProperty] private double? _approximationRatio;
@@ -87,9 +87,11 @@ public partial class PeakData : ObservableObject
     {
         _approximationResult = AutomaticApproximation
             ? Approximator.Value.ApproximatePeakAuto(Symmetrized)
-            : Approximator.Value.ApproximatePeakManual(Symmetrized, Height, Width, Corr, Lambda);
+            : Approximator.Value.ApproximatePeakManual(Symmetrized, XCoefficient, YCoefficient, BackCoefficient,
+                Lambda);
 
         Approximation = new XrayPeak(_approximationResult.Value.Points);
+        Lambda = _approximationResult.Value.N;
         ApproximatedIntegralIntensity = _analyzer.GetIntensityApproximated(Symmetrized, _approximationResult.Value);
         ApproximationRatio = 100 * _analyzer.GetIntensityDifference(Symmetrized, _approximationResult.Value);
     }
@@ -125,13 +127,45 @@ public partial class PeakData : ObservableObject
 
     partial void OnApproximatorChanged(NamedItem<IApproximator> value)
     {
-        CalculateAll();
+        Approximate();
     }
 
 
     partial void OnSelectedSymmetrizeTypeChanged(NamedItem<SymmetrizeType> value)
     {
         CalculateAll();
+    }
+
+    partial void OnAutomaticApproximationChanged(bool value)
+    {
+        if (value)
+        {
+            XCoefficient = 1;
+            YCoefficient = 1;
+            BackCoefficient = 0;
+            Lambda = 0;
+        }
+        Approximate();
+    }
+
+    partial void OnXCoefficientChanged(double value)
+    {
+        Approximate();
+    }
+
+    partial void OnYCoefficientChanged(double value)
+    {
+        Approximate();
+    }
+
+    partial void OnBackCoefficientChanged(double value)
+    {
+        Approximate();
+    }
+
+    partial void OnLambdaChanged(double value)
+    {
+        Approximate();
     }
 
     partial void OnMaxPeakMaxIntensityChanged(double value)

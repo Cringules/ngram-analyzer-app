@@ -225,17 +225,17 @@
                                             <StackPanel
                                                 IsEnabled="{Binding AutomaticApproximation, Converter={StaticResource InverseBoolConverter}}">
                                                 <local:NumericSlider Label="{x:Static res:Strings.Height}"
-                                                                     Value="{Binding Height, UpdateSourceTrigger=PropertyChanged}"
-                                                                     Minimum="0" Maximum="100" />
+                                                                     Value="{Binding XCoefficient, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Minimum="0.5" Maximum="1.5" />
                                                 <local:NumericSlider Label="{x:Static res:Strings.Width}"
-                                                                     Value="{Binding Width, UpdateSourceTrigger=PropertyChanged}"
-                                                                     Minimum="0" Maximum="100" />
+                                                                     Value="{Binding YCoefficient, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Minimum="0.5" Maximum="1.5" />
                                                 <local:NumericSlider Label="{x:Static res:Strings.Corr}"
-                                                                     Value="{Binding Corr, UpdateSourceTrigger=PropertyChanged}"
-                                                                     Minimum="0" Maximum="100" />
+                                                                     Value="{Binding BackCoefficient, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Minimum="-1000" Maximum="2000" />
                                                 <local:NumericSlider Label="{x:Static res:Strings.Lambda}"
                                                                      Value="{Binding Lambda, UpdateSourceTrigger=PropertyChanged}"
-                                                                     Minimum="0" Maximum="10" />
+                                                                     Minimum="0" Maximum="1" />
                                             </StackPanel>
                                         </StackPanel>
                                     </Expander>
